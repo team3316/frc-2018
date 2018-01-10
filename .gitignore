@@ -1,0 +1,88 @@
+
+.metadata
+*/bin/
+*/tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+*/.settings/
+.loadpath
+.recommenders
+
+# Eclipse Core
+.project
+
+# External tool builders
+*/.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific (C/C++ Development Tooling)
+.cproject
+
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+
+# Java annotation processor (APT)
+.factorypath
+
+# PDT-specific (PHP Development Tools)
+.buildpath
+
+# sbteclipse plugin
+.target
+
+# Tern plugin
+.tern-project
+
+# TeXlipse plugin
+.texlipse
+
+# STS (Spring Tool Suite)
+.springBeans
+
+# Code Recommenders
+*/.recommenders/
+
+*.class
+
+
+# Mobile Tools for Java (J2ME)
+*/.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+
+# Compiled source #
+###################
+*/*.pyc
+
+# Packages #
+############
+
+# Logs and databases #
+######################
+*/*.log
+
+# OS generated files #
+######################
+*/.DS_Store
+*/ehthumbs.db
+*/Icon
+*/Thumbs.db
+*/.tmtags
+*/.idea
+*/tags
+*/vendor.tags
+*/tmtagsHistory
+*/*.sublime-project
+*/*.sublime-workspace
+*/hs_err_pid*
+/bin/
