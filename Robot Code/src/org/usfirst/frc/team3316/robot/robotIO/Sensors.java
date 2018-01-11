@@ -17,78 +17,77 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SPI;
 
 public class Sensors {
-    Config config = Robot.config;
-    DBugLogger logger = Robot.logger;
+	Config config = Robot.config;
+	DBugLogger logger = Robot.logger;
 
-    // General
-    public PowerDistributionPanel pdp;
+	// General
+	public PowerDistributionPanel pdp;
 
-    // Chassis
-    public AHRS navx;
-    public Encoder chassisLeftEncoder, chassisRightEncoder;
+	// Chassis
+	public AHRS navx;
+	public Encoder chassisLeftEncoder, chassisRightEncoder;
 
-    // Intake
-    public AnalogInput intakeSwitch1, intakeSwitch2, intakeSwitch3;
+	// Intake
+	public AnalogInput intakeSwitch1, intakeSwitch2, intakeSwitch3;
 
-    // Installer
-    public AnalogInput installerSwitch1, installerSwitch2;
+	// Installer
+	public AnalogInput installerSwitch1, installerSwitch2;
 
-    // Climbing
-    public AnalogInput climbingSwitch;
+	// Climbing
+	public AnalogInput climbingSwitch;
 
-    public Sensors() {
-    }
-
-    /*
-     * General
-     */
-    public void GeneralSensors() {
-	pdp = new PowerDistributionPanel();
-    }
-
-    /*
-     * Chassis
-     */
-    public void ChassisSensors() {
-	try {
-	    navx = new AHRS(SPI.Port.kMXP);
-	} catch (RuntimeException ex) {
-	    DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
+	public Sensors() {
 	}
-	
 
-	chassisLeftEncoder = new Encoder((int) config.get("CHASSIS_LEFT_ENCODER_CHANNEL_A"),
-		(int) config.get("CHASSIS_LEFT_ENCODER_CHANNEL_B"),
-		(boolean) config.get("CHASSIS_LEFT_ENCODER_REVERSE"), EncodingType.k4X);
-	chassisRightEncoder = new Encoder((int) config.get("CHASSIS_RIGHT_ENCODER_CHANNEL_A"),
-		(int) config.get("CHASSIS_RIGHT_ENCODER_CHANNEL_B"),
-		(boolean) config.get("CHASSIS_RIGHT_ENCODER_REVERSE"), EncodingType.k4X);
+	/*
+	 * General
+	 */
+	public void GeneralSensors() {
+		pdp = new PowerDistributionPanel();
+	}
 
-	chassisLeftEncoder.setDistancePerPulse((double) config.get("CHASSIS_ENCODERS_DISTANCE_PER_PULSE"));
-	chassisRightEncoder.setDistancePerPulse((double) config.get("CHASSIS_ENCODERS_DISTANCE_PER_PULSE"));
-    }
+	/*
+	 * Chassis
+	 */
+	public void ChassisSensors() {
+		try {
+			navx = new AHRS(SPI.Port.kMXP);
+		} catch (RuntimeException ex) {
+			DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
+		}
 
-    /*
-     * Installer
-     */
-    public void InstallerSensors() {
-	installerSwitch1 = new AnalogInput((int) config.get("INSTALLER_SWITCH_1"));
-	installerSwitch2 = new AnalogInput((int) config.get("INSTALLER_SWITCH_2"));
-    }
+		chassisLeftEncoder = new Encoder((int) config.get("CHASSIS_LEFT_ENCODER_CHANNEL_A"),
+				(int) config.get("CHASSIS_LEFT_ENCODER_CHANNEL_B"),
+				(boolean) config.get("CHASSIS_LEFT_ENCODER_REVERSE"), EncodingType.k4X);
+		chassisRightEncoder = new Encoder((int) config.get("CHASSIS_RIGHT_ENCODER_CHANNEL_A"),
+				(int) config.get("CHASSIS_RIGHT_ENCODER_CHANNEL_B"),
+				(boolean) config.get("CHASSIS_RIGHT_ENCODER_REVERSE"), EncodingType.k4X);
 
-    /*
-     * Climbing
-     */
-    public void ClimbingSensors() {
-	climbingSwitch = new AnalogInput((int) config.get("CLIMBING_SWITCH"));
-    }
+		chassisLeftEncoder.setDistancePerPulse((double) config.get("CHASSIS_ENCODERS_DISTANCE_PER_PULSE"));
+		chassisRightEncoder.setDistancePerPulse((double) config.get("CHASSIS_ENCODERS_DISTANCE_PER_PULSE"));
+	}
 
-    /*
-     * Intake
-     */
-    public void IntakeSensors() {
-	intakeSwitch1 = new AnalogInput((int) config.get("INTAKE_SWITCH_1"));
-	intakeSwitch2 = new AnalogInput((int) config.get("INTAKE_SWITCH_2"));
-	intakeSwitch3 = new AnalogInput((int) config.get("INTAKE_SWITCH_3"));
-    }
+	/*
+	 * Installer
+	 */
+	public void InstallerSensors() {
+		installerSwitch1 = new AnalogInput((int) config.get("INSTALLER_SWITCH_1"));
+		installerSwitch2 = new AnalogInput((int) config.get("INSTALLER_SWITCH_2"));
+	}
+
+	/*
+	 * Climbing
+	 */
+	public void ClimbingSensors() {
+		climbingSwitch = new AnalogInput((int) config.get("CLIMBING_SWITCH"));
+	}
+
+	/*
+	 * Intake
+	 */
+	public void IntakeSensors() {
+		intakeSwitch1 = new AnalogInput((int) config.get("INTAKE_SWITCH_1"));
+		intakeSwitch2 = new AnalogInput((int) config.get("INTAKE_SWITCH_2"));
+		intakeSwitch3 = new AnalogInput((int) config.get("INTAKE_SWITCH_3"));
+	}
 }

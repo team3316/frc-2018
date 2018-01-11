@@ -4,18 +4,11 @@
 package org.usfirst.frc.team3316.robot.humanIO;
 
 import org.usfirst.frc.team3316.robot.Robot;
-import org.usfirst.frc.team3316.robot.commands.intake.IntakeEmptyCommand;
 import org.usfirst.frc.team3316.robot.commands.chassis.BrakeMode;
 import org.usfirst.frc.team3316.robot.commands.chassis.CoastMode;
 import org.usfirst.frc.team3316.robot.commands.chassis.DriveOneAxis;
-import org.usfirst.frc.team3316.robot.commands.chassis.ChassisHighSpeed;
-import org.usfirst.frc.team3316.robot.commands.chassis.ChassisLowSpeed;
-import org.usfirst.frc.team3316.robot.commands.climbing.ClimbingStop;
-import org.usfirst.frc.team3316.robot.commands.climbing.ClimbingUpFast;
-import org.usfirst.frc.team3316.robot.commands.climbing.ClimbingUpSlow;
 import org.usfirst.frc.team3316.robot.config.Config;
 import org.usfirst.frc.team3316.robot.logger.DBugLogger;
-import org.usfirst.frc.team3316.robot.sequences.CollectGear;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -69,9 +62,6 @@ public class Joysticks {
 		"button_Chassis_Break_Toggle");
 	toggleChassisBrakeMode.whenPressed(new DBugToggleCommand(new BrakeMode(), new CoastMode()));
 
-	DBugJoystickButton toggleChassisSpeed = new DBugJoystickButton(joystickOperator, "button_Chassis_Speed_Toggle");
-	toggleChassisSpeed.whenPressed(new DBugToggleCommand(new ChassisLowSpeed(), new ChassisHighSpeed()));
-
 	DBugJoystickButton DriveOneAxisButton = new DBugJoystickButton(joystickOperator, "button_Chassis_DriveOneAxis");
 	DriveOneAxisButton.whileHeld(new DriveOneAxis());
 
@@ -82,22 +72,5 @@ public class Joysticks {
 	DBugJoystickDigitalAxis DriveOneAxisAxisButton2 = new DBugJoystickDigitalAxis(joystickOperator,
 		(int) config.get("axis_Chassis_DriveOneAxis2"), (double) config.get("axis_Chassis_SwitchLimit"));
 	DriveOneAxisAxisButton2.whileHeld(new DriveOneAxis());
-
-	/*
-	 * Intake
-	 */
-	DBugJoystickButton toggleIntakeBtn = new DBugJoystickButton(joystickOperator, "button_Intake_Toggle");
-	toggleIntakeBtn.whenPressed(new DBugToggleCommand(new CollectGear(), new IntakeEmptyCommand()));
-
-	/*
-	 * Climbing
-	 */
-	DBugJoystickButton toggleClimbingButton = new DBugJoystickButton(joystickOperator,
-		"button_ClimbingFast_Toggle");
-	toggleClimbingButton.whenPressed(new DBugToggleCommand(new ClimbingUpFast(), new ClimbingStop()));
-
-	DBugJoystickButton toggleClimbingSlowButton = new DBugJoystickButton(joystickOperator,
-		"button_ClimbingSlow_Toggle");
-	toggleClimbingSlowButton.whenPressed(new DBugToggleCommand(new ClimbingUpSlow(), new ClimbingStop()));
     }
 }
