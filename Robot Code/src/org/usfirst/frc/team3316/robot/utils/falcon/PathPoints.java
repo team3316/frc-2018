@@ -1,8 +1,8 @@
-package org.usfirst.frc.team3316.robot.util.falcon;
+package org.usfirst.frc.team3316.robot.utils.falcon;
 
 import java.util.*;
 
-import org.usfirst.frc.team3316.robot.util.gen.Utils;
+import org.usfirst.frc.team3316.robot.utils.gen.Utils;
 
 public class PathPoints {
 	private List<double[]> path;

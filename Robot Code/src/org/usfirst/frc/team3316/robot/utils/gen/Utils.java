@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3316.robot.util.gen;
+package org.usfirst.frc.team3316.robot.utils.gen;
 
 import java.util.List;
 
