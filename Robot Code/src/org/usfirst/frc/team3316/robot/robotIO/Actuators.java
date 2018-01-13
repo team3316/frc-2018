@@ -65,9 +65,11 @@ public class Actuators {
 		} else {
 			ChassisActuatorsB();
 		}
-		chassisLeft1 = new DBugSpeedController(chassisLeft1SC, (boolean) Robot.config.get("CHASSIS_MOTOR_LEFT_REVERSE"),
+		chassisLeft1 = new DBugSpeedController(chassisLeft1SC,
+				(boolean) Robot.config.get("CHASSIS_MOTOR_LEFT_REVERSE"),
 				(int) config.get("CHASSIS_MOTOR_LEFT_1_PDP_CHANNEL"));
-		chassisLeft2 = new DBugSpeedController(chassisLeft2SC, (boolean) Robot.config.get("CHASSIS_MOTOR_LEFT_REVERSE"),
+		chassisLeft2 = new DBugSpeedController(chassisLeft2SC,
+				(boolean) Robot.config.get("CHASSIS_MOTOR_LEFT_REVERSE"),
 				(int) config.get("CHASSIS_MOTOR_LEFT_2_PDP_CHANNEL"));
 
 		chassisRight1 = new DBugSpeedController(chassisRight1SC,

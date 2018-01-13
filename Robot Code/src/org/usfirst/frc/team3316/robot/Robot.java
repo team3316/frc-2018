@@ -13,7 +13,6 @@ import org.usfirst.frc.team3316.robot.robotIO.Actuators;
 import org.usfirst.frc.team3316.robot.robotIO.Sensors;
 import org.usfirst.frc.team3316.robot.subsystems.Chassis;
 
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -29,123 +28,117 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-	public static Config config;
-	public static DBugLogger logger;
-	public static Timer timer;
+    public static Config config;
+    public static DBugLogger logger;
+    public static Timer timer;
 
+    /*
+     * Human IO
+     */
+    public static Joysticks joysticks;
+    public static SDB sdb;
+    /*
+     * Robot IO
+     */
+    public static Actuators actuators;
+    public static Sensors sensors;
+    /*
+     * Subsystems
+     */
+    public static Chassis chassis;
+
+    /*
+     * Auton
+     */
+    Command autonomousCommand;
+    SendableChooser autonChooser;
+
+    /**
+     * This function is run when the robot is first started up and should be
+     * used for any initialization code.
+     */
+    public void robotInit() {
 	/*
-	 * Human IO
+	 * Above all else
 	 */
-	public static Joysticks joysticks;
-	public static SDB sdb;
-	/*
-	 * Robot IO
-	 */
-	public static Actuators actuators;
-	public static Sensors sensors;
-	/*
-	 * Subsystems
-	 */
-	public static Chassis chassis;
+	try {
+	    logger = new DBugLogger();
+	    timer = new Timer();
+	    config = new Config();
 
-	/*
-	 * Auton
-	 */
-	Command autonomousCommand;
-	SendableChooser autonChooser;
+	    /*
+	     * Human IO (that does not require subsystems)
+	     */
+	    joysticks = new Joysticks();
 
-	/**
-	 * This function is run when the robot is first started up and should be
-	 * used for any initialization code.
-	 */
-	public void robotInit() {
-		/*
-		 * Above all else
-		 */
-		try {
-			logger = new DBugLogger();
-			timer = new Timer();
-			config = new Config();
+	    /*
+	     * Robot IO
+	     */
+	    actuators = new Actuators();
+	    sensors = new Sensors();
 
-			/*
-			 * Human IO (that does not require subsystems)
-			 */
-			joysticks = new Joysticks();
+	    Robot.actuators.GeneralActuators();
+	    Robot.sensors.GeneralSensors();
 
-			/*
-			 * Robot IO
-			 */
-			actuators = new Actuators();
-			sensors = new Sensors();
+	    /*
+	     * Subsystems
+	     */
+	    chassis = new Chassis();
 
-			Robot.actuators.GeneralActuators();
-			Robot.sensors.GeneralSensors();
+	    /*
+	     * Human IO (that requires subsystems)
+	     */
+	    sdb = new SDB();
 
-			/*
-			 * Subsystems
-			 */
-			chassis = new Chassis();
+	    /*
+	     * Human IO (that requires subsystems)
+	     */
+	    joysticks.initButtons();
 
+	    /*
+	     * Timer
+	     */
+	    sdb.timerInit();
 
-			/*
-			 * Human IO (that requires subsystems)
-			 */
-			sdb = new SDB();
+	    /*
+	     * Choosers
+	     */
 
-			/*
-			 * Human IO (that requires subsystems)
-			 */
-			joysticks.initButtons();
-
-			/*
-			 * Timer
-			 */
-			sdb.timerInit();
-
-			/*
-			 * Choosers
-			 */
-			
-
-		} catch (Exception e) {
-			logger.severe(e);
-		}
+	} catch (Exception e) {
+	    logger.severe(e);
 	}
+    }
 
-	public void disabledInit() {
-		chassis.setBrake(false);
-	}
+    public void disabledInit() {
+	chassis.setBrake(false);
+    }
 
-	public void disabledPeriodic() {
-		Scheduler.getInstance().run();
+    public void disabledPeriodic() {
+	Scheduler.getInstance().run();
 
-		chassis.setBrake(false);
-	}
+	chassis.setBrake(false);
+    }
 
-	public void autonomousInit() {
-		
-	}
+    public void autonomousInit() {
 
-	public void autonomousPeriodic() {
-		Scheduler.getInstance().run();
-	}
+    }
 
-	public void teleopInit() {
-		chassis.setBrake(true);
+    public void autonomousPeriodic() {
+	Scheduler.getInstance().run();
+    }
 
-		if (autonChooser.getSelected() != null) {
-		    ((Command) autonChooser.getSelected()).cancel();
-		}
-	}
+    public void teleopInit() {
+	chassis.setBrake(true);
+    }
 
-	public void teleopPeriodic() {
-		Scheduler.getInstance().run();
-	}
+    public void teleopPeriodic() {
+	Scheduler.getInstance().run();
+    }
 
-	public void testInit() {
-	}
+    public void testInit() {
+    }
 
-	public void testPeriodic() {
-		LiveWindow.run();
-	}
+    public void testPeriodic() {
+	LiveWindow.run();
+    }
 }
