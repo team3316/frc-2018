@@ -12,6 +12,7 @@ import org.usfirst.frc.team3316.robot.logger.DBugLogger;
 import org.usfirst.frc.team3316.robot.robotIO.Actuators;
 import org.usfirst.frc.team3316.robot.robotIO.Sensors;
 import org.usfirst.frc.team3316.robot.subsystems.Chassis;
+import org.usfirst.frc.team3316.robot.subsystems.EmptySubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -46,12 +47,7 @@ public class Robot extends IterativeRobot {
      * Subsystems
      */
     public static Chassis chassis;
-
-    /*
-     * Auton
-     */
-    Command autonomousCommand;
-    SendableChooser autonChooser;
+    public static EmptySubsystem emptySubsystem;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -83,6 +79,7 @@ public class Robot extends IterativeRobot {
 	    /*
 	     * Subsystems
 	     */
+	    emptySubsystem = new EmptySubsystem();
 	    chassis = new Chassis();
 
 	    /*

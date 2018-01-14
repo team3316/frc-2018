@@ -4,10 +4,12 @@ import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.config.Config;
 import org.usfirst.frc.team3316.robot.logger.DBugLogger;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.util.WPILibVersion;
 
 /**
  * A unique speed controller class team 3316. This class contains a special
@@ -19,7 +21,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 public class DBugSpeedController {
     DBugLogger logger = Robot.logger;
     Config config = Robot.config;
-    PowerDistributionPanel pdp = Robot.sensors.pdp;
+//    PowerDistributionPanel pdp = Robot.sensors.pdp;
 
     private boolean reverse; // Negative factor of velocity
     private boolean isSetLimit;
@@ -83,22 +85,22 @@ public class DBugSpeedController {
      *         if it failed.
      */
     public boolean setMotor(double v) {
-	if (!isSetLimit || getCurrent() < maxCurrent) {
+//	if (!isSetLimit || getCurrent() < maxCurrent) {
 	    v = Math.max(v, -1.0);
 	    v = Math.min(v, 1.0);
-
+//
 	    sc.set(v);
 	    return true;
-	} else {
-	    sc.set(0);
-	    logger.severe("Current overflow at D-Bug Speed Controller on PDP channel " + pdpChannel + ".");
-	    return false;
-	}
+//	} else {
+//	    sc.set(0);
+//	    logger.severe("Current overflow at D-Bug Speed Controller on PDP channel " + pdpChannel + ".");
+//	    return false;
+//	}
     }
 
-    public double getCurrent() {
-	return pdp.getCurrent(pdpChannel);
-    }
+//    public double getCurrent() {
+//	return pdp.getCurrent(pdpChannel);
+//    }
 
     /**
      * Returns the set speed of the DBugSpeedController between -1 to 1.
@@ -113,7 +115,7 @@ public class DBugSpeedController {
     }
 
     public void switchToBrake(boolean brakeMode) {
-	if (sc instanceof TalonSRX) {
+	if (sc instanceof WPI_TalonSRX) {
 	    NeutralMode mode = brakeMode ? NeutralMode.Brake : NeutralMode.Coast;
 	    ((TalonSRX) sc).setNeutralMode(mode);
 	}

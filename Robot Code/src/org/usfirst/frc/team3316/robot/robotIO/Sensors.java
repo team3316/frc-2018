@@ -27,15 +27,6 @@ public class Sensors {
 	public AHRS navx;
 	public Encoder chassisLeftEncoder, chassisRightEncoder;
 
-	// Intake
-	public AnalogInput intakeSwitch1, intakeSwitch2, intakeSwitch3;
-
-	// Installer
-	public AnalogInput installerSwitch1, installerSwitch2;
-
-	// Climbing
-	public AnalogInput climbingSwitch;
-
 	public Sensors() {
 	}
 
@@ -43,7 +34,7 @@ public class Sensors {
 	 * General
 	 */
 	public void GeneralSensors() {
-		pdp = new PowerDistributionPanel();
+//		pdp = new PowerDistributionPanel();
 	}
 
 	/*
@@ -65,29 +56,5 @@ public class Sensors {
 
 		chassisLeftEncoder.setDistancePerPulse((double) config.get("CHASSIS_ENCODERS_DISTANCE_PER_PULSE"));
 		chassisRightEncoder.setDistancePerPulse((double) config.get("CHASSIS_ENCODERS_DISTANCE_PER_PULSE"));
-	}
-
-	/*
-	 * Installer
-	 */
-	public void InstallerSensors() {
-		installerSwitch1 = new AnalogInput((int) config.get("INSTALLER_SWITCH_1"));
-		installerSwitch2 = new AnalogInput((int) config.get("INSTALLER_SWITCH_2"));
-	}
-
-	/*
-	 * Climbing
-	 */
-	public void ClimbingSensors() {
-		climbingSwitch = new AnalogInput((int) config.get("CLIMBING_SWITCH"));
-	}
-
-	/*
-	 * Intake
-	 */
-	public void IntakeSensors() {
-		intakeSwitch1 = new AnalogInput((int) config.get("INTAKE_SWITCH_1"));
-		intakeSwitch2 = new AnalogInput((int) config.get("INTAKE_SWITCH_2"));
-		intakeSwitch3 = new AnalogInput((int) config.get("INTAKE_SWITCH_3"));
 	}
 }

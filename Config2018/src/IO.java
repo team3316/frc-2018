@@ -189,7 +189,7 @@ public class IO {
 				    	// Left front
 					putCANA("CHASSIS_MOTOR_LEFT_1", 1);
 					// Left back
-					putCANA("CHASSIS_MOTOR_LEFT_2", 0);
+					putCANA("CHASSIS_MOTOR_LEFT_2", 4);
 					// Right front
 					putCANA("CHASSIS_MOTOR_RIGHT_1", 2);
 					// Right back
@@ -211,8 +211,8 @@ public class IO {
 				 * Robot A
 				 */
 				{
-					putDIOA("CHASSIS_LEFT_ENCODER_CHANNEL_A", 2);
-					putDIOA("CHASSIS_LEFT_ENCODER_CHANNEL_B", 3);
+					putDIOA("CHASSIS_LEFT_ENCODER_CHANNEL_A", 8);
+					putDIOA("CHASSIS_LEFT_ENCODER_CHANNEL_B", 9);
 
 					putDIOA("CHASSIS_RIGHT_ENCODER_CHANNEL_A", 0);
 					putDIOA("CHASSIS_RIGHT_ENCODER_CHANNEL_B", 1);

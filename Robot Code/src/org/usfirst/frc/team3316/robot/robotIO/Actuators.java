@@ -37,13 +37,13 @@ public class Actuators {
 	}
 
 	public void GeneralActuators() {
-		if (config.robotA) {
-			GeneralActuatorsA();
-			compressor = new Compressor(0);
-		} else {
-			GeneralActuatorsB();
-			compressor = new Compressor(0);
-		}
+//		if (config.robotA) {
+//			GeneralActuatorsA();
+//			compressor = new Compressor(0);
+//		} else {
+//			GeneralActuatorsB();s
+//			compressor = new Compressor(0);
+//		}
 	}
 
 	/*

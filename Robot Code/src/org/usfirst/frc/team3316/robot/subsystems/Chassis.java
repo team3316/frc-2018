@@ -9,6 +9,10 @@ import org.usfirst.frc.team3316.robot.robotIO.DBugSpeedController;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Chassis extends DBugSubsystem {
@@ -23,6 +27,7 @@ public class Chassis extends DBugSubsystem {
 
     // Variables
     private double pitchOffset, rollOffset, yawOffset;
+    public double tempLeftV = 0, tempRightV = 0;
 
     public Chassis() {
 	// Actuators
@@ -147,4 +152,103 @@ public class Chassis extends DBugSubsystem {
     public boolean isDrivingFast() {
 	return (double) config.get("chassis_SpeedFactor_Current") == (double) config.get("chassis_SpeedFactor_Higher");
     }
+    
+    public PIDController setSpeedPID(boolean leftSide, double Kp, double Ki, double Kd, double Kf) {
+	PIDController pid = new PIDController(Kp, Ki, Kd, Kf, new PIDSource() {
+	    @Override
+	    public void setPIDSourceType(PIDSourceType pidSource) {
+		return;
+	    }
+
+	    @Override
+	    public PIDSourceType getPIDSourceType() {
+		return PIDSourceType.kRate;
+	    }
+
+	    @Override
+	    public double pidGet() {
+		if (leftSide) {
+		    return Robot.chassis.getLeftSpeed();
+		}
+
+		return Robot.chassis.getRightSpeed();
+	    }
+	}, new PIDOutput() {
+	    @Override
+	    public void pidWrite(double output) {
+		if (leftSide) {
+		    Robot.chassis.tempLeftV = output;
+		} else {
+		    Robot.chassis.tempRightV = output;
+		}
+	    }
+	}, 0.02);
+
+	return pid;
+    }
+
+    public PIDController setYawPID(double Kp, double Ki, double Kd, double Kf) {
+	double initialYaw = Robot.chassis.getYaw();
+
+	PIDController pid = new PIDController(Kp, Ki, Kd, Kf, new PIDSource() {
+	    @Override
+	    public void setPIDSourceType(PIDSourceType pidSource) {
+		return;
+	    }
+
+	    @Override
+	    public PIDSourceType getPIDSourceType() {
+		return PIDSourceType.kDisplacement;
+	    }
+
+	    @Override
+	    public double pidGet() {
+		double currentYaw = Robot.chassis.getYaw();
+		return currentYaw - initialYaw;
+	    }
+	}, new PIDOutput() {
+	    @Override
+	    public void pidWrite(double output) {
+		double ratio = -output;
+		Robot.chassis.setMotors(getLeftVolatge(Robot.chassis.tempLeftV, ratio),
+			getRightVoltage(Robot.chassis.tempRightV, ratio));
+	    }
+	}, 0.02);
+
+	return pid;
+    }
+
+    // Utils for YawPID function
+    private double getLeftVolatge(double v, double r) {
+	if (v > 0) { // Driving forward
+	    if (r > 0) { // Swerving right
+		return v * (-r + 1);
+	    } else { // Swerving left
+		return v;
+	    }
+	} else { // Driving back
+	    if (r < 0) { // Swerving right
+		return v * (r + 1);
+	    } else { // Swerving left
+		return v;
+	    }
+	}
+    }
+
+    private double getRightVoltage(double v, double r) {
+	if (v > 0) { // Driving forward
+	    if (r < 0) { // Swerving left
+		return v * (r + 1);
+	    } else { // Swerving right
+		return v;
+	    }
+	} else { // Driving back
+	    if (r > 0) { // Swerving left
+		return v * (-r + 1);
+	    } else { // Swerving right
+		return v;
+	    }
+	}
+    }
+    
 }

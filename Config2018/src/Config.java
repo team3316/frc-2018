@@ -215,6 +215,41 @@ public class Config {
 			{
 				addToVariables("chassis_SetConstantVoltage_Voltage", 0.0);
 			}
+			
+			/*
+			 * SPEED PID
+			 */
+			{
+			    addToVariables("chassis_Speed_PID_Left_KP", 40.0 / 1000.0);
+			    addToVariables("chassis_Speed_PID_Left_KD", 0.0);
+			    addToVariables("chassis_Speed_PID_Left_KI", 0.0);
+			    addToVariables("chassis_Speed_PID_Left_KF", 0.0);
+			    addToVariables("chassis_Speed_PID_Right_KP", 57.0 / 1000.0);
+			    addToVariables("chassis_Speed_PID_Right_KI", 0.0);
+			    addToVariables("chassis_Speed_PID_Right_KD", 0.0);
+			    addToVariables("chassis_Speed_PID_Right_KF", 0.0);
+			    
+			    addToVariables("chassis_Speed_PID_Tolerance", 0.05);
+			}
+			
+			/*
+			 * YAW PID
+			 */
+			{
+			    addToVariables("chassis_Yaw_PID_KP", 90.0 / 1000.0);
+			    addToVariables("chassis_Yaw_PID_KD", 0.0);
+			    addToVariables("chassis_Yaw_PID_KI", 0.0);
+			}
+			
+			/*
+			 * PATH FOLLOWER
+			 */
+			{
+			    addToVariables("chassis_PF_Steptime", 0.1); // in seconds
+			    addToVariables("chassis_PF_Totaltime", 6.0); // in seconds
+			    
+			    addToConstants("CHASSIS_PF_TRACKWIDTH", 1.804); // in feet
+			}
 
 		}
 	}

@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.TimerTask;
 
 import org.usfirst.frc.team3316.robot.Robot;
+import org.usfirst.frc.team3316.robot.chassis.paths.Path1;
 import org.usfirst.frc.team3316.robot.commands.chassis.MoveChassis;
 import org.usfirst.frc.team3316.robot.commands.chassis.ResetGyro;
 import org.usfirst.frc.team3316.robot.config.Config;
@@ -44,6 +45,9 @@ public class SDB {
 			put("Yaw angle", Robot.chassis.getYaw());
 
 			put("Low Speed", Robot.chassis.isDrivingSlowly());
+			
+			put("LEFT ENCODER DIST", Robot.chassis.getLeftDistance());
+			put("RIGHT ENCODER DIST", Robot.chassis.getRightDistance());
 		}
 
 		private void put(String name, double d) {
@@ -74,7 +78,7 @@ public class SDB {
 		variablesInSDB = new Hashtable<String, Class<?>>();
 
 		initSDB();
-		initDriverCameras();
+//		initDriverCameras();
 	}
 
 	public void timerInit() {
@@ -128,6 +132,8 @@ public class SDB {
 
 		// Chassis
 		SmartDashboard.putData(new ResetGyro());
+		
+		SmartDashboard.putData(new Path1());
 
 		logger.info("Finished initSDB()");
 	}
@@ -150,31 +156,10 @@ public class SDB {
 	}
 
 	private void initLiveWindowActuators() {
-		// TODO: Check if casting to LiveWindowSendable actually works
-		// General
-		LiveWindow.addActuator("General", "compressor", Robot.actuators.compressor);
-		// Chassis
-		LiveWindow.addActuator("Chassis", "chassisLeft1SC", (LiveWindowSendable) Robot.actuators.chassisLeft1SC);
-		LiveWindow.addActuator("Chassis", "chassisLeft2SC", (LiveWindowSendable) Robot.actuators.chassisLeft2SC);
-		LiveWindow.addActuator("Chassis", "chassisRight1SC", (LiveWindowSendable) Robot.actuators.chassisRight1SC);
-		LiveWindow.addActuator("Chassis", "chassisRight2SC", (LiveWindowSendable) Robot.actuators.chassisRight2SC);
+
 	}
 
 	private void initLiveWindowSensors() {
-		// General
-		LiveWindow.addSensor("General", "pdp", Robot.sensors.pdp);
-		// Chassis
-		LiveWindow.addSensor("Chassis", "navx", Robot.sensors.navx);
-		// TODO: Add encoders
-		// Intake
-		LiveWindow.addSensor("Intake", "intakeSwitch1", Robot.sensors.intakeSwitch1);
-		LiveWindow.addSensor("Intake", "intakeSwitch2", Robot.sensors.intakeSwitch2);
-		LiveWindow.addSensor("Intake", "intakeSwitch3", Robot.sensors.intakeSwitch3);
-		// Installer
-		LiveWindow.addSensor("Installer", "installerSwitch1", Robot.sensors.installerSwitch1);
-		LiveWindow.addSensor("Installer", "installerSwitch2", Robot.sensors.installerSwitch2);
-		// Climbing
-		LiveWindow.addSensor("Climbing", "climbingSwitch", Robot.sensors.climbingSwitch);
-		logger.info("Finished initLiveWindowSensors()");
+		
 	}
 }
