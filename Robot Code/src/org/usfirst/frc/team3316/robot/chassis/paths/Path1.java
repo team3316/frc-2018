@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.GraphicsEnvironment;
 
 import org.usfirst.frc.team3316.robot.Robot;
+import org.usfirst.frc.team3316.robot.auton.commands.SetPathPIDController;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
-import org.usfirst.frc.team3316.robot.commands.chassis.SetPathPIDController;
 import org.usfirst.frc.team3316.robot.utils.Utils;
 import org.usfirst.frc.team3316.robot.utils.falcon.FalconLinePlot;
 import org.usfirst.frc.team3316.robot.utils.falcon.FalconPathPlanner;
@@ -40,7 +40,7 @@ public class Path1 extends DBugCommand {
 
 	path = new FalconPathPlanner(waypoints.getPathPoints());
 	path.calculate((double)config.get("chassis_PF_Totaltime"), (double)config.get("chassis_PF_Steptime"), (double)config.get("CHASSIS_PF_TRACKWIDTH"));
-
+	
 	// printLinePlot("Path", "X (feet)", "Y (feet)", path.smoothPath);
     }
 

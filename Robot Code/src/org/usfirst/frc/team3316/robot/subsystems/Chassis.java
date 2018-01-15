@@ -54,7 +54,7 @@ public class Chassis extends DBugSubsystem {
      * Motor methods
      */
     public void setMotors(double left, double right) {
-	logger.finest("Setting chassis. left: " + left + ", right: " + right);
+//	logger.finest("Setting chassis. left: " + left + ", right: " + right);
 	SmartDashboard.putNumber("left motor", left);
 	SmartDashboard.putNumber("right motor", right);
 
@@ -79,8 +79,9 @@ public class Chassis extends DBugSubsystem {
     }
     
     public void resetYaw() {
-	yawOffset = yawOffset - getYaw();
-	SmartDashboard.putNumber("Yaw offset", yawOffset);
+//	yawOffset = yawOffset - getYaw();
+//	SmartDashboard.putNumber("Yaw offset", yawOffset);
+	this.resetRoll();
     }
 
     public void resetRoll() {
@@ -89,7 +90,8 @@ public class Chassis extends DBugSubsystem {
     }
 
     public double getYaw() {
-	return navx.getAngle() + yawOffset;
+//	return navx.getAngle() + yawOffset;
+	return this.getRoll();
     }
 
     // Returns the same heading in the range (-180) to (180)

@@ -104,6 +104,7 @@ public class Config {
 					// Joystick operator
 
 					addToVariables("button_Intake_Toggle", 5);
+					addToVariables("button_Path_Follower", 6);
 
 					addToVariables("button_Chassis_Break_Toggle", 1);
 					addToVariables("button_Chassis_DriveOneAxis", 3);
@@ -194,6 +195,7 @@ public class Config {
 					addToVariables("chassis_DriveDistance_PID_YAW_KP", 270.0);
 					addToVariables("chassis_DriveDistance_PID_YAW_KI", 0.0);
 					addToVariables("chassis_DriveDistance_PID_YAW_KD", 0.0);
+					addToVariables("chassis_DriveDistance_PID_YAW_KF", 0.0);
 				}
 			}
 
@@ -246,11 +248,19 @@ public class Config {
 			 */
 			{
 			    addToVariables("chassis_PF_Steptime", 0.1); // in seconds
-			    addToVariables("chassis_PF_Totaltime", 6.0); // in seconds
+			    addToVariables("chassis_PF_Totaltime", 10.0); // in seconds
 			    
 			    addToConstants("CHASSIS_PF_TRACKWIDTH", 1.804); // in feet
 			}
 
+		}
+		
+		/*
+		 * Intake
+		 */
+		{
+			addToVariables("intake_RollIn_Voltage", -0.3);
+			addToVariables("intake_RollOut_Voltage", 0.3);
 		}
 	}
 }

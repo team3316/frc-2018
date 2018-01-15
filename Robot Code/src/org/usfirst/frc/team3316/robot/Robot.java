@@ -3,7 +3,9 @@ package org.usfirst.frc.team3316.robot;
 
 import java.util.Timer;
 
+import org.usfirst.frc.team3316.robot.chassis.paths.Path1;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
+import org.usfirst.frc.team3316.robot.commands.emptyCommand;
 import org.usfirst.frc.team3316.robot.commands.chassis.CoastMode;
 import org.usfirst.frc.team3316.robot.config.Config;
 import org.usfirst.frc.team3316.robot.humanIO.Joysticks;
@@ -13,6 +15,7 @@ import org.usfirst.frc.team3316.robot.robotIO.Actuators;
 import org.usfirst.frc.team3316.robot.robotIO.Sensors;
 import org.usfirst.frc.team3316.robot.subsystems.Chassis;
 import org.usfirst.frc.team3316.robot.subsystems.EmptySubsystem;
+import org.usfirst.frc.team3316.robot.subsystems.RollerGripper;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -48,6 +51,7 @@ public class Robot extends IterativeRobot {
      */
     public static Chassis chassis;
     public static EmptySubsystem emptySubsystem;
+    public static RollerGripper rollerGripper;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -81,6 +85,7 @@ public class Robot extends IterativeRobot {
 	     */
 	    emptySubsystem = new EmptySubsystem();
 	    chassis = new Chassis();
+	    rollerGripper = new RollerGripper();
 
 	    /*
 	     * Human IO (that requires subsystems)

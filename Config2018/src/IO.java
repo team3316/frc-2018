@@ -186,14 +186,21 @@ public class IO {
 				 * Robot A
 				 */
 				{
+				    	// Chassis
 				    	// Left front
 					putCANA("CHASSIS_MOTOR_LEFT_1", 1);
 					// Left back
-					putCANA("CHASSIS_MOTOR_LEFT_2", 4);
+					putCANA("CHASSIS_MOTOR_LEFT_2", 0);
 					// Right front
 					putCANA("CHASSIS_MOTOR_RIGHT_1", 2);
 					// Right back
 					putCANA("CHASSIS_MOTOR_RIGHT_2", 3);
+					
+					// Intake
+					// Left
+					putPWMA("ROLLERGRIPPER_MOTOR_LEFT", 8);
+					// Right
+					putPWMA("ROLLERGRIPPER_MOTOR_RIGHT", 9);
 				}
 
 				/*

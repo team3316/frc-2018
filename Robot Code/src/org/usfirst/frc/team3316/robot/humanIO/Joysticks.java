@@ -4,9 +4,12 @@
 package org.usfirst.frc.team3316.robot.humanIO;
 
 import org.usfirst.frc.team3316.robot.Robot;
+import org.usfirst.frc.team3316.robot.chassis.paths.Path1;
 import org.usfirst.frc.team3316.robot.commands.chassis.BrakeMode;
 import org.usfirst.frc.team3316.robot.commands.chassis.CoastMode;
 import org.usfirst.frc.team3316.robot.commands.chassis.DriveOneAxis;
+import org.usfirst.frc.team3316.robot.commands.intake.IntakeRollIn;
+import org.usfirst.frc.team3316.robot.commands.intake.IntakeRollOut;
 import org.usfirst.frc.team3316.robot.config.Config;
 import org.usfirst.frc.team3316.robot.logger.DBugLogger;
 
@@ -38,7 +41,7 @@ public class Joysticks {
     DBugLogger logger = Robot.logger;
 
     public Joystick joystickLeft, joystickRight, joystickOperator;
-    public DBugJoystickButton lowerSpeedBtn, higherSpeedBtn;
+    public DBugJoystickButton intakeToggleBtn, pathFollowBtn;
     public DBugJoystickDigitalAxis DriveOneAxisAxisButton1;
 
     /**
@@ -72,5 +75,17 @@ public class Joysticks {
 	DBugJoystickDigitalAxis DriveOneAxisAxisButton2 = new DBugJoystickDigitalAxis(joystickOperator,
 		(int) config.get("axis_Chassis_DriveOneAxis2"), (double) config.get("axis_Chassis_SwitchLimit"));
 	DriveOneAxisAxisButton2.whileHeld(new DriveOneAxis());
+	
+	/*
+	 * Intake
+	 */
+	intakeToggleBtn = new DBugJoystickButton(joystickOperator, "button_Intake_Toggle");
+	intakeToggleBtn.whenPressed(new DBugToggleCommand(new IntakeRollIn(), new IntakeRollOut()));
+	
+	/*
+	 * Path follower
+	 */
+	pathFollowBtn = new DBugJoystickButton(joystickOperator, "button_Path_Follower");
+	pathFollowBtn.whenPressed(new Path1());
     }
 }

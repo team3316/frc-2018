@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3316.robot.commands.chassis;
+package org.usfirst.frc.team3316.robot.auton.commands;
 
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
@@ -23,6 +23,8 @@ public class SetPathPIDController extends DBugCommand {
 
     public SetPathPIDController(double setpointLeft, double setpointRight, double setpointYaw, FalconPathPlanner path) {
 //	System.out.println("sepoint: " + setpointLeft);
+	
+	logger.fine("pid set path ended");
 
 	requires(Robot.chassis);
 
@@ -36,7 +38,7 @@ public class SetPathPIDController extends DBugCommand {
 
     // Called just before this Command runs the first time
     protected void init() {
-
+	Robot.chassis.resetYaw();
 	// PID Left
 	pidLeft = Robot.chassis.setSpeedPID(true, (double)config.get("chassis_Speed_PID_Left_KP"),
 		(double)config.get("chassis_Speed_PID_Left_KI"), (double)config.get("chassis_Speed_PID_Left_KD"),
@@ -56,8 +58,10 @@ public class SetPathPIDController extends DBugCommand {
 	pidRight.setOutputRange(-1.0, 1.0);
 
 	// PID Yaw
+//	pidYaw = Robot.chassis.setYawPID((double)config.get("chassis_Yaw_PID_KP"), (double)config.get("chassis_Yaw_PID_KI"),
+//		(double)config.get("chassis_Yaw_PID_KD"), (double)config.get("chassis_Yaw_PID_KF"));
 	pidYaw = Robot.chassis.setYawPID((double)config.get("chassis_Yaw_PID_KP"), (double)config.get("chassis_Yaw_PID_KI"),
-		(double)config.get("chassis_Yaw_PID_KD"), (double)config.get("chassis_Yaw_PID_KF"));
+		0.0, 0.0);
 	pidYaw.setSetpoint(this.setpointYaw);
 	pidYaw.setOutputRange(-1.0, 1.0);
 
