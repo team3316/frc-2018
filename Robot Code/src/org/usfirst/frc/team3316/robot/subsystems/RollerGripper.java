@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3316.robot.subsystems;
 
 import org.usfirst.frc.team3316.robot.Robot;
+import org.usfirst.frc.team3316.robot.commands.intake.IntakeDirectionalRollIn;
 import org.usfirst.frc.team3316.robot.robotIO.DBugSpeedController;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,11 +18,21 @@ public class RollerGripper extends DBugSubsystem {
 
     @Override
     public void initDefaultCommand() {
-	// TODO Auto-generated method stub
+//	setDefaultCommand(new IntakeDirectionalRollIn());
+    }
+
+    public void setMotors (double vLeft, double vRight) {
+	this.leftSC.setMotor(-vLeft);
+	this.rightSC.setMotor(vRight);
     }
 
     public void setMotors (double v) {
 	this.leftSC.setMotor(v);
 	this.rightSC.setMotor(-v);
+    }
+
+    public void changeGripperDirection () {
+	double v = this.leftSC.getVoltage();
+	this.leftSC.setMotor(-v);
     }
 }

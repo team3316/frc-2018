@@ -66,32 +66,30 @@ public class Chassis extends DBugSubsystem {
     }
 
     public double getPitch() {
-	return navx.getRoll() + pitchOffset;
+	return navx.getPitch();
     }
 
     public double getRoll() {
-	return navx.getPitch() + rollOffset;
+	return navx.getRoll();
     }
 
     public void resetPitch() {
-	pitchOffset = pitchOffset - getPitch();
-	SmartDashboard.putNumber("Pitch offset", pitchOffset);
+//	pitchOffset = pitchOffset - getPitch();
+//	SmartDashboard.putNumber("Pitch offset", pitchOffset);
     }
     
     public void resetYaw() {
 //	yawOffset = yawOffset - getYaw();
 //	SmartDashboard.putNumber("Yaw offset", yawOffset);
-	this.resetRoll();
     }
 
     public void resetRoll() {
-	rollOffset = rollOffset - getRoll();
-	SmartDashboard.putNumber("Roll offset", rollOffset);
+//	rollOffset = rollOffset - getRoll();
+//	SmartDashboard.putNumber("Roll offset", rollOffset);
     }
 
     public double getYaw() {
-//	return navx.getAngle() + yawOffset;
-	return this.getRoll();
+	return navx.getAngle();
     }
 
     // Returns the same heading in the range (-180) to (180)

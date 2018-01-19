@@ -46,6 +46,8 @@ public class SDB {
 			put("Yaw angle", Robot.chassis.getYaw());
 			put("Roll angle", Robot.chassis.getRoll());
 			put("Pitch angle", Robot.chassis.getPitch());
+			
+			logger.info("yaw:" + Robot.chassis.getYaw() + ", roll:" + Robot.chassis.getRoll() + ", pitch:" + Robot.chassis.getPitch());
 
 			put("Low Speed", Robot.chassis.isDrivingSlowly());
 			

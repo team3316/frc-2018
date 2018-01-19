@@ -103,8 +103,9 @@ public class Config {
 				{
 					// Joystick operator
 
-					addToVariables("button_Intake_Toggle", 5);
-					addToVariables("button_Path_Follower", 6);
+					addToVariables("button_Intake_RollIn", 5);
+					addToVariables("button_Intake_RollOut", 6);
+					addToVariables("button_Intake_DirectionaRollIn", 1);
 
 					addToVariables("button_Chassis_Break_Toggle", 1);
 					addToVariables("button_Chassis_DriveOneAxis", 3);
@@ -259,8 +260,11 @@ public class Config {
 		 * Intake
 		 */
 		{
-			addToVariables("intake_RollIn_Voltage", -0.3);
-			addToVariables("intake_RollOut_Voltage", 0.3);
+			addToVariables("intake_RollIn_Voltage", -0.5);
+			addToVariables("intake_RollOut_Voltage", 0.5);
+
+			addToVariables("intake_DirectionalRollIn_Left_Voltage", 0.5);
+			addToVariables("intake_DirectionalRollIn_Right_Voltage", 0.5);
 		}
 	}
 }

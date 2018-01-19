@@ -8,12 +8,16 @@ import org.usfirst.frc.team3316.robot.chassis.paths.Path1;
 import org.usfirst.frc.team3316.robot.commands.chassis.BrakeMode;
 import org.usfirst.frc.team3316.robot.commands.chassis.CoastMode;
 import org.usfirst.frc.team3316.robot.commands.chassis.DriveOneAxis;
+import org.usfirst.frc.team3316.robot.commands.intake.IntakeDirectionalRollIn;
 import org.usfirst.frc.team3316.robot.commands.intake.IntakeRollIn;
 import org.usfirst.frc.team3316.robot.commands.intake.IntakeRollOut;
+import org.usfirst.frc.team3316.robot.commands.intake.IntakeStop;
 import org.usfirst.frc.team3316.robot.config.Config;
 import org.usfirst.frc.team3316.robot.logger.DBugLogger;
 
+import edu.wpi.first.wpilibj.AnalogTrigger;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 
 public class Joysticks {
@@ -40,8 +44,10 @@ public class Joysticks {
     Config config = Robot.config;
     DBugLogger logger = Robot.logger;
 
-    public Joystick joystickLeft, joystickRight, joystickOperator;
-    public DBugJoystickButton intakeToggleBtn, pathFollowBtn;
+    public Joystick joystickLeft, joystickRight;
+    public Joystick joystickOperator;
+    public DBugJoystickButton intakeInBtn, intakeOutBtn;
+    public AnalogTrigger intakeDirectionalBtn;
     public DBugJoystickDigitalAxis DriveOneAxisAxisButton1;
 
     /**
@@ -68,24 +74,26 @@ public class Joysticks {
 	DBugJoystickButton DriveOneAxisButton = new DBugJoystickButton(joystickOperator, "button_Chassis_DriveOneAxis");
 	DriveOneAxisButton.whileHeld(new DriveOneAxis());
 
-	DriveOneAxisAxisButton1 = new DBugJoystickDigitalAxis(joystickOperator,
-		(int) config.get("axis_Chassis_DriveOneAxis1"), (double) config.get("axis_Chassis_SwitchLimit"));
-	DriveOneAxisAxisButton1.whileHeld(new DriveOneAxis());
-	
-	DBugJoystickDigitalAxis DriveOneAxisAxisButton2 = new DBugJoystickDigitalAxis(joystickOperator,
-		(int) config.get("axis_Chassis_DriveOneAxis2"), (double) config.get("axis_Chassis_SwitchLimit"));
-	DriveOneAxisAxisButton2.whileHeld(new DriveOneAxis());
+//	DriveOneAxisAxisButton1 = new DBugJoystickDigitalAxis(joystickOperator,
+//		(int) config.get("axis_Chassis_DriveOneAxis1"), (double) config.get("axis_Chassis_SwitchLimit"));
+//	DriveOneAxisAxisButton1.whileHeld(new DriveOneAxis());
+//	
+//	DBugJoystickDigitalAxis DriveOneAxisAxisButton2 = new DBugJoystickDigitalAxis(joystickOperator,
+//		(int) config.get("axis_Chassis_DriveOneAxis2"), (double) config.get("axis_Chassis_SwitchLimit"));
+//	DriveOneAxisAxisButton2.whileHeld(new DriveOneAxis());
 	
 	/*
 	 * Intake
 	 */
-	intakeToggleBtn = new DBugJoystickButton(joystickOperator, "button_Intake_Toggle");
-	intakeToggleBtn.whenPressed(new DBugToggleCommand(new IntakeRollIn(), new IntakeRollOut()));
+	// Rollin
+	intakeInBtn = new DBugJoystickButton(joystickOperator, "button_Intake_RollIn");
+	intakeInBtn.whileHeld(new IntakeDirectionalRollIn(false));
+
+	// Rollout
+	intakeOutBtn = new DBugJoystickButton(joystickOperator, "button_Intake_RollOut");
+	intakeOutBtn.whileHeld(new IntakeDirectionalRollIn(true));
 	
-	/*
-	 * Path follower
-	 */
-	pathFollowBtn = new DBugJoystickButton(joystickOperator, "button_Path_Follower");
-	pathFollowBtn.whenPressed(new Path1());
+//	directionalRollInBtn = new DBugJoystickButton(joystickOperator, "button_Intake_DirectionaRollIn");
+//	directionalRollInBtn.whileHeld(new IntakeDirectionalRollIn());
     }
 }
