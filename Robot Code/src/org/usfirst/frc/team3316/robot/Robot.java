@@ -3,10 +3,6 @@ package org.usfirst.frc.team3316.robot;
 
 import java.util.Timer;
 
-import org.usfirst.frc.team3316.robot.chassis.paths.Path1;
-import org.usfirst.frc.team3316.robot.commands.DBugCommand;
-import org.usfirst.frc.team3316.robot.commands.emptyCommand;
-import org.usfirst.frc.team3316.robot.commands.chassis.CoastMode;
 import org.usfirst.frc.team3316.robot.config.Config;
 import org.usfirst.frc.team3316.robot.humanIO.Joysticks;
 import org.usfirst.frc.team3316.robot.humanIO.SDB;
@@ -15,14 +11,11 @@ import org.usfirst.frc.team3316.robot.robotIO.Actuators;
 import org.usfirst.frc.team3316.robot.robotIO.Sensors;
 import org.usfirst.frc.team3316.robot.subsystems.Chassis;
 import org.usfirst.frc.team3316.robot.subsystems.EmptySubsystem;
-import org.usfirst.frc.team3316.robot.subsystems.RollerGripper;
+import org.usfirst.frc.team3316.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -32,115 +25,115 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Robot extends IterativeRobot {
-    public static Config config;
-    public static DBugLogger logger;
-    public static Timer timer;
+	public static Config config;
+	public static DBugLogger logger;
+	public static Timer timer;
 
-    /*
-     * Human IO
-     */
-    public static Joysticks joysticks;
-    public static SDB sdb;
-    /*
-     * Robot IO
-     */
-    public static Actuators actuators;
-    public static Sensors sensors;
-    /*
-     * Subsystems
-     */
-    public static Chassis chassis;
-    public static EmptySubsystem emptySubsystem;
-    public static RollerGripper rollerGripper;
-
-    /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
-     */
-    public void robotInit() {
 	/*
-	 * Above all else
+	 * Human IO
 	 */
-	try {
-	    logger = new DBugLogger();
-	    timer = new Timer();
-	    config = new Config();
+	public static Joysticks joysticks;
+	public static SDB sdb;
+	/*
+	 * Robot IO
+	 */
+	public static Actuators actuators;
+	public static Sensors sensors;
+	/*
+	 * Subsystems
+	 */
+	public static Chassis chassis;
+	public static EmptySubsystem emptySubsystem;
+	public static Intake intake;
 
-	    /*
-	     * Human IO (that does not require subsystems)
-	     */
-	    joysticks = new Joysticks();
+	/**
+	 * This function is run when the robot is first started up and should be used
+	 * for any initialization code.
+	 */
+	public void robotInit() {
+		/*
+		 * Above all else
+		 */
+		try {
+			logger = new DBugLogger();
+			timer = new Timer();
+			config = new Config();
 
-	    /*
-	     * Robot IO
-	     */
-	    actuators = new Actuators();
-	    sensors = new Sensors();
+			/*
+			 * Human IO (that does not require subsystems)
+			 */
+			joysticks = new Joysticks();
 
-	    Robot.actuators.GeneralActuators();
-	    Robot.sensors.GeneralSensors();
+			/*
+			 * Robot IO
+			 */
+			actuators = new Actuators();
+			sensors = new Sensors();
 
-	    /*
-	     * Subsystems
-	     */
-	    emptySubsystem = new EmptySubsystem();
-	    chassis = new Chassis();
-	    rollerGripper = new RollerGripper();
+			Robot.actuators.GeneralActuators();
+			Robot.sensors.GeneralSensors();
 
-	    /*
-	     * Human IO (that requires subsystems)
-	     */
-	    sdb = new SDB();
+			/*
+			 * Subsystems
+			 */
+			emptySubsystem = new EmptySubsystem();
+			chassis = new Chassis();
+			intake = new Intake();
 
-	    /*
-	     * Human IO (that requires subsystems)
-	     */
-	    joysticks.initButtons();
+			/*
+			 * Human IO (that requires subsystems)
+			 */
+			sdb = new SDB();
 
-	    /*
-	     * Timer
-	     */
-	    sdb.timerInit();
+			/*
+			 * Human IO (that requires subsystems)
+			 */
+			joysticks.initButtons();
 
-	    /*
-	     * Choosers
-	     */
+			/*
+			 * Timer
+			 */
+			sdb.timerInit();
 
-	} catch (Exception e) {
-	    logger.severe(e);
+			/*
+			 * Choosers
+			 */
+
+		} catch (Exception e) {
+			logger.severe(e);
+		}
 	}
-    }
 
-    public void disabledInit() {
-	chassis.setBrake(false);
-    }
+	public void disabledInit() {
+		chassis.setBrake(false);
+	}
 
-    public void disabledPeriodic() {
-	Scheduler.getInstance().run();
+	public void disabledPeriodic() {
+		Scheduler.getInstance().run();
 
-	chassis.setBrake(false);
-    }
+		chassis.setBrake(false);
+	}
 
-    public void autonomousInit() {
+	public void autonomousInit() {
 
-    }
+	}
 
-    public void autonomousPeriodic() {
-	Scheduler.getInstance().run();
-    }
+	public void autonomousPeriodic() {
+		Scheduler.getInstance().run();
+	}
 
-    public void teleopInit() {
-	chassis.setBrake(true);
-    }
+	public void teleopInit() {
+		chassis.setBrake(true);
+	}
 
-    public void teleopPeriodic() {
-	Scheduler.getInstance().run();
-    }
+	public void teleopPeriodic() {
+		Scheduler.getInstance().run();
+	}
 
-    public void testInit() {
-    }
+	public void testInit() {
+	}
 
-    public void testPeriodic() {
-	LiveWindow.run();
-    }
+	public void testPeriodic() {
+		LiveWindow.run();
+	}
 }

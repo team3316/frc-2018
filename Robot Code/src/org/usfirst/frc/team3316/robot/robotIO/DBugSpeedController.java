@@ -19,105 +19,112 @@ import edu.wpi.first.wpilibj.util.WPILibVersion;
  *
  */
 public class DBugSpeedController {
-    DBugLogger logger = Robot.logger;
-    Config config = Robot.config;
-//    PowerDistributionPanel pdp = Robot.sensors.pdp;
+	DBugLogger logger = Robot.logger;
+	Config config = Robot.config;
+	// PowerDistributionPanel pdp = Robot.sensors.pdp;
 
-    private boolean reverse; // Negative factor of velocity
-    private boolean isSetLimit;
-    private int pdpChannel; // The channel in the PDP of the speed controller
-    private double maxCurrent; // The high threshold for current control
+	private boolean reverse; // Negative factor of velocity
+	private boolean isSetLimit;
+	private int pdpChannel; // The channel in the PDP of the speed controller
+	private double maxCurrent; // The high threshold for current control
 
-    private SpeedController sc;
+	private SpeedController sc;
 
-    /**
-     * This method is using for adding a new speed controller to this subsystem.
-     * This method offers a better way to control all of your speed controllers.
-     * 
-     * @param sc
-     *            The speed controller to add.
-     * @param reverse
-     *            Set true if you want to reverse the voltage of the motor,
-     *            otherwise set false.
-     * @param pdpChannel
-     *            The channel of the speed controller on the PDP.
-     * @param maxCurrent
-     *            The stall current of the motor.
-     */
-    public DBugSpeedController(SpeedController sc, boolean reverse, int pdpChannel, double maxCurrent) {
-	this.sc = sc;
-	this.reverse = reverse;
-	this.isSetLimit = true;
-	this.pdpChannel = pdpChannel;
-	this.maxCurrent = maxCurrent;
+	/**
+	 * This method is using for adding a new speed controller to this subsystem.
+	 * This method offers a better way to control all of your speed controllers.
+	 * 
+	 * @param sc
+	 *            The speed controller to add.
+	 * @param reverse
+	 *            Set true if you want to reverse the voltage of the motor,
+	 *            otherwise set false.
+	 * @param pdpChannel
+	 *            The channel of the speed controller on the PDP.
+	 * @param maxCurrent
+	 *            The stall current of the motor.
+	 */
+	public DBugSpeedController(SpeedController sc, boolean reverse, int pdpChannel, double maxCurrent) {
+		this.sc = sc;
+		this.reverse = reverse;
+		this.isSetLimit = true;
+		this.pdpChannel = pdpChannel;
+		this.maxCurrent = maxCurrent;
 
-	this.sc.setInverted(reverse);
-    }
-
-    /**
-     * This method is using for adding a new D-Bug Speed Controller to this
-     * subsystem. This method offers a better way to control all of your D-Bug
-     * Speed Controllers.
-     * 
-     * @param chassisLeft1SC
-     *            The D-Bug Speed Controller
-     * @param reverse
-     *            Set true if you want to reverse the voltage of the motor,
-     *            otherwise set false.
-     * @param pdpChannel
-     *            The pdp channel of the D-Bug speed controller.
-     */
-    public DBugSpeedController(SpeedController chassisLeft1SC, boolean reverse, int pdpChannel) {
-	this.sc = chassisLeft1SC;
-	this.reverse = reverse;
-	this.pdpChannel = pdpChannel;
-	isSetLimit = false;
-
-	this.sc.setInverted(reverse);
-    }
-
-    /**
-     * This method sets the voltage for this D-Bug Speed Controller.
-     * 
-     * @param v
-     *            The voltage (velocity) to set for this D-Bug Speed Controller.
-     * @return A boolean of the process success - true if it succeeded or false
-     *         if it failed.
-     */
-    public boolean setMotor(double v) {
-//	if (!isSetLimit || getCurrent() < maxCurrent) {
-	    v = Math.max(v, -1.0);
-	    v = Math.min(v, 1.0);
-//
-	    sc.set(v);
-	    return true;
-//	} else {
-//	    sc.set(0);
-//	    logger.severe("Current overflow at D-Bug Speed Controller on PDP channel " + pdpChannel + ".");
-//	    return false;
-//	}
-    }
-
-//    public double getCurrent() {
-//	return pdp.getCurrent(pdpChannel);
-//    }
-
-    /**
-     * Returns the set speed of the DBugSpeedController between -1 to 1.
-     */
-    public double getVoltage() {
-	if (sc instanceof TalonSRX) {
-	    return 0.0;
-	} else {
-	    return sc.get();
+		this.sc.setInverted(reverse);
 	}
 
-    }
+	/**
+	 * This method is using for adding a new D-Bug Speed Controller to this
+	 * subsystem. This method offers a better way to control all of your D-Bug Speed
+	 * Controllers.
+	 * 
+	 * @param chassisLeft1SC
+	 *            The D-Bug Speed Controller
+	 * @param reverse
+	 *            Set true if you want to reverse the voltage of the motor,
+	 *            otherwise set false.
+	 * @param pdpChannel
+	 *            The pdp channel of the D-Bug speed controller.
+	 */
+	public DBugSpeedController(SpeedController chassisLeft1SC, boolean reverse, int pdpChannel) {
+		this.sc = chassisLeft1SC;
+		this.reverse = reverse;
+		this.pdpChannel = pdpChannel;
+		isSetLimit = false;
 
-    public void switchToBrake(boolean brakeMode) {
-	if (sc instanceof WPI_TalonSRX) {
-	    NeutralMode mode = brakeMode ? NeutralMode.Brake : NeutralMode.Coast;
-	    ((TalonSRX) sc).setNeutralMode(mode);
+		this.sc.setInverted(reverse);
 	}
-    }
+
+	/**
+	 * This method sets the voltage for this D-Bug Speed Controller.
+	 * 
+	 * @param v
+	 *            The voltage (velocity) to set for this D-Bug Speed Controller.
+	 * @return A boolean of the process success - true if it succeeded or false if
+	 *         it failed.
+	 */
+	public boolean setMotor(double v) {
+		// if (!isSetLimit || getCurrent() < maxCurrent) {
+		v = Math.max(v, -1.0);
+		v = Math.min(v, 1.0);
+		//
+		sc.set(v);
+		return true;
+		// } else {
+		// sc.set(0);
+		// logger.severe("Current overflow at D-Bug Speed Controller on PDP channel " +
+		// pdpChannel + ".");
+		// return false;
+		// }
+	}
+
+	// public double getCurrent() {
+	// return pdp.getCurrent(pdpChannel);
+	// }
+
+	/**
+	 * Returns the set speed of the DBugSpeedController between -1 to 1.
+	 */
+	public double getVoltage() {
+		if (sc instanceof TalonSRX) {
+			return 0.0;
+		} else {
+			return sc.get();
+		}
+
+	}
+
+	public void switchToBrake(boolean brakeMode) {
+		if (sc instanceof WPI_TalonSRX) {
+			NeutralMode mode = brakeMode ? NeutralMode.Brake : NeutralMode.Coast;
+			((TalonSRX) sc).setNeutralMode(mode);
+		}
+	}
+
+	public void invert () {
+		boolean r = this.reverse;
+		this.sc.setInverted(!r);
+		this.reverse = !r;
+	}
 }

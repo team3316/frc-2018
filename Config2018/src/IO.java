@@ -198,9 +198,9 @@ public class IO {
 					
 					// Intake
 					// Left
-					putPWMA("ROLLERGRIPPER_MOTOR_LEFT", 8);
+					putPWMA("INTAKE_MOTOR_LEFT", 8);
 					// Right
-					putPWMA("ROLLERGRIPPER_MOTOR_RIGHT", 9);
+					putPWMA("INTAKE_MOTOR_RIGHT", 9);
 				}
 
 				/*

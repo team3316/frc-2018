@@ -260,11 +260,11 @@ public class Config {
 		 * Intake
 		 */
 		{
-			addToVariables("intake_RollIn_Voltage", -0.5);
-			addToVariables("intake_RollOut_Voltage", 0.5);
+			addToVariables("intake_rollIn_voltage", 0.5);
+			addToVariables("intake_rollOut_voltage", -0.5);
 
-			addToVariables("intake_DirectionalRollIn_Left_Voltage", 0.5);
-			addToVariables("intake_DirectionalRollIn_Right_Voltage", 0.5);
+			addToVariables("intake_directionalRollIn_leftVoltage", 0.5);
+			addToVariables("intake_directionalRollIn_rightVoltage", 0.5);
 		}
 	}
 }

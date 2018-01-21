@@ -11,6 +11,7 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -26,6 +27,9 @@ public class Sensors {
 	// Chassis
 	public AHRS navx;
 	public Encoder chassisLeftEncoder, chassisRightEncoder;
+	
+	// Holder
+	public DigitalInput holderLimitSwitch;
 
 	public Sensors() {
 	}
@@ -56,5 +60,12 @@ public class Sensors {
 
 		chassisLeftEncoder.setDistancePerPulse((double) config.get("CHASSIS_ENCODERS_DISTANCE_PER_PULSE"));
 		chassisRightEncoder.setDistancePerPulse((double) config.get("CHASSIS_ENCODERS_DISTANCE_PER_PULSE"));
+	}
+	
+	/*
+	 * Holder
+	 */
+	public void HolderSensors () {
+		holderLimitSwitch = new DigitalInput((int) config.get("HOLDER_LIMIT_SWITCH"));
 	}
 }
