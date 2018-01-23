@@ -27,6 +27,11 @@ public class Actuators {
 	public DBugSpeedController holderMotor, intakeLeft, intakeRight;
 	public VictorSP holderSC, intakeLeftSC, intakeRightSC;
 
+	// Elevator
+	public DBugSpeedController elevatorMotorOne, elevatorMotorTwo;
+	public WPI_TalonSRX elevatorOneSC, elevatorTwoSC;
+	public DoubleSolenoid elevatorShifter;
+
 	public Actuators() {
 	}
 
@@ -124,5 +129,30 @@ public class Actuators {
 		}
 		
 		holderMotor = new DBugSpeedController(holderSC, false	, -1);
+	}
+
+	/*
+	 * Elevator
+	 */
+	private void ElevatorActuatorA() {
+		elevatorOneSC = new WPI_TalonSRX((int) Robot.config.get("ELEVATOR_MOTOR_ONE"));
+		elevatorTwoSC = new WPI_TalonSRX((int) Robot.config.get("ELEVATOR_MOTOR_TWO"));
+		elevatorShifter = new DoubleSolenoid((int) Robot.config.get("ELEVATOR_SHIFTER_FORWARD"),
+											 (int) Robot.config.get("ELEVATOR_SHIFTER_REVERSE"));
+	}
+
+	private void ElevatorActuatorsB() {
+		// Nothin' here atm
+	}
+
+	public void ElevatorActuators() {
+		if (config.robotA) {
+			ElevatorActuatorA();
+		} else {
+			ElevatorActuatorsB();
+		}
+	
+		elevatorMotorOne = new DBugSpeedController(elevatorOneSC, false, -1);
+		elevatorMotorTwo = new DBugSpeedController(elevatorTwoSC, false, -1);
 	}
 }

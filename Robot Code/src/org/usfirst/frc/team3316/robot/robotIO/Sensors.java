@@ -31,6 +31,10 @@ public class Sensors {
 	// Holder
 	public DigitalInput holderLimitSwitch;
 
+	// Elevator
+	public AnalogInput elevatorHeBottom, elevatorHeSwitch, elevatorHeScale, elevatorHeTop;
+	public Encoder elevatorEncoder;
+
 	public Sensors() {
 	}
 
@@ -67,5 +71,17 @@ public class Sensors {
 	 */
 	public void HolderSensors () {
 		holderLimitSwitch = new DigitalInput((int) config.get("HOLDER_LIMIT_SWITCH"));
+	}
+
+	/*
+	 * Elevator
+	 */
+	public void ElevatorSensors () {
+		elevatorHeBottom = new AnalogInput((int) config.get("ELEVATOR_BOTTOM_ENCODER"));
+		elevatorHeSwitch = new AnalogInput((int) config.get("ELEVATOR_SWITCH_ENCODER"));
+		elevatorHeScale = new AnalogInput((int) config.get("ELEVATOR_SCALE_ENCODER"));
+		elevatorHeTop = new AnalogInput((int) config.get("ELEVATOR_TOP_ENCODER"));
+		elevatorEncoder = new Encoder((int) config.get("ELEVATOR_ENCODER_A"),
+				                      (int) config.get("ELEVATOR_ENCODER_B"));
 	}
 }
