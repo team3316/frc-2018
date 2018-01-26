@@ -50,8 +50,9 @@ public class SDB {
 
 			put("Low Speed", Robot.chassis.isDrivingSlowly());
 			
-			put("LEFT ENCODER DIST", Robot.chassis.getLeftDistance());
-			put("RIGHT ENCODER DIST", Robot.chassis.getRightDistance());
+			// Elevator
+			put("Elevator Level", Robot.elevator.getLevel().toString());
+			put("Elevator position", Robot.elevator.getPosition());
 		}
 
 		private void put(String name, double d) {

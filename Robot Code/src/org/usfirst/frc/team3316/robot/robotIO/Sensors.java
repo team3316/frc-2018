@@ -32,7 +32,7 @@ public class Sensors {
 	public DigitalInput holderLimitSwitch;
 
 	// Elevator
-	public AnalogInput elevatorHeBottom, elevatorHeSwitch, elevatorHeScale, elevatorHeTop;
+	public DigitalInput elevatorHeBottom, elevatorHeSwitch, elevatorHeScale, elevatorHeTop;
 	public Encoder elevatorEncoder;
 
 	public Sensors() {
@@ -77,11 +77,12 @@ public class Sensors {
 	 * Elevator
 	 */
 	public void ElevatorSensors () {
-		elevatorHeBottom = new AnalogInput((int) config.get("ELEVATOR_BOTTOM_ENCODER"));
-		elevatorHeSwitch = new AnalogInput((int) config.get("ELEVATOR_SWITCH_ENCODER"));
-		elevatorHeScale = new AnalogInput((int) config.get("ELEVATOR_SCALE_ENCODER"));
-		elevatorHeTop = new AnalogInput((int) config.get("ELEVATOR_TOP_ENCODER"));
+		elevatorHeBottom = new DigitalInput((int) config.get("ELEVATOR_BOTTOM_HE"));
+		elevatorHeSwitch = new DigitalInput((int) config.get("ELEVATOR_SWITCH_HE"));
+		elevatorHeScale = new DigitalInput((int) config.get("ELEVATOR_SCALE_HE"));
+		elevatorHeTop = new DigitalInput((int) config.get("ELEVATOR_TOP_HE"));
 		elevatorEncoder = new Encoder((int) config.get("ELEVATOR_ENCODER_A"),
-				                      (int) config.get("ELEVATOR_ENCODER_B"));
+				                      (int) config.get("ELEVATOR_ENCODER_B"), false, EncodingType.k4X);
+		elevatorEncoder.setDistancePerPulse((double) config.get("ELEVATOR_ENCODER_DISTANCE_PER_PULSE"));
 	}
 }
