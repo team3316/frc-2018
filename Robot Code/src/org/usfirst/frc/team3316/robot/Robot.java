@@ -78,7 +78,7 @@ public class Robot extends IterativeRobot {
 			 */
 			emptySubsystem = new EmptySubsystem();
 			chassis = new Chassis();
-			intake = new Intake();
+//			intake = new Intake();
 
 			/*
 			 * Human IO (that requires subsystems)
