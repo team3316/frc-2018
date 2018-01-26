@@ -26,6 +26,11 @@ public class Actuators {
 	// Roller grippers
 	public DBugSpeedController holderMotor, intakeLeft, intakeRight;
 	public VictorSP holderSC, intakeLeftSC, intakeRightSC;
+	
+	// TO REMOVE AFTER TESTING
+	public DBugSpeedController holderLeft, holderRight;
+	public WPI_TalonSRX holderLeftSC, holderRightSC;
+	
 
 	public Actuators() {
 	}
@@ -109,7 +114,11 @@ public class Actuators {
 	 * Holder
 	 */
 	private void HolderActuatorsA() {
-		holderSC = new VictorSP((int) Robot.config.get("HOLDER_MOTOR_PORT"));
+//		holderSC = new VictorSP((int) Robot.config.get("HOLDER_MOTOR_PORT"));
+	    
+	    // FOR MULE (TO REMOVE AFTER TESTING)
+	    holderLeftSC = new WPI_TalonSRX(5);
+	    holderRightSC = new WPI_TalonSRX(4);
 	}
 	
 	private void HolderActuatorsB() {
@@ -123,6 +132,10 @@ public class Actuators {
 			HolderActuatorsB();
 		}
 		
-		holderMotor = new DBugSpeedController(holderSC, false	, -1);
+//		holderMotor = new DBugSpeedController(holderSC, false	, -1);
+		
+		// TO REMOVE AFTER TESTINGS
+		holderLeft = new DBugSpeedController(holderLeftSC, true, -1);
+		holderRight = new DBugSpeedController(holderRightSC, false, -1);
 	}
 }

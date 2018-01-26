@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Holder extends DBugSubsystem {
 	// Actuators
-	private DBugSpeedController motor;
+	private DBugSpeedController motor, motorLeft, motorRight;
 
 	// Sensors
 	private DigitalInput limitSwitch;
@@ -19,6 +19,9 @@ public class Holder extends DBugSubsystem {
 		// Actuators
 		Robot.actuators.HolderActuators();
 		this.motor = Robot.actuators.holderMotor;
+		
+		this.motorLeft = Robot.actuators.holderLeft;
+		this.motorRight = Robot.actuators.holderRight;
 	
 		// Sensors
 		Robot.sensors.HolderSensors();
@@ -36,6 +39,11 @@ public class Holder extends DBugSubsystem {
 	 */
 	public void setMotor (double v) {
 		this.motor.setMotor(v);
+	}
+	
+	public void setMotors (double v) {
+		this.motorLeft.setMotor(v);
+		this.motorRight.setMotor(v);
 	}
 	
 	/**

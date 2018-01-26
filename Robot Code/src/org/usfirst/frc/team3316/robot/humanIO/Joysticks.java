@@ -8,6 +8,10 @@ import org.usfirst.frc.team3316.robot.chassis.paths.Path1;
 import org.usfirst.frc.team3316.robot.commands.chassis.BrakeMode;
 import org.usfirst.frc.team3316.robot.commands.chassis.CoastMode;
 import org.usfirst.frc.team3316.robot.commands.chassis.DriveOneAxis;
+import org.usfirst.frc.team3316.robot.commands.holder.HolderRoll;
+import org.usfirst.frc.team3316.robot.commands.holder.HolderRollType;
+import org.usfirst.frc.team3316.robot.commands.intake.IntakeRoll;
+import org.usfirst.frc.team3316.robot.commands.intake.IntakeRollType;
 import org.usfirst.frc.team3316.robot.config.Config;
 import org.usfirst.frc.team3316.robot.logger.DBugLogger;
 
@@ -63,12 +67,24 @@ public class Joysticks {
 	/*
 	 * Chassis
 	 */
-	DBugJoystickButton toggleChassisBrakeMode = new DBugJoystickButton(joystickOperator,
-		"button_Chassis_Break_Toggle");
-	toggleChassisBrakeMode.whenPressed(new DBugToggleCommand(new BrakeMode(), new CoastMode()));
-
-	DBugJoystickButton DriveOneAxisButton = new DBugJoystickButton(joystickOperator, "button_Chassis_DriveOneAxis");
-	DriveOneAxisButton.whileHeld(new DriveOneAxis());
+//	DBugJoystickButton toggleChassisBrakeMode = new DBugJoystickButton(joystickOperator,
+//		"button_Chassis_Break_Toggle");
+//	toggleChassisBrakeMode.whenPressed(new DBugToggleCommand(new BrakeMode(), new CoastMode()));
+//
+//	DBugJoystickButton DriveOneAxisButton = new DBugJoystickButton(joystickOperator, "button_Chassis_DriveOneAxis");
+//	DriveOneAxisButton.whileHeld(new DBugToggleCommand(new BrakeMode(), new CoastMode()));
+	
+	DBugJoystickButton toggleIntakeRollIn = new DBugJoystickButton(joystickOperator, "button_Intake_RollIn");
+	toggleIntakeRollIn.whenPressed(new DBugToggleCommand(new IntakeRoll(IntakeRollType.RollIn), new IntakeRoll(IntakeRollType.Stop)));
+	
+	DBugJoystickButton toggleIntakeRollOut = new DBugJoystickButton(joystickOperator, "button_Intake_RollOut");
+	toggleIntakeRollOut.whenPressed(new DBugToggleCommand(new IntakeRoll(IntakeRollType.RollOut), new IntakeRoll(IntakeRollType.Stop)));
+	
+	DBugJoystickButton toggleHolderRollIn = new DBugJoystickButton(joystickOperator, "button_Holder_RollIn");
+	toggleHolderRollIn.whenPressed(new DBugToggleCommand(new HolderRoll(HolderRollType.RollIn), new HolderRoll(HolderRollType.Stop)));
+	
+	DBugJoystickButton toggleHolderRollOut = new DBugJoystickButton(joystickOperator, "button_Holder_RollOut");
+	toggleHolderRollOut.whenPressed(new DBugToggleCommand(new HolderRoll(HolderRollType.RollOut), new HolderRoll(HolderRollType.Stop)));
 
 //	DriveOneAxisAxisButton1 = new DBugJoystickDigitalAxis(joystickOperator,
 //		(int) config.get("axis_Chassis_DriveOneAxis1"), (double) config.get("axis_Chassis_SwitchLimit"));

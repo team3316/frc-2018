@@ -188,9 +188,9 @@ public class IO {
 				{
 				    	// Chassis
 				    	// Left front
-					putCANA("CHASSIS_MOTOR_LEFT_1", 1);
+					putCANA("CHASSIS_MOTOR_LEFT_1", 7); // FAKE
 					// Left back
-					putCANA("CHASSIS_MOTOR_LEFT_2", 0);
+					putCANA("CHASSIS_MOTOR_LEFT_2", 6); // FAKE
 					// Right front
 					putCANA("CHASSIS_MOTOR_RIGHT_1", 2);
 					// Right back
@@ -201,6 +201,12 @@ public class IO {
 					putPWMA("INTAKE_MOTOR_LEFT", 8);
 					// Right
 					putPWMA("INTAKE_MOTOR_RIGHT", 9);
+					
+					// Holder
+					// Left
+					putCANA("HOLDER_MOTOR_LEFT", 5);
+					// Right
+					putCANA("HOLDER_MOTOR_RIGHT", 4);
 				}
 
 				/*

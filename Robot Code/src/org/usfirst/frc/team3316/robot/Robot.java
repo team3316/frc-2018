@@ -11,6 +11,7 @@ import org.usfirst.frc.team3316.robot.robotIO.Actuators;
 import org.usfirst.frc.team3316.robot.robotIO.Sensors;
 import org.usfirst.frc.team3316.robot.subsystems.Chassis;
 import org.usfirst.frc.team3316.robot.subsystems.EmptySubsystem;
+import org.usfirst.frc.team3316.robot.subsystems.Holder;
 import org.usfirst.frc.team3316.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -45,6 +46,7 @@ public class Robot extends IterativeRobot {
 	public static Chassis chassis;
 	public static EmptySubsystem emptySubsystem;
 	public static Intake intake;
+	public static Holder holder;
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -77,8 +79,9 @@ public class Robot extends IterativeRobot {
 			 * Subsystems
 			 */
 			emptySubsystem = new EmptySubsystem();
-			chassis = new Chassis();
+//			chassis = new Chassis();
 			intake = new Intake();
+			holder = new Holder();
 
 			/*
 			 * Human IO (that requires subsystems)
@@ -105,13 +108,13 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void disabledInit() {
-		chassis.setBrake(false);
+//		chassis.setBrake(false);
 	}
 
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 
-		chassis.setBrake(false);
+//		chassis.setBrake(false);
 	}
 
 	public void autonomousInit() {
@@ -123,7 +126,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void teleopInit() {
-		chassis.setBrake(true);
+//		chassis.setBrake(true);
 	}
 
 	public void teleopPeriodic() {

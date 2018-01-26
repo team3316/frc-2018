@@ -66,6 +66,6 @@ public class Sensors {
 	 * Holder
 	 */
 	public void HolderSensors () {
-		holderLimitSwitch = new DigitalInput((int) config.get("HOLDER_LIMIT_SWITCH"));
+//		holderLimitSwitch = new DigitalInput((int) config.get("HOLDER_LIMIT_SWITCH"));
 	}
 }

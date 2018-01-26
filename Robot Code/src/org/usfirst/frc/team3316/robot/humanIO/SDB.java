@@ -38,20 +38,20 @@ public class SDB {
 			 */
 
 			// Chassis
-			put("Distace right", Robot.chassis.getRightDistance());
-			put("Distace left", Robot.chassis.getLeftDistance());
-			put("Speed", Robot.chassis.getSpeed());
-
-			put("Yaw angle", Robot.chassis.getYaw());
-			put("Roll angle", Robot.chassis.getRoll());
-			put("Pitch angle", Robot.chassis.getPitch());
-			
-			logger.info("yaw:" + Robot.chassis.getYaw() + ", roll:" + Robot.chassis.getRoll() + ", pitch:" + Robot.chassis.getPitch());
-
-			put("Low Speed", Robot.chassis.isDrivingSlowly());
-			
-			put("LEFT ENCODER DIST", Robot.chassis.getLeftDistance());
-			put("RIGHT ENCODER DIST", Robot.chassis.getRightDistance());
+//			put("Distace right", Robot.chassis.getRightDistance());
+//			put("Distace left", Robot.chassis.getLeftDistance());
+//			put("Speed", Robot.chassis.getSpeed());
+//
+//			put("Yaw angle", Robot.chassis.getYaw());
+//			put("Roll angle", Robot.chassis.getRoll());
+//			put("Pitch angle", Robot.chassis.getPitch());
+//			
+//			logger.info("yaw:" + Robot.chassis.getYaw() + ", roll:" + Robot.chassis.getRoll() + ", pitch:" + Robot.chassis.getPitch());
+//
+//			put("Low Speed", Robot.chassis.isDrivingSlowly());
+//			
+//			put("LEFT ENCODER DIST", Robot.chassis.getLeftDistance());
+//			put("RIGHT ENCODER DIST", Robot.chassis.getRightDistance());
 		}
 
 		private void put(String name, double d) {
