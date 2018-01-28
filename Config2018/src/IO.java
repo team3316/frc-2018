@@ -218,11 +218,20 @@ public class IO {
 				 * Robot A
 				 */
 				{
+					// Chassis
 					putDIOA("CHASSIS_LEFT_ENCODER_CHANNEL_A", 8);
 					putDIOA("CHASSIS_LEFT_ENCODER_CHANNEL_B", 9);
 
 					putDIOA("CHASSIS_RIGHT_ENCODER_CHANNEL_A", 0);
 					putDIOA("CHASSIS_RIGHT_ENCODER_CHANNEL_B", 1);
+
+					// Elevator
+					putDIOA("ELEVATOR_BOTTOM_HE", -1);
+					putDIOA("ELEVATOR_SWITCH_HE", -1);
+					putDIOA("ELEVATOR_SCALE_HE", -1);
+					putDIOA("ELEVATOR_TOP_HE", -1);
+					putDIOA("ELEVATOR_ENCODER_A", -1);
+					putDIOA("ELEVATOR_ENCODER_B", -1);
 				}
 
 				/*

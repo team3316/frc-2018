@@ -141,6 +141,14 @@ public class Config {
 				addToConstants("CHASSIS_ENCODERS_DISTANCE_PER_PULSE", 0.00124224); // in
 				// meters
 			}
+
+			{
+				/*
+				 * Elevator
+				 */
+				addToConstants("ELEVATOR_DISTANCE_PER_PULSE", 0.00124224); // in
+				// meters
+			}
 		}
 
 		/*
