@@ -77,5 +77,8 @@ public class Joysticks {
 //	DBugJoystickDigitalAxis DriveOneAxisAxisButton2 = new DBugJoystickDigitalAxis(joystickOperator,
 //		(int) config.get("axis_Chassis_DriveOneAxis2"), (double) config.get("axis_Chassis_SwitchLimit"));
 //	DriveOneAxisAxisButton2.whileHeld(new DriveOneAxis());
+	
+	DBugJoystickButton path1Button = new DBugJoystickButton(joystickOperator, "button_Commands_Path1");
+	path1Button.whenPressed(new Path1());
     }
 }

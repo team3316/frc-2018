@@ -31,18 +31,21 @@ public class Path1 extends DBugCommand {
 		/*
 		 * The place where you can change the path (point values in meters)
 		 */
-		waypoints.addPathPoint(2.0, 2.0);
-		waypoints.addPathPoint(2.0, 3.5);
-		waypoints.addPathPoint(0.0, 3.5);
+		waypoints.addPathPoint(0.0, 0.0);
+		waypoints.addPathPoint(0.0, 2.0);
+		waypoints.addPathPoint(1.5, 2.0);
+		waypoints.addPathPoint(1.5, 2.7);
+		waypoints.addPathPoint(-0.0, 2.7);
 
 		path = new FalconPathPlanner(waypoints.getPathPoints());
 		path.calculate((double) config.get("chassis_PF_Totaltime"), (double) config.get("chassis_PF_Steptime"),
 				(double) config.get("CHASSIS_PF_TRACKWIDTH"));
-
-		// printLinePlot("Path", "X (feet)", "Y (feet)", path.smoothPath);
 	}
 
 	protected void init() {
+	    
+
+		 printLinePlot("Path", "X (feet)", "Y (feet)", path.smoothPath);
 		cmd = (new SetPathPIDController(Utils.convertFootToMeter(path.smoothLeftVelocity[0][1]),
 				Utils.convertFootToMeter(path.smoothRightVelocity[0][1]), path.heading[0][1], path));
 

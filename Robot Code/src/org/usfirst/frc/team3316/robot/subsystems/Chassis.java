@@ -25,7 +25,7 @@ public class Chassis extends DBugSubsystem {
 	private Encoder rightEncoder;
 
 	// Variables
-	private double pitchOffset, rollOffset, yawOffset;
+	private double pitchOffset, rollOffset, yawOffset = 0.0;
 	public double tempLeftV = 0, tempRightV = 0;
 
 	public Chassis() {
@@ -78,7 +78,7 @@ public class Chassis extends DBugSubsystem {
 	}
 
 	public void resetYaw() {
-		// yawOffset = yawOffset - getYaw();
+		 yawOffset = yawOffset - getYaw();
 		// SmartDashboard.putNumber("Yaw offset", yawOffset);
 	}
 
@@ -88,7 +88,7 @@ public class Chassis extends DBugSubsystem {
 	}
 
 	public double getYaw() {
-		return navx.getAngle();
+		return navx.getAngle() + yawOffset;
 	}
 
 	// Returns the same heading in the range (-180) to (180)

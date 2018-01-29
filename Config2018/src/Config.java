@@ -112,6 +112,8 @@ public class Config {
 					addToVariables("axis_Chassis_DriveOneAxis1", 3);
 					addToVariables("axis_Chassis_DriveOneAxis2", 2);
 					addToVariables("axis_Chassis_SwitchLimit", 0.5);
+
+					addToVariables("button_Commands_Path1", 5);
 				}
 			}
 		}
@@ -223,11 +225,11 @@ public class Config {
 			 * SPEED PID
 			 */
 			{
-			    addToVariables("chassis_Speed_PID_Left_KP", 40.0 / 1000.0);
+			    addToVariables("chassis_Speed_PID_Left_KP", 10.0 / 1000.0);
 			    addToVariables("chassis_Speed_PID_Left_KD", 0.0);
 			    addToVariables("chassis_Speed_PID_Left_KI", 0.0);
 			    addToVariables("chassis_Speed_PID_Left_KF", 0.0);
-			    addToVariables("chassis_Speed_PID_Right_KP", 57.0 / 1000.0);
+			    addToVariables("chassis_Speed_PID_Right_KP", 10.0 / 1000.0);
 			    addToVariables("chassis_Speed_PID_Right_KI", 0.0);
 			    addToVariables("chassis_Speed_PID_Right_KD", 0.0);
 			    addToVariables("chassis_Speed_PID_Right_KF", 0.0);
@@ -239,7 +241,7 @@ public class Config {
 			 * YAW PID
 			 */
 			{
-			    addToVariables("chassis_Yaw_PID_KP", 90.0 / 1000.0);
+			    addToVariables("chassis_Yaw_PID_KP", 50.0 / 1000.0);
 			    addToVariables("chassis_Yaw_PID_KD", 0.0);
 			    addToVariables("chassis_Yaw_PID_KI", 0.0);
 			}
@@ -249,9 +251,9 @@ public class Config {
 			 */
 			{
 			    addToVariables("chassis_PF_Steptime", 0.1); // in seconds
-			    addToVariables("chassis_PF_Totaltime", 10.0); // in seconds
+			    addToVariables("chassis_PF_Totaltime", 5.0); // in seconds
 			    
-			    addToConstants("CHASSIS_PF_TRACKWIDTH", 1.804); // in feet
+			    addToConstants("CHASSIS_PF_TRACKWIDTH", 1.94); // in feet
 			}
 
 		}

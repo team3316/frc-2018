@@ -52,6 +52,8 @@ public class SDB {
 			
 			put("LEFT ENCODER DIST", Robot.chassis.getLeftDistance());
 			put("RIGHT ENCODER DIST", Robot.chassis.getRightDistance());
+			put("LEFT ENCODER STEPS", Robot.sensors.chassisLeftEncoder.getRaw());
+			put("RIGHT ENCODER STEPS", Robot.sensors.chassisRightEncoder.getRaw());
 		}
 
 		private void put(String name, double d) {

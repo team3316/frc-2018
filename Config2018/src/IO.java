@@ -188,11 +188,11 @@ public class IO {
 				{
 				    	// Chassis
 				    	// Left front
-					putCANA("CHASSIS_MOTOR_LEFT_1", 1);
+					putCANA("CHASSIS_MOTOR_LEFT_1", 2);
 					// Left back
-					putCANA("CHASSIS_MOTOR_LEFT_2", 0);
+					putCANA("CHASSIS_MOTOR_LEFT_2", 1);
 					// Right front
-					putCANA("CHASSIS_MOTOR_RIGHT_1", 2);
+					putCANA("CHASSIS_MOTOR_RIGHT_1", 4);
 					// Right back
 					putCANA("CHASSIS_MOTOR_RIGHT_2", 3);
 					
@@ -218,11 +218,11 @@ public class IO {
 				 * Robot A
 				 */
 				{
-					putDIOA("CHASSIS_LEFT_ENCODER_CHANNEL_A", 8);
-					putDIOA("CHASSIS_LEFT_ENCODER_CHANNEL_B", 9);
+					putDIOA("CHASSIS_LEFT_ENCODER_CHANNEL_A", 0);
+					putDIOA("CHASSIS_LEFT_ENCODER_CHANNEL_B", 1);
 
-					putDIOA("CHASSIS_RIGHT_ENCODER_CHANNEL_A", 0);
-					putDIOA("CHASSIS_RIGHT_ENCODER_CHANNEL_B", 1);
+					putDIOA("CHASSIS_RIGHT_ENCODER_CHANNEL_A", 2);
+					putDIOA("CHASSIS_RIGHT_ENCODER_CHANNEL_B", 3);
 				}
 
 				/*
@@ -257,8 +257,8 @@ public class IO {
 				 * Robot A
 				 */
 				{
-					putPDPA("CHASSIS_MOTOR_LEFT_1_PDP_CHANNEL", 15);
-					putPDPA("CHASSIS_MOTOR_LEFT_2_PDP_CHANNEL", 14);
+					putPDPA("CHASSIS_MOTOR_LEFT_1_PDP_CHANNEL", 14);
+					putPDPA("CHASSIS_MOTOR_LEFT_2_PDP_CHANNEL", 15);
 					putPDPA("CHASSIS_MOTOR_RIGHT_1_PDP_CHANNEL", 12);
 					putPDPA("CHASSIS_MOTOR_RIGHT_2_PDP_CHANNEL", 13);
 				}
