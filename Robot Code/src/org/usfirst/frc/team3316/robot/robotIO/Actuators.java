@@ -154,5 +154,9 @@ public class Actuators {
 	
 		elevatorMotorOne = new DBugSpeedController(elevatorOneSC, false, -1);
 		elevatorMotorTwo = new DBugSpeedController(elevatorTwoSC, false, -1);
+
+		// Using brake mode so that the elevator won't slip accidently
+		elevatorMotorOne.switchToBrake(true);
+		elevatorMotorTwo.switchToBrake(true);
 	}
 }

@@ -274,5 +274,16 @@ public class Config {
 			addToVariables("intake_directionalRollIn_leftVoltage", 0.5);
 			addToVariables("intake_directionalRollIn_rightVoltage", 0.5);
 		}
+
+		/*
+		 * Elevator
+		 */
+		{
+			// TODO - Add setpoints
+			addToVariables("elevator_setpoint_bottom", 0.0);
+			addToVariables("elevator_setpoint_switch", 0.0);
+			addToVariables("elevator_setpoint_scale", 0.0);
+			addToVariables("elevator_setpoint_top", 0.0);
+		}
 	}
 }

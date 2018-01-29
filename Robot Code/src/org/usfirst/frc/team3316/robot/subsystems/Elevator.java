@@ -131,6 +131,8 @@ public class Elevator extends DBugSubsystem {
 	 * @param voltage - The output voltage
 	 */
 	public void setMotors (double voltage) {
+		Level l = this.getLevel();
+		if (l == Level.Bottom || l == Level.Top) return;
 		this.motorOne.setMotor(voltage);
 		this.motorTwo.setMotor(voltage);
 	}
@@ -200,6 +202,7 @@ public class Elevator extends DBugSubsystem {
 		PIDController pid = new PIDController(kP, kI, kD, new DistanceSource(), new DistanceOutput());
 		if (!Double.isNaN(setpoint)) pid.setSetpoint(setpoint);
 		pid.setContinuous();
+		pid.setAbsoluteTolerance((double) Robot.config.get("elevator_PID_Tolerance"));
 		pid.setOutputRange(-1, 1);
 		return pid;
 	}
