@@ -22,6 +22,7 @@ public class ElevatorToLevel extends DBugCommand {
 												  (double) config.get("elevator_PID_KI"),
 												  (double) config.get("elevator_PID_KD"),
 												  level);
+		this.pid.setSetpoint(level.getSetpoint());
 		this.pid.enable();
 	}
 
@@ -32,9 +33,7 @@ public class ElevatorToLevel extends DBugCommand {
 
 	@Override
 	protected boolean isFinished() {
-		Elevator.Level currentLevel = Robot.elevator.getLevel();
-		boolean isInCorrectLevel = currentLevel == this.level;
-		return isInCorrectLevel;
+		return pid.onTarget();
 	}
 
 	@Override
