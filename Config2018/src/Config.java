@@ -207,9 +207,9 @@ public class Config {
 				// PID
 				addToVariables("chassis_TurnByGyro_PID_Tolerance", 1.0);
 
-				addToVariables("chassis_TurnByGyro_PID_KP", 82.0);
-				addToVariables("chassis_TurnByGyro_PID_KI", 0.7);
-				addToVariables("chassis_TurnByGyro_PID_KD", 5.0);
+				addToVariables("chassis_TurnByGyro_PID_KP", 30.0);
+				addToVariables("chassis_TurnByGyro_PID_KI", 0.5);
+				addToVariables("chassis_TurnByGyro_PID_KD", 0.0);
 			}
 
 			/*
@@ -260,8 +260,8 @@ public class Config {
 		 * Intake
 		 */
 		{
-			addToVariables("intake_rollIn_voltage", 0.5);
-			addToVariables("intake_rollOut_voltage", -0.5);
+			addToVariables("intake_rollIn_voltage", 1.0);
+			addToVariables("intake_rollOut_voltage", -1.0);
 
 			addToVariables("intake_directionalRollIn_leftVoltage", 0.5);
 			addToVariables("intake_directionalRollIn_rightVoltage", 0.5);

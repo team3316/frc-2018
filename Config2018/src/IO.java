@@ -198,9 +198,9 @@ public class IO {
 					
 					// Intake
 					// Left
-					putPWMA("INTAKE_MOTOR_LEFT", 8);
+					putPWMA("INTAKE_MOTOR_LEFT", 1);
 					// Right
-					putPWMA("INTAKE_MOTOR_RIGHT", 9);
+					putPWMA("INTAKE_MOTOR_RIGHT", 0);
 				}
 
 				/*

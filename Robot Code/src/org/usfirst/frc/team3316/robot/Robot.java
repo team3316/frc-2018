@@ -12,6 +12,7 @@ import org.usfirst.frc.team3316.robot.robotIO.Sensors;
 import org.usfirst.frc.team3316.robot.subsystems.Chassis;
 import org.usfirst.frc.team3316.robot.subsystems.EmptySubsystem;
 import org.usfirst.frc.team3316.robot.subsystems.Intake;
+import org.usfirst.frc.team3316.robot.vision.VisionServer;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -98,6 +99,10 @@ public class Robot extends IterativeRobot {
 			/*
 			 * Choosers
 			 */
+			
+			
+			VisionServer server = new VisionServer();
+			new Thread(server).start();
 
 		} catch (Exception e) {
 			logger.severe(e);

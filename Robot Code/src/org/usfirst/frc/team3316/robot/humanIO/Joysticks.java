@@ -4,10 +4,13 @@
 package org.usfirst.frc.team3316.robot.humanIO;
 
 import org.usfirst.frc.team3316.robot.Robot;
+import org.usfirst.frc.team3316.robot.auton.commands.AlignToCube;
 import org.usfirst.frc.team3316.robot.chassis.paths.Path1;
 import org.usfirst.frc.team3316.robot.commands.chassis.BrakeMode;
 import org.usfirst.frc.team3316.robot.commands.chassis.CoastMode;
 import org.usfirst.frc.team3316.robot.commands.chassis.DriveOneAxis;
+import org.usfirst.frc.team3316.robot.commands.intake.IntakeRoll;
+import org.usfirst.frc.team3316.robot.commands.intake.IntakeRollType;
 import org.usfirst.frc.team3316.robot.config.Config;
 import org.usfirst.frc.team3316.robot.logger.DBugLogger;
 
@@ -77,5 +80,12 @@ public class Joysticks {
 //	DBugJoystickDigitalAxis DriveOneAxisAxisButton2 = new DBugJoystickDigitalAxis(joystickOperator,
 //		(int) config.get("axis_Chassis_DriveOneAxis2"), (double) config.get("axis_Chassis_SwitchLimit"));
 //	DriveOneAxisAxisButton2.whileHeld(new DriveOneAxis());
+
+	DBugJoystickButton intakeRollInBtn = new DBugJoystickButton(joystickOperator, "button_Intake_RollIn");
+//	intakeRollInBtn.toggleWhenPressed(new IntakeRoll(IntakeRollType.RollIn));
+	intakeRollInBtn.whenPressed(new AlignToCube());
+	
+	DBugJoystickButton intakeRollOutBtn = new DBugJoystickButton(joystickOperator, "button_Intake_RollOut");
+	intakeRollOutBtn.toggleWhenPressed(new IntakeRoll(IntakeRollType.RollOut));
     }
 }
