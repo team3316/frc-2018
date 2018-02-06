@@ -286,6 +286,9 @@ public class Config {
 			addToVariables("elevator_setpoint_switch", 0.0);
 			addToVariables("elevator_setpoint_scale", 0.0);
 			addToVariables("elevator_setpoint_top", 0.0);
+			
+			// TODO - Add PID tolerance
+			addToVariables("elevator_PID_Tolerance", 0.0);
 		}
 	}
 }

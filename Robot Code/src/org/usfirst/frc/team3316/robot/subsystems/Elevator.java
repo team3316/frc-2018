@@ -111,7 +111,7 @@ public class Elevator extends DBugSubsystem {
 		Robot.actuators.ElevatorActuators();
 		this.motor1 = Robot.actuators.elevatorMotorOne;
 		this.motor2 = Robot.actuators.elevatorMotorTwo;
-//		this.shifter = Robot.actuators.elevatorShifter;
+		this.shifter = Robot.actuators.elevatorShifter;
 	}
 
 	@Override

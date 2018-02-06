@@ -297,6 +297,8 @@ public class IO {
 				 * Robot A
 				 */
 				{
+				    Config.addToConstants("ELEVATOR_SHIFTER_FORWARD", 0);
+				    Config.addToConstants("ELEVATOR_SHIFTER_REVERSE", 1);
 				}
 
 				/*
