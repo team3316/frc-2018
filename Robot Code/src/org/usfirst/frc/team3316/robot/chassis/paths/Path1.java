@@ -32,10 +32,9 @@ public class Path1 extends DBugCommand {
 		 * The place where you can change the path (point values in meters)
 		 */
 		waypoints.addPathPoint(0.0, 0.0);
-		waypoints.addPathPoint(0.0, 2.0);
-		waypoints.addPathPoint(1.5, 2.0);
-		waypoints.addPathPoint(1.5, 2.7);
-		waypoints.addPathPoint(-0.0, 2.7);
+		waypoints.addPathPoint(0.0, 1.0);
+		waypoints.addPathPoint(-1.0, 1.0);
+		waypoints.addPathPoint(-1.0, 2.0);
 
 		path = new FalconPathPlanner(waypoints.getPathPoints());
 		path.calculate((double) config.get("chassis_PF_Totaltime"), (double) config.get("chassis_PF_Steptime"),
