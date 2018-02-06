@@ -83,10 +83,10 @@ public class Robot extends IterativeRobot {
 			 * Subsystems
 			 */
 			emptySubsystem = new EmptySubsystem();
-			chassis = new Chassis();
-			intake = new Intake();
+//			chassis = new Chassis();
+//			intake = new Intake();
 			elevator = new Elevator();
-			holder = new Holder();
+//			holder = new Holder();
 
 			/*
 			 * Human IO (that requires subsystems)
@@ -113,13 +113,13 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void disabledInit() {
-		chassis.setBrake(false);
+//		chassis.setBrake(false);
 	}
 
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 
-		chassis.setBrake(false);
+//		chassis.setBrake(false);
 	}
 
 	public void autonomousInit() {
@@ -131,7 +131,8 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void teleopInit() {
-		chassis.setBrake(true);
+//		chassis.setBrake(true);
+	    elevator.setBrake(true);
 	}
 
 	public void teleopPeriodic() {

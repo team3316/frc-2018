@@ -10,7 +10,7 @@ public class ElevatorJoystick extends DBugCommand {
 
 	public ElevatorJoystick() {
 		requires(Robot.elevator);
-		joystick = Robot.joysticks.joystickElevator;
+		joystick = Robot.joysticks.joystickOperator;
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3316.robot.subsystems;
 
 import org.usfirst.frc.team3316.robot.Robot;
+import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorJoystick;
 import org.usfirst.frc.team3316.robot.robotIO.DBugSpeedController;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -24,7 +25,7 @@ public class Elevator extends DBugSubsystem {
 	private Encoder encoder;
 	
 	// Actuators
-	private DBugSpeedController motorOne, motorTwo;
+	private DBugSpeedController motor1, motor2;
 	private DoubleSolenoid shifter;
 
 	/**
@@ -99,31 +100,31 @@ public class Elevator extends DBugSubsystem {
 	 */
 	public Elevator() {
 		// Sensors
-		Robot.sensors.ElevatorSensors();
-		this.heBottom = Robot.sensors.elevatorHeBottom;
-		this.heSwitch = Robot.sensors.elevatorHeSwitch;
-		this.heScale = Robot.sensors.elevatorHeScale;
-		this.heTop = Robot.sensors.elevatorHeTop;
-		this.encoder = Robot.sensors.elevatorEncoder;
+//		Robot.sensors.ElevatorSensors();
+//		this.heBottom = Robot.sensors.elevatorHeBottom;
+//		this.heSwitch = Robot.sensors.elevatorHeSwitch;
+//		this.heScale = Robot.sensors.elevatorHeScale;
+//		this.heTop = Robot.sensors.elevatorHeTop;
+//		this.encoder = Robot.sensors.elevatorEncoder;
 	
 		// Actuators
 		Robot.actuators.ElevatorActuators();
-		this.motorOne = Robot.actuators.elevatorMotorOne;
-		this.motorTwo = Robot.actuators.elevatorMotorTwo;
-		this.shifter = Robot.actuators.elevatorShifter;
+		this.motor1 = Robot.actuators.elevatorMotorOne;
+		this.motor2 = Robot.actuators.elevatorMotorTwo;
+//		this.shifter = Robot.actuators.elevatorShifter;
 	}
 
 	@Override
 	public void initDefaultCommand() {
-		// TODO Auto-generated method stub
+		setDefaultCommand(new ElevatorJoystick());
 	}
 
 	@Override
 	public void periodic() {
-		double setpoint = this.getLevel().getSetpoint();
-		if (!Double.isNaN(setpoint)) {
-			this.offset = setpoint - this.encoder.getDistance();
-		}
+//		double setpoint = this.getLevel().getSetpoint();
+//		if (!Double.isNaN(setpoint)) {
+//			this.offset = setpoint - this.encoder.getDistance();
+//		}
 	}
 
 	/**
@@ -131,10 +132,10 @@ public class Elevator extends DBugSubsystem {
 	 * @param voltage - The output voltage
 	 */
 	public void setMotors (double voltage) {
-		Level l = this.getLevel();
-		if (l == Level.Bottom || l == Level.Top) return;
-		this.motorOne.setMotor(voltage);
-		this.motorTwo.setMotor(voltage);
+//		Level l = this.getLevel();
+//		if (l == Level.Bottom || l == Level.Top) return;
+		this.motor1.setMotor(voltage);
+		this.motor2.setMotor(voltage);
 	}
 
 	/**
@@ -142,8 +143,8 @@ public class Elevator extends DBugSubsystem {
 	 * @param brakeMode - The brake mode: true for brake, false for coast
 	 */
 	public void setBrake (boolean brakeMode) {
-		this.motorOne.switchToBrake(brakeMode);
-		this.motorTwo.switchToBrake(brakeMode);
+		this.motor1.switchToBrake(brakeMode);
+		this.motor2.switchToBrake(brakeMode);
 	}
 
 	/**

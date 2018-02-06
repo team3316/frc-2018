@@ -112,6 +112,8 @@ public class Config {
 					addToVariables("axis_Chassis_DriveOneAxis1", 3);
 					addToVariables("axis_Chassis_DriveOneAxis2", 2);
 					addToVariables("axis_Chassis_SwitchLimit", 0.5);
+					
+					addToVariables("elevator_Joystick_Axis", 1);
 				}
 			}
 		}

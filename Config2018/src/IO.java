@@ -188,19 +188,25 @@ public class IO {
 				{
 				    	// Chassis
 				    	// Left front
-					putCANA("CHASSIS_MOTOR_LEFT_1", 1);
+					putCANA("CHASSIS_MOTOR_LEFT_1", 2);
 					// Left back
-					putCANA("CHASSIS_MOTOR_LEFT_2", 0);
+					putCANA("CHASSIS_MOTOR_LEFT_2", 3);
 					// Right front
-					putCANA("CHASSIS_MOTOR_RIGHT_1", 2);
+					putCANA("CHASSIS_MOTOR_RIGHT_1", 12);
 					// Right back
-					putCANA("CHASSIS_MOTOR_RIGHT_2", 3);
+					putCANA("CHASSIS_MOTOR_RIGHT_2", 13);
 					
 					// Intake
 					// Left
 					putPWMA("INTAKE_MOTOR_LEFT", 8);
 					// Right
 					putPWMA("INTAKE_MOTOR_RIGHT", 9);
+					
+				    	// Elevator
+				    	// Left front
+					putCANA("ELEVATOR_MOTOR_1", 14);
+					// Left back
+					putCANA("ELEVATOR_MOTOR_2", 15);
 				}
 
 				/*
@@ -222,16 +228,20 @@ public class IO {
 					putDIOA("CHASSIS_LEFT_ENCODER_CHANNEL_A", 8);
 					putDIOA("CHASSIS_LEFT_ENCODER_CHANNEL_B", 9);
 
-					putDIOA("CHASSIS_RIGHT_ENCODER_CHANNEL_A", 0);
-					putDIOA("CHASSIS_RIGHT_ENCODER_CHANNEL_B", 1);
+					putDIOA("CHASSIS_RIGHT_ENCODER_CHANNEL_A", 2);
+					putDIOA("CHASSIS_RIGHT_ENCODER_CHANNEL_B", 3);
 
 					// Elevator
-					putDIOA("ELEVATOR_BOTTOM_HE", -1);
-					putDIOA("ELEVATOR_SWITCH_HE", -1);
-					putDIOA("ELEVATOR_SCALE_HE", -1);
-					putDIOA("ELEVATOR_TOP_HE", -1);
-					putDIOA("ELEVATOR_ENCODER_A", -1);
-					putDIOA("ELEVATOR_ENCODER_B", -1);
+					putDIOA("ELEVATOR_ENCODER_CHANNEL_A", 0);
+					putDIOA("ELEVATOR_ENCODER_CHANNEL_B", 1);
+					
+					// ITS ALL FAKE
+					putDIOA("ELEVATOR_BOTTOM_HE", 12);
+					putDIOA("ELEVATOR_SWITCH_HE", 13);
+					putDIOA("ELEVATOR_SCALE_HE", 14);
+					putDIOA("ELEVATOR_TOP_HE", 15);
+					putDIOA("ELEVATOR_ENCODER_A", 17);
+					putDIOA("ELEVATOR_ENCODER_B", 16);
 				}
 
 				/*
@@ -266,8 +276,8 @@ public class IO {
 				 * Robot A
 				 */
 				{
-					putPDPA("CHASSIS_MOTOR_LEFT_1_PDP_CHANNEL", 15);
-					putPDPA("CHASSIS_MOTOR_LEFT_2_PDP_CHANNEL", 14);
+					putPDPA("CHASSIS_MOTOR_LEFT_1_PDP_CHANNEL", 2);
+					putPDPA("CHASSIS_MOTOR_LEFT_2_PDP_CHANNEL", 3);
 					putPDPA("CHASSIS_MOTOR_RIGHT_1_PDP_CHANNEL", 12);
 					putPDPA("CHASSIS_MOTOR_RIGHT_2_PDP_CHANNEL", 13);
 				}

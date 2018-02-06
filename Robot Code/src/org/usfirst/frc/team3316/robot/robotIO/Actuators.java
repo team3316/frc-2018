@@ -135,10 +135,10 @@ public class Actuators {
 	 * Elevator
 	 */
 	private void ElevatorActuatorA() {
-		elevatorOneSC = new WPI_TalonSRX((int) Robot.config.get("ELEVATOR_MOTOR_ONE"));
-		elevatorTwoSC = new WPI_TalonSRX((int) Robot.config.get("ELEVATOR_MOTOR_TWO"));
-		elevatorShifter = new DoubleSolenoid((int) Robot.config.get("ELEVATOR_SHIFTER_FORWARD"),
-											 (int) Robot.config.get("ELEVATOR_SHIFTER_REVERSE"));
+		elevatorOneSC = new WPI_TalonSRX((int) Robot.config.get("ELEVATOR_MOTOR_1"));
+		elevatorTwoSC = new WPI_TalonSRX((int) Robot.config.get("ELEVATOR_MOTOR_2"));
+//		elevatorShifter = new DoubleSolenoid((int) Robot.config.get("ELEVATOR_SHIFTER_FORWARD"),
+//											 (int) Robot.config.get("ELEVATOR_SHIFTER_REVERSE"));
 	}
 
 	private void ElevatorActuatorsB() {

@@ -54,7 +54,6 @@ public class Joysticks {
 		joystickLeft = new Joystick((int) Robot.config.get("JOYSTICK_LEFT"));
 		joystickRight = new Joystick((int) Robot.config.get("JOYSTICK_RIGHT"));
 		joystickOperator = new Joystick((int) Robot.config.get("JOYSTICK_OPERATOR"));
-		joystickElevator = new Joystick((int) Robot.config.get("JOYSTICK_ELEVATOR"));
 	}
 
 	/**
