@@ -32,7 +32,7 @@ public class Holder extends DBugSubsystem {
 
 	/**
 	 * Sets the holder's motor output voltage.
-	 * @param v the output voltage
+	 * @param v - The output voltage
 	 */
 	public void setMotor (double v) {
 		this.motor.setMotor(v);

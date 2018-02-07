@@ -118,7 +118,7 @@ public class DBugSpeedController {
 	public void switchToBrake(boolean brakeMode) {
 		if (sc instanceof WPI_TalonSRX) {
 			NeutralMode mode = brakeMode ? NeutralMode.Brake : NeutralMode.Coast;
-			((TalonSRX) sc).setNeutralMode(mode);
+			((WPI_TalonSRX) sc).setNeutralMode(mode);
 		}
 	}
 

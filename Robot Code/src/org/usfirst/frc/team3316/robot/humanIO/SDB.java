@@ -54,6 +54,9 @@ public class SDB {
 			put("RIGHT ENCODER DIST", Robot.chassis.getRightDistance());
 			put("LEFT ENCODER STEPS", Robot.sensors.chassisLeftEncoder.getRaw());
 			put("RIGHT ENCODER STEPS", Robot.sensors.chassisRightEncoder.getRaw());
+
+			put("Elevator Level", Robot.elevator.getLevel().toString());
+			put("Elevator position", Robot.elevator.getPosition());
 		}
 
 		private void put(String name, double d) {

@@ -112,8 +112,13 @@ public class Config {
 					addToVariables("axis_Chassis_DriveOneAxis1", 3);
 					addToVariables("axis_Chassis_DriveOneAxis2", 2);
 					addToVariables("axis_Chassis_SwitchLimit", 0.5);
+<<<<<<< HEAD
 
 					addToVariables("button_Commands_Path1", 5);
+=======
+					
+					addToVariables("elevator_Joystick_Axis", 1);
+>>>>>>> elevator
 				}
 			}
 		}
@@ -141,6 +146,14 @@ public class Config {
 				addToConstants("CHASSIS_RIGHT_ENCODER_REVERSE", true);
 
 				addToConstants("CHASSIS_ENCODERS_DISTANCE_PER_PULSE", 0.00124224); // in
+				// meters
+			}
+
+			{
+				/*
+				 * Elevator
+				 */
+				addToConstants("ELEVATOR_DISTANCE_PER_PULSE", 0.00124224); // in
 				// meters
 			}
 		}
@@ -267,6 +280,20 @@ public class Config {
 
 			addToVariables("intake_directionalRollIn_leftVoltage", 0.5);
 			addToVariables("intake_directionalRollIn_rightVoltage", 0.5);
+		}
+
+		/*
+		 * Elevator
+		 */
+		{
+			// TODO - Add setpoints
+			addToVariables("elevator_setpoint_bottom", 0.0);
+			addToVariables("elevator_setpoint_switch", 0.0);
+			addToVariables("elevator_setpoint_scale", 0.0);
+			addToVariables("elevator_setpoint_top", 0.0);
+			
+			// TODO - Add PID tolerance
+			addToVariables("elevator_PID_Tolerance", 0.0);
 		}
 	}
 }

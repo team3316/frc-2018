@@ -17,68 +17,58 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 
 public class Joysticks {
-    /*
-     * Defines a button in a gamepad POV for an array of angles
-     */
-    private class POVButton extends Button {
-	Joystick m_joystick;
-	int m_deg;
-
-	public POVButton(Joystick joystick, int deg) {
-	    m_joystick = joystick;
-	    m_deg = deg;
-	}
-
-	public boolean get() {
-	    if (m_joystick.getPOV() == m_deg) {
-		return true;
-	    }
-	    return false;
-	}
-    }
-
-    Config config = Robot.config;
-    DBugLogger logger = Robot.logger;
-
-    public Joystick joystickLeft, joystickRight;
-    public Joystick joystickOperator;
-    public DBugJoystickButton intakeInBtn, intakeOutBtn;
-    public AnalogTrigger intakeDirectionalBtn;
-    public DBugJoystickDigitalAxis DriveOneAxisAxisButton1;
-
-    /**
-     * Initializes the joysticks.
-     */
-    public Joysticks() {
-	joystickLeft = new Joystick((int) Robot.config.get("JOYSTICK_LEFT"));
-	joystickRight = new Joystick((int) Robot.config.get("JOYSTICK_RIGHT"));
-	joystickOperator = new Joystick((int) Robot.config.get("JOYSTICK_OPERATOR"));
-    }
-
-    /**
-     * Initializes the joystick buttons. This is done separately because they
-     * usually require the subsystems to be already instantiated.
-     */
-    public void initButtons() {
 	/*
-	 * Chassis
+	 * Defines a button in a gamepad POV for an array of angles
 	 */
-	DBugJoystickButton toggleChassisBrakeMode = new DBugJoystickButton(joystickOperator,
-		"button_Chassis_Break_Toggle");
-	toggleChassisBrakeMode.whenPressed(new DBugToggleCommand(new BrakeMode(), new CoastMode()));
+	private class POVButton extends Button {
+		Joystick m_joystick;
+		int m_deg;
 
-	DBugJoystickButton DriveOneAxisButton = new DBugJoystickButton(joystickOperator, "button_Chassis_DriveOneAxis");
-	DriveOneAxisButton.whileHeld(new DriveOneAxis());
+		public POVButton(Joystick joystick, int deg) {
+			m_joystick = joystick;
+			m_deg = deg;
+		}
 
-//	DriveOneAxisAxisButton1 = new DBugJoystickDigitalAxis(joystickOperator,
-//		(int) config.get("axis_Chassis_DriveOneAxis1"), (double) config.get("axis_Chassis_SwitchLimit"));
-//	DriveOneAxisAxisButton1.whileHeld(new DriveOneAxis());
-//	
-//	DBugJoystickDigitalAxis DriveOneAxisAxisButton2 = new DBugJoystickDigitalAxis(joystickOperator,
-//		(int) config.get("axis_Chassis_DriveOneAxis2"), (double) config.get("axis_Chassis_SwitchLimit"));
-//	DriveOneAxisAxisButton2.whileHeld(new DriveOneAxis());
-	
-	DBugJoystickButton path1Button = new DBugJoystickButton(joystickOperator, "button_Commands_Path1");
-	path1Button.whenPressed(new Path1());
-    }
+		public boolean get() {
+			if (m_joystick.getPOV() == m_deg) {
+				return true;
+			}
+			return false;
+		}
+	}
+
+	Config config = Robot.config;
+	DBugLogger logger = Robot.logger;
+
+	public Joystick joystickLeft, joystickRight;
+	public Joystick joystickOperator;
+	public Joystick joystickElevator;
+	public DBugJoystickButton intakeInBtn, intakeOutBtn;
+	public AnalogTrigger intakeDirectionalBtn;
+	public DBugJoystickDigitalAxis DriveOneAxisAxisButton1;
+
+	/**
+	 * Initializes the joysticks.
+	 */
+	public Joysticks() {
+		joystickLeft = new Joystick((int) Robot.config.get("JOYSTICK_LEFT"));
+		joystickRight = new Joystick((int) Robot.config.get("JOYSTICK_RIGHT"));
+		joystickOperator = new Joystick((int) Robot.config.get("JOYSTICK_OPERATOR"));
+	}
+
+	/**
+	 * Initializes the joystick buttons. This is done separately because they
+	 * usually require the subsystems to be already instantiated.
+	 */
+	public void initButtons() {
+		/*
+		 * Chassis
+		 */
+		DBugJoystickButton toggleChassisBrakeMode = new DBugJoystickButton(joystickOperator,
+				"button_Chassis_Break_Toggle");
+		toggleChassisBrakeMode.whenPressed(new DBugToggleCommand(new BrakeMode(), new CoastMode()));
+
+		DBugJoystickButton DriveOneAxisButton = new DBugJoystickButton(joystickOperator, "button_Chassis_DriveOneAxis");
+		DriveOneAxisButton.whileHeld(new DriveOneAxis());
+	}
 }
