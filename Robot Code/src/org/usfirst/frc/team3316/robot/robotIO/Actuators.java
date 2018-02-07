@@ -13,150 +13,154 @@ import edu.wpi.first.wpilibj.*;
  * Le robot actuators
  */
 public class Actuators {
-	Config config = Robot.config;
-	DBugLogger logger = Robot.logger;
+    Config config = Robot.config;
+    DBugLogger logger = Robot.logger;
 
-	// General
-	public Compressor compressor;
+    // General
+    public Compressor compressor;
 
-	// Chassis
-	public DBugSpeedController chassisLeft1, chassisLeft2, chassisRight1, chassisRight2;
-	public WPI_TalonSRX chassisLeft1SC, chassisLeft2SC, chassisRight1SC, chassisRight2SC;
+    // Chassis
+    public DBugSpeedController chassisLeft1, chassisLeft2, chassisRight1, chassisRight2;
+    public WPI_TalonSRX chassisLeft1SC, chassisLeft2SC, chassisRight1SC, chassisRight2SC;
 
-	// Roller grippers
-	public DBugSpeedController holderMotor, intakeLeft, intakeRight;
-	public VictorSP holderSC, intakeLeftSC, intakeRightSC;
+    // Roller grippers
+    public DBugSpeedController holderMotor, intakeLeft, intakeRight;
+    public VictorSP holderSC, intakeLeftSC, intakeRightSC;
 
-	// Elevator
-	public DBugSpeedController elevatorMotorOne, elevatorMotorTwo;
-	public WPI_TalonSRX elevatorOneSC, elevatorTwoSC;
-	public DoubleSolenoid elevatorShifter;
+    // TO REMOVE AFTER TESTING
+    public DBugSpeedController holderLeft, holderRight;
+    public WPI_TalonSRX holderLeftSC, holderRightSC;
 
-	public Actuators() {
+    // Elevator
+    public DBugSpeedController elevatorMotorOne, elevatorMotorTwo;
+    public WPI_TalonSRX elevatorOneSC, elevatorTwoSC;
+    public DoubleSolenoid elevatorShifter;
+
+    public Actuators() {
+    }
+
+    /*
+     * General
+     */
+
+    private void GeneralActuatorsA() {
+    }
+
+    private void GeneralActuatorsB() {
+    }
+
+    public void GeneralActuators() {
+	// if (config.robotA) {
+	// GeneralActuatorsA();
+	// compressor = new Compressor(0);
+	// } else {
+	// GeneralActuatorsB();s
+	// compressor = new Compressor(0);
+	// }
+    }
+
+    /*
+     * Chassis
+     */
+    private void ChassisActuatorsA() {
+	chassisLeft1SC = new WPI_TalonSRX((int) Robot.config.get("CHASSIS_MOTOR_LEFT_1"));
+	chassisLeft2SC = new WPI_TalonSRX((int) Robot.config.get("CHASSIS_MOTOR_LEFT_2"));
+	chassisRight1SC = new WPI_TalonSRX((int) Robot.config.get("CHASSIS_MOTOR_RIGHT_1"));
+	chassisRight2SC = new WPI_TalonSRX((int) Robot.config.get("CHASSIS_MOTOR_RIGHT_2"));
+    }
+
+    private void ChassisActuatorsB() {
+    }
+
+    public void ChassisActuators() {
+	if (config.robotA) {
+	    ChassisActuatorsA();
+	} else {
+	    ChassisActuatorsB();
+	}
+	chassisLeft1 = new DBugSpeedController(chassisLeft1SC, (boolean) Robot.config.get("CHASSIS_MOTOR_LEFT_REVERSE"),
+		(int) config.get("CHASSIS_MOTOR_LEFT_1_PDP_CHANNEL"));
+	chassisLeft2 = new DBugSpeedController(chassisLeft2SC, (boolean) Robot.config.get("CHASSIS_MOTOR_LEFT_REVERSE"),
+		(int) config.get("CHASSIS_MOTOR_LEFT_2_PDP_CHANNEL"));
+
+	chassisRight1 = new DBugSpeedController(chassisRight1SC,
+		(boolean) Robot.config.get("CHASSIS_MOTOR_RIGHT_REVERSE"),
+		(int) config.get("CHASSIS_MOTOR_RIGHT_1_PDP_CHANNEL"));
+	chassisRight2 = new DBugSpeedController(chassisRight2SC,
+		(boolean) Robot.config.get("CHASSIS_MOTOR_RIGHT_REVERSE"),
+		(int) config.get("CHASSIS_MOTOR_RIGHT_2_PDP_CHANNEL"));
+    }
+
+    /*
+     * Intake
+     */
+    private void IntakeActuatorsA() {
+	intakeLeftSC = new VictorSP((int) Robot.config.get("INTAKE_MOTOR_LEFT"));
+	intakeRightSC = new VictorSP((int) Robot.config.get("INTAKE_MOTOR_RIGHT"));
+    }
+
+    private void IntakeActuatorsB() {
+	// Nothin' here atm
+    }
+
+    public void IntakeActuators() {
+	if (config.robotA) {
+	    IntakeActuatorsA();
+	} else {
+	    IntakeActuatorsB();
 	}
 
-	/*
-	 * General
-	 */
+	intakeLeft = new DBugSpeedController(intakeLeftSC, true, -1);
+	intakeRight = new DBugSpeedController(intakeRightSC, false, -1);
+    }
 
-	private void GeneralActuatorsA() {
+    /*
+     * Holder
+     */
+    private void HolderActuatorsA() {
+	 holderSC = new VictorSP((int) Robot.config.get("HOLDER_MOTOR"));
+    }
+
+    private void HolderActuatorsB() {
+	// Nothin' here atm
+    }
+
+    public void HolderActuators() {
+	if (config.robotA) {
+	    HolderActuatorsA();
+	} else {
+	    HolderActuatorsB();
 	}
 
-	private void GeneralActuatorsB() {
+	holderMotor = new DBugSpeedController(holderSC, false, -1);
+    }
+
+    /*
+     * Elevator
+     */
+    private void ElevatorActuatorA() {
+	elevatorOneSC = new WPI_TalonSRX((int) Robot.config.get("ELEVATOR_MOTOR_1"));
+	elevatorTwoSC = new WPI_TalonSRX((int) Robot.config.get("ELEVATOR_MOTOR_2"));
+	elevatorShifter = new DoubleSolenoid((int) Robot.config.get("ELEVATOR_SHIFTER_FORWARD"),
+		(int) Robot.config.get("ELEVATOR_SHIFTER_REVERSE"));
+    }
+
+    private void ElevatorActuatorsB() {
+	// Nothin' here atm
+    }
+
+    public void ElevatorActuators() {
+	if (config.robotA) {
+	    ElevatorActuatorA();
+	} else {
+	    ElevatorActuatorsB();
 	}
 
-	public void GeneralActuators() {
-		// if (config.robotA) {
-		// GeneralActuatorsA();
-		// compressor = new Compressor(0);
-		// } else {
-		// GeneralActuatorsB();s
-		// compressor = new Compressor(0);
-		// }
-	}
+	elevatorMotorOne = new DBugSpeedController(elevatorOneSC, false, -1);
+	elevatorMotorTwo = new DBugSpeedController(elevatorTwoSC, false, -1);
 
-	/*
-	 * Chassis
-	 */
-	private void ChassisActuatorsA() {
-		chassisLeft1SC = new WPI_TalonSRX((int) Robot.config.get("CHASSIS_MOTOR_LEFT_1"));
-		chassisLeft2SC = new WPI_TalonSRX((int) Robot.config.get("CHASSIS_MOTOR_LEFT_2"));
-		chassisRight1SC = new WPI_TalonSRX((int) Robot.config.get("CHASSIS_MOTOR_RIGHT_1"));
-		chassisRight2SC = new WPI_TalonSRX((int) Robot.config.get("CHASSIS_MOTOR_RIGHT_2"));
-	}
-
-	private void ChassisActuatorsB() {
-	}
-
-	public void ChassisActuators() {
-		if (config.robotA) {
-			ChassisActuatorsA();
-		} else {
-			ChassisActuatorsB();
-		}
-		chassisLeft1 = new DBugSpeedController(chassisLeft1SC, (boolean) Robot.config.get("CHASSIS_MOTOR_LEFT_REVERSE"),
-				(int) config.get("CHASSIS_MOTOR_LEFT_1_PDP_CHANNEL"));
-		chassisLeft2 = new DBugSpeedController(chassisLeft2SC, (boolean) Robot.config.get("CHASSIS_MOTOR_LEFT_REVERSE"),
-				(int) config.get("CHASSIS_MOTOR_LEFT_2_PDP_CHANNEL"));
-
-		chassisRight1 = new DBugSpeedController(chassisRight1SC,
-				(boolean) Robot.config.get("CHASSIS_MOTOR_RIGHT_REVERSE"),
-				(int) config.get("CHASSIS_MOTOR_RIGHT_1_PDP_CHANNEL"));
-		chassisRight2 = new DBugSpeedController(chassisRight2SC,
-				(boolean) Robot.config.get("CHASSIS_MOTOR_RIGHT_REVERSE"),
-				(int) config.get("CHASSIS_MOTOR_RIGHT_2_PDP_CHANNEL"));
-	}
-
-	/*
-	 * Intake
-	 */
-	private void IntakeActuatorsA() {
-		intakeLeftSC = new VictorSP((int) Robot.config.get("INTAKE_MOTOR_LEFT"));
-		intakeRightSC = new VictorSP((int) Robot.config.get("INTAKE_MOTOR_RIGHT"));
-	}
-
-	private void IntakeActuatorsB() {
-		// Nothin' here atm
-	}
-
-	public void IntakeActuators() {
-		if (config.robotA) {
-			IntakeActuatorsA();
-		} else {
-			IntakeActuatorsB();
-		}
-
-		intakeLeft = new DBugSpeedController(intakeLeftSC, true, -1);
-		intakeRight = new DBugSpeedController(intakeRightSC, false, -1);
-	}
-
-	/*
-	 * Holder
-	 */
-	private void HolderActuatorsA() {
-		holderSC = new VictorSP((int) Robot.config.get("HOLDER_MOTOR_PORT"));
-	}
-	
-	private void HolderActuatorsB() {
-		// Nothin' here atm
-	}
-	
-	public void HolderActuators() {
-		if (config.robotA) {
-			HolderActuatorsA();
-		} else {
-			HolderActuatorsB();
-		}
-		
-		holderMotor = new DBugSpeedController(holderSC, false, -1);
-	}
-
-	/*
-	 * Elevator
-	 */
-	private void ElevatorActuatorA() {
-		elevatorOneSC = new WPI_TalonSRX((int) Robot.config.get("ELEVATOR_MOTOR_1"));
-		elevatorTwoSC = new WPI_TalonSRX((int) Robot.config.get("ELEVATOR_MOTOR_2"));
-		elevatorShifter = new DoubleSolenoid((int) Robot.config.get("ELEVATOR_SHIFTER_FORWARD"),
-                                                     (int) Robot.config.get("ELEVATOR_SHIFTER_REVERSE"));
-	}
-
-	private void ElevatorActuatorsB() {
-		// Nothin' here atm
-	}
-
-	public void ElevatorActuators() {
-		if (config.robotA) {
-			ElevatorActuatorA();
-		} else {
-			ElevatorActuatorsB();
-		}
-	
-		elevatorMotorOne = new DBugSpeedController(elevatorOneSC, false, -1);
-		elevatorMotorTwo = new DBugSpeedController(elevatorTwoSC, false, -1);
-
-		// Using brake mode so that the elevator won't slip accidently
-		elevatorMotorOne.switchToBrake(true);
-		elevatorMotorTwo.switchToBrake(true);
-	}
+	// Using brake mode so that the elevator won't slip accidently
+	elevatorMotorOne.switchToBrake(true);
+	elevatorMotorTwo.switchToBrake(true);
+    }
 }

@@ -82,8 +82,7 @@ public class Robot extends IterativeRobot {
 			/*
 			 * Subsystems
 			 */
-			emptySubsystem = new EmptySubsystem();
-			
+			emptySubsystem = new EmptySubsystem();	
 			chassis = new Chassis();
 			intake = new Intake();
 			elevator = new Elevator();
@@ -132,7 +131,6 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void teleopInit() {
-//		chassis.setBrake(true);
 	    elevator.setBrake(true);
 	}
 

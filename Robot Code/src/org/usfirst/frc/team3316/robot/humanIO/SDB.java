@@ -43,17 +43,12 @@ public class SDB {
 			put("Speed", Robot.chassis.getSpeed());
 
 			put("Yaw angle", Robot.chassis.getYaw());
-			put("Roll angle", Robot.chassis.getRoll());
-			put("Pitch angle", Robot.chassis.getPitch());
+//			put("Roll angle", Robot.chassis.getRoll());
+//			put("Pitch angle", Robot.chassis.getPitch());
 			
-			logger.info("yaw:" + Robot.chassis.getYaw() + ", roll:" + Robot.chassis.getRoll() + ", pitch:" + Robot.chassis.getPitch());
+//			logger.info("yaw:" + Robot.chassis.getYaw() + ", roll:" + Robot.chassis.getRoll() + ", pitch:" + Robot.chassis.getPitch());
 
 			put("Low Speed", Robot.chassis.isDrivingSlowly());
-			
-			put("LEFT ENCODER DIST", Robot.chassis.getLeftDistance());
-			put("RIGHT ENCODER DIST", Robot.chassis.getRightDistance());
-			put("LEFT ENCODER STEPS", Robot.sensors.chassisLeftEncoder.getRaw());
-			put("RIGHT ENCODER STEPS", Robot.sensors.chassisRightEncoder.getRaw());
 
 			put("Elevator Level", Robot.elevator.getLevel().toString());
 			put("Elevator position", Robot.elevator.getPosition());

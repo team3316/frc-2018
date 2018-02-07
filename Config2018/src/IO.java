@@ -198,15 +198,18 @@ public class IO {
 					
 					// Intake
 					// Left
-					putPWMA("INTAKE_MOTOR_LEFT", 8);
+					putPWMA("INTAKE_MOTOR_LEFT", 1);
 					// Right
-					putPWMA("INTAKE_MOTOR_RIGHT", 9);
+					putPWMA("INTAKE_MOTOR_RIGHT", 2);
 					
 				    	// Elevator
 				    	// Left front
 					putCANA("ELEVATOR_MOTOR_1", 14);
 					// Left back
 					putCANA("ELEVATOR_MOTOR_2", 15);
+					
+					// Holder
+					putPWMA("HOLDER_MOTOR", 5);
 				}
 
 				/*

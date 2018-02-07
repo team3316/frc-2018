@@ -103,22 +103,19 @@ public class Config {
 				{
 					// Joystick operator
 
-					addToVariables("button_Intake_RollIn", 5);
-					addToVariables("button_Intake_RollOut", 6);
-					addToVariables("button_Intake_DirectionaRollIn", 1);
+					addToVariables("button_Intake_RollIn", 6);
+					addToVariables("button_Intake_RollOut", 5);
+					
+					addToVariables("button_Holder_RollIn", 8);
+					addToVariables("button_Holder_RollOut", 7);
 
 					addToVariables("button_Chassis_Break_Toggle", 1);
 					addToVariables("button_Chassis_DriveOneAxis", 3);
 					addToVariables("axis_Chassis_DriveOneAxis1", 3);
 					addToVariables("axis_Chassis_DriveOneAxis2", 2);
 					addToVariables("axis_Chassis_SwitchLimit", 0.5);
-<<<<<<< HEAD
-
-					addToVariables("button_Commands_Path1", 5);
-=======
 					
-					addToVariables("elevator_Joystick_Axis", 1);
->>>>>>> elevator
+					addToVariables("elevator_Joystick_Axis", 2);
 				}
 			}
 		}
@@ -275,11 +272,23 @@ public class Config {
 		 * Intake
 		 */
 		{
-			addToVariables("intake_rollIn_voltage", 0.5);
-			addToVariables("intake_rollOut_voltage", -0.5);
+			addToVariables("intake_rollIn_voltage", 1.0);
+			addToVariables("intake_rollOut_voltage", -1.0);
 
-			addToVariables("intake_directionalRollIn_leftVoltage", 0.5);
-			addToVariables("intake_directionalRollIn_rightVoltage", 0.5);
+//			addToVariables("intake_directionalRollIn_leftVoltage", 0.5);
+//			addToVariables("intake_directionalRollIn_rightVoltage", 0.5);
+		}
+		
+		
+		/*
+		 * Holder
+		 */
+		{
+			addToVariables("holder_rollIn_voltage", 1.0);
+			addToVariables("holder_rollOut_voltage", -1.0);
+
+//			addToVariables("holder_directionalRollIn_leftVoltage", 0.5);
+//			addToVariables("holder_directionalRollIn_rightVoltage", 0.5);
 		}
 
 		/*
