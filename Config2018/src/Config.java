@@ -115,7 +115,7 @@ public class Config {
 					addToVariables("axis_Chassis_DriveOneAxis2", 2);
 					addToVariables("axis_Chassis_SwitchLimit", 0.5);
 					
-					addToVariables("elevator_Joystick_Axis", 2);
+					addToVariables("elevator_Joystick_Axis", 0);
 				}
 			}
 		}
@@ -272,8 +272,8 @@ public class Config {
 		 * Intake
 		 */
 		{
-			addToVariables("intake_rollIn_voltage", 1.0);
-			addToVariables("intake_rollOut_voltage", -1.0);
+			addToVariables("intake_rollIn_voltage", -0.3);
+			addToVariables("intake_rollOut_voltage", 0.5);
 
 //			addToVariables("intake_directionalRollIn_leftVoltage", 0.5);
 //			addToVariables("intake_directionalRollIn_rightVoltage", 0.5);
@@ -284,11 +284,8 @@ public class Config {
 		 * Holder
 		 */
 		{
-			addToVariables("holder_rollIn_voltage", 1.0);
-			addToVariables("holder_rollOut_voltage", -1.0);
-
-//			addToVariables("holder_directionalRollIn_leftVoltage", 0.5);
-//			addToVariables("holder_directionalRollIn_rightVoltage", 0.5);
+			addToVariables("holder_rollIn_voltage", 0.3);
+			addToVariables("holder_rollOut_voltage", -0.3);
 		}
 
 		/*

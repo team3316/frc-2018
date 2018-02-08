@@ -131,7 +131,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void teleopInit() {
-	    elevator.setBrake(true);
+//	    elevator.setBrake(true);
 	}
 
 	public void teleopPeriodic() {

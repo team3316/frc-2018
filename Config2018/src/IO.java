@@ -209,7 +209,7 @@ public class IO {
 					putCANA("ELEVATOR_MOTOR_2", 15);
 					
 					// Holder
-					putPWMA("HOLDER_MOTOR", 5);
+					putPWMA("HOLDER_MOTOR", 0);
 				}
 
 				/*
@@ -235,8 +235,8 @@ public class IO {
 					putDIOA("CHASSIS_RIGHT_ENCODER_CHANNEL_B", 2);
 
 					// Elevator
-					putDIOA("ELEVATOR_ENCODER_CHANNEL_A", 0);
-					putDIOA("ELEVATOR_ENCODER_CHANNEL_B", 1);
+					putDIOA("ELEVATOR_ENCODER_CHANNEL_A", 4);
+					putDIOA("ELEVATOR_ENCODER_CHANNEL_B", 5);
 					
 					// ITS ALL FAKE
 					putDIOA("ELEVATOR_BOTTOM_HE", 12);

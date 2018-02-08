@@ -25,7 +25,7 @@ public class HolderRoll extends DBugCommand {
 
     @Override
     protected void execute() {
-	Robot.holder.setMotor(voltage);
+	Robot.holder.setMotor(this.type.getVoltage());
     }
 
     @Override

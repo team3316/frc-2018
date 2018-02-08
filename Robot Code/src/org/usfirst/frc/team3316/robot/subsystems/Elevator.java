@@ -152,10 +152,10 @@ public class Elevator extends DBugSubsystem {
 	 * @return The current level of the elevator
 	 */
 	public Level getLevel () {
-		if (this.heBottom.get()) return Level.Bottom;
-		if (this.heSwitch.get()) return Level.Switch;
-		if (this.heScale.get()) return Level.Scale;
-		if (this.heTop.get()) return Level.Top;
+//		if (this.heBottom.get()) return Level.Bottom;
+//		if (this.heSwitch.get()) return Level.Switch;
+//		if (this.heScale.get()) return Level.Scale;
+//		if (this.heTop.get()) return Level.Top;
 		return Level.Intermediate;
 	}
 
