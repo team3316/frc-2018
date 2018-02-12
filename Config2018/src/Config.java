@@ -114,8 +114,6 @@ public class Config {
 					addToVariables("axis_Chassis_DriveOneAxis1", 3);
 					addToVariables("axis_Chassis_DriveOneAxis2", 2);
 					addToVariables("axis_Chassis_SwitchLimit", 0.5);
-					
-					addToVariables("elevator_Joystick_Axis", 0);
 				}
 			}
 		}
@@ -142,16 +140,16 @@ public class Config {
 				addToConstants("CHASSIS_LEFT_ENCODER_REVERSE", false);
 				addToConstants("CHASSIS_RIGHT_ENCODER_REVERSE", true);
 
-				addToConstants("CHASSIS_ENCODERS_DISTANCE_PER_PULSE", 0.00124224); // in
-				// meters
+				addToConstants("CHASSIS_ENCODERS_DISTANCE_PER_PULSE", 0.00124224); // in meters
 			}
 
 			{
 				/*
 				 * Elevator
 				 */
-				addToConstants("ELEVATOR_DISTANCE_PER_PULSE", 0.00124224); // in
-				// meters
+				addToConstants("ELEVATOR_DISTANCE_PER_PULSE", 0.00124224); // in meters
+				addToConstants("ELEVATOR_MOTORS_REVERSE", true);
+				addToVariables("elevator_Joystick_Axis", 1);
 			}
 		}
 
@@ -272,11 +270,10 @@ public class Config {
 		 * Intake
 		 */
 		{
-			addToVariables("intake_rollIn_voltage", -0.3);
+			addToVariables("intake_rollIn_voltage", -0.85);
 			addToVariables("intake_rollOut_voltage", 0.5);
-
-//			addToVariables("intake_directionalRollIn_leftVoltage", 0.5);
-//			addToVariables("intake_directionalRollIn_rightVoltage", 0.5);
+			addToVariables("intake_directionalRollIn_leftVoltage", -0.8);
+			addToVariables("intake_directionalRollIn_rightVoltage", -0.5);
 		}
 		
 		
@@ -284,8 +281,8 @@ public class Config {
 		 * Holder
 		 */
 		{
-			addToVariables("holder_rollIn_voltage", 0.3);
-			addToVariables("holder_rollOut_voltage", -0.3);
+			addToVariables("holder_rollIn_voltage", -0.85);
+			addToVariables("holder_rollOut_voltage", 0.5);
 		}
 
 		/*

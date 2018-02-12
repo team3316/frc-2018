@@ -156,8 +156,12 @@ public class Actuators {
 	    ElevatorActuatorsB();
 	}
 
-	elevatorMotorOne = new DBugSpeedController(elevatorOneSC, false, -1);
-	elevatorMotorTwo = new DBugSpeedController(elevatorTwoSC, false, -1);
+	elevatorMotorOne = new DBugSpeedController(elevatorOneSC,
+                                                  (boolean) Robot.config.get("ELEVATOR_MOTORS_REVERSE"),
+                                                  (int) Robot.config.get("ELEVATOR_MOTOR_1_PDP_CHANNEL"));
+	elevatorMotorTwo = new DBugSpeedController(elevatorTwoSC, 
+                                                  (boolean) Robot.config.get("ELEVATOR_MOTORS_REVERSE"),
+                                                  (int) Robot.config.get("ELEVATOR_MOTOR_1_PDP_CHANNEL"));
 
 	// Using brake mode so that the elevator won't slip accidently
 	elevatorMotorOne.switchToBrake(true);

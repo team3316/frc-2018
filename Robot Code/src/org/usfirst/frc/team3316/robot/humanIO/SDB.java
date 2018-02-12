@@ -82,7 +82,7 @@ public class SDB {
 		variablesInSDB = new Hashtable<String, Class<?>>();
 
 		initSDB();
-//		initDriverCameras();
+		initDriverCameras();
 	}
 
 	public void timerInit() {
@@ -145,7 +145,6 @@ public class SDB {
 	private void initDriverCameras() {
 		// Cameras
 		CameraServer.getInstance().startAutomaticCapture("cam0", 0);
-		CameraServer.getInstance().startAutomaticCapture("cam1", 1);
 	}
 
 	/**
