@@ -186,8 +186,8 @@ public class IO {
 				 * Robot A
 				 */
 				{
-				    	// Chassis
-				    	// Left front
+					// Chassis
+					// Left front
 					putCANA("CHASSIS_MOTOR_LEFT_1", 2);
 					// Left back
 					putCANA("CHASSIS_MOTOR_LEFT_2", 3);
@@ -195,19 +195,19 @@ public class IO {
 					putCANA("CHASSIS_MOTOR_RIGHT_1", 12);
 					// Right back
 					putCANA("CHASSIS_MOTOR_RIGHT_2", 13);
-					
+
 					// Intake
 					// Left
 					putPWMA("INTAKE_MOTOR_LEFT", 1);
 					// Right
 					putPWMA("INTAKE_MOTOR_RIGHT", 2);
-					
-				    	// Elevator
-				    	// Left front
+
+					// Elevator
+					// Left front
 					putCANA("ELEVATOR_MOTOR_1", 14);
 					// Left back
 					putCANA("ELEVATOR_MOTOR_2", 15);
-					
+
 					// Holder
 					putPWMA("HOLDER_MOTOR", 0);
 				}
@@ -227,7 +227,7 @@ public class IO {
 				 * Robot A
 				 */
 				{
-				    	// Chassis
+					// Chassis
 					putDIOA("CHASSIS_LEFT_ENCODER_CHANNEL_A", 0);
 					putDIOA("CHASSIS_LEFT_ENCODER_CHANNEL_B", 1);
 
@@ -237,9 +237,9 @@ public class IO {
 					// Elevator
 					putDIOA("ELEVATOR_ENCODER_CHANNEL_A", 4);
 					putDIOA("ELEVATOR_ENCODER_CHANNEL_B", 5);
-					
+
 					// ITS ALL FAKE
-					putDIOA("ELEVATOR_BOTTOM_HE", 12);
+					putDIOA("ELEVATOR_BOTTOM_HE", 6);
 					putDIOA("ELEVATOR_SWITCH_HE", 13);
 					putDIOA("ELEVATOR_SCALE_HE", 14);
 					putDIOA("ELEVATOR_TOP_HE", 15);
@@ -302,8 +302,8 @@ public class IO {
 				 * Robot A
 				 */
 				{
-				    Config.addToConstants("ELEVATOR_SHIFTER_FORWARD", 0);
-				    Config.addToConstants("ELEVATOR_SHIFTER_REVERSE", 1);
+					Config.addToConstants("ELEVATOR_SHIFTER_FORWARD", 0);
+					Config.addToConstants("ELEVATOR_SHIFTER_REVERSE", 1);
 				}
 
 				/*

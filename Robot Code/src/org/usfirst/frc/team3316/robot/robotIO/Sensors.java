@@ -27,7 +27,7 @@ public class Sensors {
 	// Chassis
 	public AHRS navx;
 	public Encoder chassisLeftEncoder, chassisRightEncoder;
-	
+
 	// Holder
 	public DigitalInput holderLimitSwitch;
 
@@ -42,7 +42,7 @@ public class Sensors {
 	 * General
 	 */
 	public void GeneralSensors() {
-//		pdp = new PowerDistributionPanel();
+		// pdp = new PowerDistributionPanel();
 	}
 
 	/*
@@ -65,24 +65,25 @@ public class Sensors {
 		chassisLeftEncoder.setDistancePerPulse((double) config.get("CHASSIS_ENCODERS_DISTANCE_PER_PULSE"));
 		chassisRightEncoder.setDistancePerPulse((double) config.get("CHASSIS_ENCODERS_DISTANCE_PER_PULSE"));
 	}
-	
+
 	/*
 	 * Holder
 	 */
-	public void HolderSensors () {
-//		holderLimitSwitch = new DigitalInput((int) config.get("HOLDER_LIMIT_SWITCH"));
+	public void HolderSensors() {
+		// holderLimitSwitch = new DigitalInput((int)
+		// config.get("HOLDER_LIMIT_SWITCH"));
 	}
 
 	/*
 	 * Elevator
 	 */
-	public void ElevatorSensors () {
+	public void ElevatorSensors() {
 		elevatorHeBottom = new DigitalInput((int) config.get("ELEVATOR_BOTTOM_HE"));
 		elevatorHeSwitch = new DigitalInput((int) config.get("ELEVATOR_SWITCH_HE"));
 		elevatorHeScale = new DigitalInput((int) config.get("ELEVATOR_SCALE_HE"));
 		elevatorHeTop = new DigitalInput((int) config.get("ELEVATOR_TOP_HE"));
-		elevatorEncoder = new Encoder((int) config.get("ELEVATOR_ENCODER_A"),
-				                      (int) config.get("ELEVATOR_ENCODER_B"), false, EncodingType.k4X);
+		elevatorEncoder = new Encoder((int) config.get("ELEVATOR_ENCODER_A"), (int) config.get("ELEVATOR_ENCODER_B"),
+				false, EncodingType.k4X);
 		elevatorEncoder.setDistancePerPulse((double) config.get("ELEVATOR_ENCODER_DISTANCE_PER_PULSE"));
 	}
 }

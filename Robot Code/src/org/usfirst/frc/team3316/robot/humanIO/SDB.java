@@ -52,6 +52,7 @@ public class SDB {
 
 			put("Elevator Level", Robot.elevator.getLevel().toString());
 			put("Elevator position", Robot.elevator.getPosition());
+			put("Bottom HE", Robot.sensors.elevatorHeBottom.get());
 		}
 
 		private void put(String name, double d) {
