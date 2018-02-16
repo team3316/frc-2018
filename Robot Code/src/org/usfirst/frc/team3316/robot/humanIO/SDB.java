@@ -9,12 +9,20 @@ import java.util.Set;
 import java.util.TimerTask;
 
 import org.usfirst.frc.team3316.robot.Robot;
-import org.usfirst.frc.team3316.robot.chassis.paths.Path1;
+import org.usfirst.frc.team3316.robot.auton.commands.DriveDistance;
+import org.usfirst.frc.team3316.robot.auton.sequences.LeftPositionSwitch;
+import org.usfirst.frc.team3316.robot.auton.sequences.RightPositionSwitch;
+import org.usfirst.frc.team3316.robot.auton.sequences.SwitchType;
 import org.usfirst.frc.team3316.robot.commands.emptyCommand;
 import org.usfirst.frc.team3316.robot.commands.chassis.MoveChassis;
 import org.usfirst.frc.team3316.robot.commands.chassis.ResetGyro;
+import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorToLevel;
+import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorToLevelBangbang;
+import org.usfirst.frc.team3316.robot.commands.elevator.ShiftGear;
 import org.usfirst.frc.team3316.robot.config.Config;
 import org.usfirst.frc.team3316.robot.logger.DBugLogger;
+import org.usfirst.frc.team3316.robot.subsystems.Elevator.Gear;
+import org.usfirst.frc.team3316.robot.subsystems.Elevator.Level;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -50,9 +58,10 @@ public class SDB {
 
 			put("Low Speed", Robot.chassis.isDrivingSlowly());
 
-			put("Elevator Level", Robot.elevator.getLevel().toString());
 			put("Elevator position", Robot.elevator.getPosition());
-			put("Bottom HE", Robot.sensors.elevatorHeBottom.get());
+			put("pulse count", Robot.sensors.elevatorEncoder.getRaw());
+			
+			put("Elevator Level", Robot.elevator.getLevel().toString());
 		}
 
 		private void put(String name, double d) {
@@ -83,7 +92,6 @@ public class SDB {
 		variablesInSDB = new Hashtable<String, Class<?>>();
 
 		initSDB();
-		initDriverCameras();
 	}
 
 	public void timerInit() {
@@ -132,14 +140,24 @@ public class SDB {
 	}
 
 	private void initSDB() {
+		initDriverCameras();
+	    
 		SmartDashboard.putData(new UpdateVariablesInConfig()); // NEVER REMOVE
 		// THIS COMMAND
+		
+		// Auton
+		SmartDashboard.putData(new LeftPositionSwitch(SwitchType.LEFT));
+		SmartDashboard.putData(new RightPositionSwitch(SwitchType.RIGHT));
+		
+		SmartDashboard.putData("drive -1m", new DriveDistance(-1.0));
 
 		// Chassis
 		SmartDashboard.putData(new ResetGyro());
 		
+		// Elevator
 		
-
+		SmartDashboard.putData("Toggle Shifting", new DBugToggleCommand(new ShiftGear(Gear.HIGH), new ShiftGear(Gear.LOW)));
+		SmartDashboard.putData(new ShiftGear(Gear.HIGH));
 		logger.info("Finished initSDB()");
 	}
 

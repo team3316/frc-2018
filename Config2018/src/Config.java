@@ -108,6 +108,8 @@ public class Config {
 					
 					addToVariables("button_Holder_RollIn", 8);
 					addToVariables("button_Holder_RollOut", 7);
+					
+					addToVariables("button_Auton_Align", 4);
 
 					addToVariables("button_Chassis_Break_Toggle", 1);
 					addToVariables("button_Chassis_DriveOneAxis", 3);
@@ -147,8 +149,8 @@ public class Config {
 				/*
 				 * Elevator
 				 */
-				addToConstants("ELEVATOR_DISTANCE_PER_PULSE", 0.00124224); // in meters
-				addToConstants("ELEVATOR_MOTORS_REVERSE", true);
+				addToConstants("ELEVATOR_ENCODER_DISTANCE_PER_PULSE", 0.0008736); // in meters
+				addToConstants("ELEVATOR_MOTORS_REVERSE", false);
 				addToVariables("elevator_Joystick_Axis", 1);
 			}
 		}
@@ -193,14 +195,10 @@ public class Config {
 
 				// BY ENCODERS
 				{
-					// Right
-					addToVariables("chassis_DriveDistance_PID_RIGHT_KP", 0.0);
-					addToVariables("chassis_DriveDistance_PID_RIGHT_KI", 0.0);
-					addToVariables("chassis_DriveDistance_PID_RIGHT_KD", 0.0);
-					// Left
-					addToVariables("chassis_DriveDistance_PID_LEFT_KP", 0.0);
-					addToVariables("chassis_DriveDistance_PID_LEFT_KI", 0.0);
-					addToVariables("chassis_DriveDistance_PID_LEFT_KD", 0.0);
+					// Drive
+					addToVariables("chassis_DriveDistance_PID_DRIVE_KP", 670.0);
+					addToVariables("chassis_DriveDistance_PID_DRIVE_KI", 0.0);
+					addToVariables("chassis_DriveDistance_PID_DRIVE_KD", 0.0);
 
 					// Yaw
 					addToVariables("chassis_DriveDistance_PID_YAW_KP", 270.0);
@@ -217,9 +215,9 @@ public class Config {
 				// PID
 				addToVariables("chassis_TurnByGyro_PID_Tolerance", 1.0);
 
-				addToVariables("chassis_TurnByGyro_PID_KP", 82.0);
-				addToVariables("chassis_TurnByGyro_PID_KI", 0.7);
-				addToVariables("chassis_TurnByGyro_PID_KD", 5.0);
+				addToVariables("chassis_TurnByGyro_PID_KP", 30.0);
+				addToVariables("chassis_TurnByGyro_PID_KI", 0.0);
+				addToVariables("chassis_TurnByGyro_PID_KD", 0.0);
 			}
 
 			/*
@@ -270,7 +268,7 @@ public class Config {
 		 * Intake
 		 */
 		{
-			addToVariables("intake_rollIn_voltage", -0.85);
+			addToVariables("intake_rollIn_voltage", -0.5);
 			addToVariables("intake_rollOut_voltage", 0.5);
 			addToVariables("intake_directionalRollIn_leftVoltage", -0.8);
 			addToVariables("intake_directionalRollIn_rightVoltage", -0.5);
@@ -282,7 +280,7 @@ public class Config {
 		 */
 		{
 			addToVariables("holder_rollIn_voltage", -0.85);
-			addToVariables("holder_rollOut_voltage", 0.5);
+			addToVariables("holder_rollOut_voltage", 1.0);
 		}
 
 		/*
@@ -291,12 +289,31 @@ public class Config {
 		{
 			// TODO - Add setpoints
 			addToVariables("elevator_setpoint_bottom", 0.0);
-			addToVariables("elevator_setpoint_switch", 0.0);
+			addToVariables("elevator_setpoint_switch", 0.7);
 			addToVariables("elevator_setpoint_scale", 0.0);
 			addToVariables("elevator_setpoint_top", 0.0);
 			
-			// TODO - Add PID tolerance
-			addToVariables("elevator_PID_Tolerance", 0.0);
+			/*
+			 * Elevator to Level
+			 */
+			{
+			    // PID
+			    addToVariables("elevator_PID_KP", 400.0);
+			    addToVariables("elevator_PID_KI", 7.0);
+			    addToVariables("elevator_PID_KD", 60.0);
+			    
+			    // BANG BANG
+			    addToVariables("elevator_PID_Tolerance", 0.005);
+			    addToVariables("elevator_BangBang_UpVoltage", 0.4);
+			    addToVariables("elevator_BangBang_DownVoltage", -0.15);
+			}
+			
+			/*
+			 * Shifter
+			 */
+			{
+			    addToVariables("elevator_Shifter_Delay", 1000.0); // in milliseconds
+			}
 		}
 	}
 }

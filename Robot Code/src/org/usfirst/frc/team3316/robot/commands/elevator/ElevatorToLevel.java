@@ -8,21 +8,27 @@ import org.usfirst.frc.team3316.robot.subsystems.Elevator.Level;
 import edu.wpi.first.wpilibj.PIDController;
 
 public class ElevatorToLevel extends DBugCommand {
-	private Elevator.Level level;
 	private PIDController pid;
+	private double setpoint;
 
 	public ElevatorToLevel(Elevator.Level level) {
 		requires(Robot.elevator);
-		this.level = level;
+		this.setpoint = level.getSetpoint();
+	}
+	
+	public ElevatorToLevel(double setpoint) {
+		requires(Robot.elevator);
+		this.setpoint = setpoint;
 	}
 
 	@Override
 	protected void init() {
-		this.pid = Robot.elevator.getPIDController((double) config.get("elevator_PID_KP"),
-												  (double) config.get("elevator_PID_KI"),
-												  (double) config.get("elevator_PID_KD"),
-												  level);
-		this.pid.setSetpoint(level.getSetpoint());
+		this.pid = Robot.elevator.getPIDControllerElevator((double) config.get("elevator_PID_KP") / 1000.0,
+												  (double) config.get("elevator_PID_KI") * (0.2 / setpoint) / 1000.0,
+												  (double) config.get("elevator_PID_KD") * (setpoint / 0.2) / 1000.0,
+												  0.0,
+												  setpoint);
+		this.pid.setSetpoint(setpoint);
 		this.pid.enable();
 	}
 

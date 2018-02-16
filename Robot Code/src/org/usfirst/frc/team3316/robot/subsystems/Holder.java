@@ -58,6 +58,6 @@ public class Holder extends DBugSubsystem {
 	 * @return A boolean indicating whether there is a cube in the robot
 	 */
 	public boolean isCubeIn () {
-		return this.limitSwitch.get();
+		return !this.limitSwitch.get();
 	}
 }

@@ -6,10 +6,12 @@ package org.usfirst.frc.team3316.robot.robotIO;
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.config.Config;
 import org.usfirst.frc.team3316.robot.logger.DBugLogger;
+import org.usfirst.frc.team3316.robot.vision.VisionServer;
 
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -70,8 +72,7 @@ public class Sensors {
 	 * Holder
 	 */
 	public void HolderSensors() {
-		// holderLimitSwitch = new DigitalInput((int)
-		// config.get("HOLDER_LIMIT_SWITCH"));
+		 holderLimitSwitch = new DigitalInput((int)config.get("HOLDER_LIMIT_SWITCH"));
 	}
 
 	/*
@@ -79,11 +80,19 @@ public class Sensors {
 	 */
 	public void ElevatorSensors() {
 		elevatorHeBottom = new DigitalInput((int) config.get("ELEVATOR_BOTTOM_HE"));
-		elevatorHeSwitch = new DigitalInput((int) config.get("ELEVATOR_SWITCH_HE"));
-		elevatorHeScale = new DigitalInput((int) config.get("ELEVATOR_SCALE_HE"));
 		elevatorHeTop = new DigitalInput((int) config.get("ELEVATOR_TOP_HE"));
-		elevatorEncoder = new Encoder((int) config.get("ELEVATOR_ENCODER_A"), (int) config.get("ELEVATOR_ENCODER_B"),
+		elevatorEncoder = new Encoder((int) config.get("ELEVATOR_ENCODER_CHANNEL_A"), (int) config.get("ELEVATOR_ENCODER_CHANNEL_B"),
 				false, EncodingType.k4X);
 		elevatorEncoder.setDistancePerPulse((double) config.get("ELEVATOR_ENCODER_DISTANCE_PER_PULSE"));
+	}
+	
+	/*
+	 * Vision
+	 */
+	public void VisionSensors()
+	{
+		VisionServer visionServer = new VisionServer();
+		Thread visionThread = new Thread(visionServer);
+		visionThread.start();
 	}
 }

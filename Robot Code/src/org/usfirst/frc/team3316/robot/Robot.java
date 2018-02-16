@@ -78,6 +78,7 @@ public class Robot extends IterativeRobot {
 
 			Robot.actuators.GeneralActuators();
 			Robot.sensors.GeneralSensors();
+			Robot.sensors.VisionSensors();
 
 			/*
 			 * Subsystems
@@ -94,14 +95,14 @@ public class Robot extends IterativeRobot {
 			sdb = new SDB();
 
 			/*
-			 * Human IO (that requires subsystems)
-			 */
-			joysticks.initButtons();
-
-			/*
 			 * Timer
 			 */
 			sdb.timerInit();
+
+			/*
+			 * Human IO (that requires subsystems)
+			 */
+			joysticks.initButtons();
 
 			/*
 			 * Choosers

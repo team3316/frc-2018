@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Class for the Elevator subsystem.
@@ -19,10 +20,12 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 public class Elevator extends DBugSubsystem {
 	// Variables
 	private double offset;
+	private Gear gear;
 
 	// Sensors
-	private DigitalInput heBottom, heSwitch, heScale, heTop;
+	private DigitalInput heBottom, heTop;
 	private Encoder encoder;
+	private double encoderDistPerPulse;
 
 	// Actuators
 	private DBugSpeedController motor1, motor2;
@@ -98,6 +101,7 @@ public class Elevator extends DBugSubsystem {
 		@Override
 		public void pidWrite(double voltage) {
 			Robot.elevator.setMotors(voltage);
+			logger.info("ele_v:" + voltage);
 		}
 	}
 
@@ -108,10 +112,10 @@ public class Elevator extends DBugSubsystem {
 		// Sensors
 		Robot.sensors.ElevatorSensors();
 		this.heBottom = Robot.sensors.elevatorHeBottom;
-		// this.heSwitch = Robot.sensors.elevatorHeSwitch;
-		// this.heScale = Robot.sensors.elevatorHeScale;
-		// this.heTop = Robot.sensors.elevatorHeTop;
+		this.heTop = Robot.sensors.elevatorHeTop;
 		this.encoder = Robot.sensors.elevatorEncoder;
+		
+		this.encoderDistPerPulse = (double)config.get("ELEVATOR_ENCODER_DISTANCE_PER_PULSE");
 
 		// Actuators
 		Robot.actuators.ElevatorActuators();
@@ -127,10 +131,10 @@ public class Elevator extends DBugSubsystem {
 
 	@Override
 	public void periodic() {
-		// double setpoint = this.getLevel().getSetpoint();
-		// if (!Double.isNaN(setpoint)) {
-		// this.offset = setpoint - this.encoder.getDistance();
-		// }
+		 double setpoint = this.getLevel().getSetpoint();
+		 if (!Double.isNaN(setpoint)) {
+		     this.offset = setpoint - this.encoder.getRaw() * encoderDistPerPulse;
+		 }
 	}
 
 	/**
@@ -140,8 +144,8 @@ public class Elevator extends DBugSubsystem {
 	 *            - The output voltage
 	 */
 	public void setMotors(double voltage) {
-		// Level l = this.getLevel();
-		// if (l == Level.Bottom || l == Level.Top) return;
+		 Level l = this.getLevel();
+		 if ((l == Level.Bottom && voltage < 0) || l == Level.Top && voltage > 0) return;
 		this.motor1.setMotor(voltage);
 		this.motor2.setMotor(voltage);
 	}
@@ -164,11 +168,8 @@ public class Elevator extends DBugSubsystem {
 	 * @return The current level of the elevator
 	 */
 	public Level getLevel() {
-		if (this.heBottom.get())
-			return Level.Bottom;
-		// if (this.heSwitch.get()) return Level.Switch;
-		// if (this.heScale.get()) return Level.Scale;
-		// if (this.heTop.get()) return Level.Top;
+		if (!this.heBottom.get()) return Level.Bottom;
+		if (!this.heTop.get()) return Level.Top;
 		return Level.Intermediate;
 	}
 
@@ -176,10 +177,10 @@ public class Elevator extends DBugSubsystem {
 	 * Retrieves the current position of the elevator using the ball shifter's
 	 * encoder value.
 	 * 
-	 * @return The elevator's position in the range [0, 100]
+	 * @return The elevator's position (in meters)
 	 */
 	public double getPosition() {
-		return this.encoder.getDistance() + this.offset;
+		return this.encoder.getRaw() * encoderDistPerPulse + this.offset;
 	}
 
 	/**
@@ -189,6 +190,7 @@ public class Elevator extends DBugSubsystem {
 	 *            - The wanted gear: high or low
 	 */
 	public void shiftGear(Gear gear) {
+	    	this.gear = gear;
 		switch (gear) {
 		case HIGH:
 			this.shifter.set(Value.kForward);
@@ -213,8 +215,8 @@ public class Elevator extends DBugSubsystem {
 	 *            - The wanted level to make the elevator reach
 	 * @return A PID controller with the provided constants.
 	 */
-	public PIDController getPIDController(double kP, double kI, double kD, Elevator.Level level) {
-		return this.getPIDController(kP, kI, kD, level.getSetpoint());
+	public PIDController getPIDControllerElevator(double kP, double kI, double kD, double kF, double setpoint) {
+		return this.getPIDController(kP, kI, kD, kF, setpoint);
 	}
 
 	/**
@@ -230,13 +232,14 @@ public class Elevator extends DBugSubsystem {
 	 *            - The wanted setpoint to make the elevator reach
 	 * @return A PID controller with the provided constants.
 	 */
-	public PIDController getPIDController(double kP, double kI, double kD, double setpoint) {
-		PIDController pid = new PIDController(kP, kI, kD, new DistanceSource(), new DistanceOutput());
-		if (!Double.isNaN(setpoint))
-			pid.setSetpoint(setpoint);
-		pid.setContinuous();
+	public PIDController getPIDController(double kP, double kI, double kD, double kF, double setpoint) {
+		PIDController pid = new PIDController(kP, kI, kD, kF, new DistanceSource(), new DistanceOutput());
+//		if (!Double.isNaN(setpoint)) {
+//		    pid.setSetpoint(setpoint);
+//		}
+//		pid.setContinuous();
 		pid.setAbsoluteTolerance((double) Robot.config.get("elevator_PID_Tolerance"));
-		pid.setOutputRange(-1, 1);
+		pid.setOutputRange(-1.0, 1.0);
 		return pid;
 	}
 }

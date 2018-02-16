@@ -14,7 +14,7 @@ public class DriveToCube extends DBugCommand {
 
 	// Called just before this Command runs the first time
 	protected void init() {
-	    cmd = new DriveDistance(AlignRobot.getDistanceFromCube(), AlignRobot.getDistanceFromCube());
+	    cmd = new DriveDistance(AlignRobot.getDistanceFromCube());
 	    cmd.start();
 	}
 

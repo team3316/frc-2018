@@ -210,6 +210,10 @@ public class IO {
 
 					// Holder
 					putPWMA("HOLDER_MOTOR", 0);
+					
+					
+					// OTHER
+					Config.addToConstants("PCM_CAN_ID", 1);
 				}
 
 				/*
@@ -235,16 +239,14 @@ public class IO {
 					putDIOA("CHASSIS_RIGHT_ENCODER_CHANNEL_B", 2);
 
 					// Elevator
-					putDIOA("ELEVATOR_ENCODER_CHANNEL_A", 4);
-					putDIOA("ELEVATOR_ENCODER_CHANNEL_B", 5);
+					putDIOA("ELEVATOR_ENCODER_CHANNEL_A", 5);
+					putDIOA("ELEVATOR_ENCODER_CHANNEL_B", 4);
 
-					// ITS ALL FAKE
 					putDIOA("ELEVATOR_BOTTOM_HE", 6);
-					putDIOA("ELEVATOR_SWITCH_HE", 13);
-					putDIOA("ELEVATOR_SCALE_HE", 14);
-					putDIOA("ELEVATOR_TOP_HE", 15);
-					putDIOA("ELEVATOR_ENCODER_A", 17);
-					putDIOA("ELEVATOR_ENCODER_B", 16);
+					putDIOA("ELEVATOR_TOP_HE", 8);
+					
+					// Holder
+					putDIOA("HOLDER_LIMIT_SWITCH", 7);
 				}
 
 				/*

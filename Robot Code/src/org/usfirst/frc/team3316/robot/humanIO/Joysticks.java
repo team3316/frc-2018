@@ -4,10 +4,12 @@
 package org.usfirst.frc.team3316.robot.humanIO;
 
 import org.usfirst.frc.team3316.robot.Robot;
-import org.usfirst.frc.team3316.robot.chassis.paths.Path1;
+import org.usfirst.frc.team3316.robot.auton.commands.AlignToCube;
 import org.usfirst.frc.team3316.robot.commands.chassis.BrakeMode;
 import org.usfirst.frc.team3316.robot.commands.chassis.CoastMode;
 import org.usfirst.frc.team3316.robot.commands.chassis.DriveOneAxis;
+import org.usfirst.frc.team3316.robot.commands.holder.HolderCollection;
+import org.usfirst.frc.team3316.robot.commands.holder.HolderEjection;
 import org.usfirst.frc.team3316.robot.commands.holder.HolderRoll;
 import org.usfirst.frc.team3316.robot.commands.holder.HolderRollType;
 import org.usfirst.frc.team3316.robot.commands.intake.IntakeRoll;
@@ -88,10 +90,18 @@ public class Joysticks {
 	 */
 	DBugJoystickButton toggleHolderRollIn = new DBugJoystickButton(joystickOperator, "button_Holder_RollIn");
 	toggleHolderRollIn.whenPressed(
-		new DBugToggleCommand(new HolderRoll(HolderRollType.RollIn), new HolderRoll(HolderRollType.Stop)));
+		new DBugToggleCommand(new HolderCollection(), new HolderRoll(HolderRollType.Stop)));
 
 	DBugJoystickButton toggleHolderRollOut = new DBugJoystickButton(joystickOperator, "button_Holder_RollOut");
 	toggleHolderRollOut.whenPressed(
-		new DBugToggleCommand(new HolderRoll(HolderRollType.RollOut), new HolderRoll(HolderRollType.Stop)));
+		new DBugToggleCommand(new HolderEjection(), new HolderRoll(HolderRollType.Stop)));
+    
+	/*
+	 * Other
+	 */
+	DBugJoystickButton alignToCube = new DBugJoystickButton(joystickOperator, "button_Auton_Align");
+	alignToCube.whenPressed(
+	new AlignToCube());
+    
     }
 }
