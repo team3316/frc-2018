@@ -268,8 +268,8 @@ public class Config {
 		 * Intake
 		 */
 		{
-			addToVariables("intake_rollIn_voltage", -0.5);
-			addToVariables("intake_rollOut_voltage", 0.5);
+			addToVariables("intake_rollIn_voltage", 0.5);
+			addToVariables("intake_rollOut_voltage", -0.5);
 			addToVariables("intake_directionalRollIn_leftVoltage", -0.8);
 			addToVariables("intake_directionalRollIn_rightVoltage", -0.5);
 		}
