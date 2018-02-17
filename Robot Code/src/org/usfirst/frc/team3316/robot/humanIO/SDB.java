@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.TimerTask;
 
 import org.usfirst.frc.team3316.robot.Robot;
-import org.usfirst.frc.team3316.robot.chassis.paths.Path1;
 import org.usfirst.frc.team3316.robot.commands.emptyCommand;
 import org.usfirst.frc.team3316.robot.commands.chassis.MoveChassis;
 import org.usfirst.frc.team3316.robot.commands.chassis.ResetGyro;

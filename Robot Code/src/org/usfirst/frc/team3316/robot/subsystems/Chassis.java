@@ -42,7 +42,7 @@ public class Chassis extends DBugSubsystem {
 
 		leftEncoder = Robot.sensors.chassisLeftEncoder;
 		rightEncoder = Robot.sensors.chassisRightEncoder;
-		navx = Robot.sensors.navx;
+//		navx = Robot.sensors.navx;
 	}
 
 	public void initDefaultCommand() {

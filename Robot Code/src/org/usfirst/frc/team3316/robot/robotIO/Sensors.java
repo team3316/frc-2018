@@ -45,11 +45,11 @@ public class Sensors {
 	 * Chassis
 	 */
 	public void ChassisSensors() {
-		try {
-			navx = new AHRS(SPI.Port.kMXP);
-		} catch (RuntimeException ex) {
-			DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
-		}
+//		try {
+//			navx = new AHRS(SPI.Port.kMXP);
+//		} catch (RuntimeException ex) {
+//			DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
+//		}
 
 		chassisLeftEncoder = new Encoder((int) config.get("CHASSIS_LEFT_ENCODER_CHANNEL_A"),
 				(int) config.get("CHASSIS_LEFT_ENCODER_CHANNEL_B"),

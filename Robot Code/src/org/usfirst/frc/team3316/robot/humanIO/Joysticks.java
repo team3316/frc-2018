@@ -4,7 +4,6 @@
 package org.usfirst.frc.team3316.robot.humanIO;
 
 import org.usfirst.frc.team3316.robot.Robot;
-import org.usfirst.frc.team3316.robot.chassis.paths.Path1;
 import org.usfirst.frc.team3316.robot.commands.chassis.BrakeMode;
 import org.usfirst.frc.team3316.robot.commands.chassis.CoastMode;
 import org.usfirst.frc.team3316.robot.commands.chassis.DriveOneAxis;
@@ -78,7 +77,7 @@ public class Joysticks {
 //		(int) config.get("axis_Chassis_DriveOneAxis2"), (double) config.get("axis_Chassis_SwitchLimit"));
 //	DriveOneAxisAxisButton2.whileHeld(new DriveOneAxis());
 	
-	DBugJoystickButton path1Button = new DBugJoystickButton(joystickOperator, "button_Commands_Path1");
-	path1Button.whenPressed(new Path1());
+//	DBugJoystickButton path1Button = new DBugJoystickButton(joystickOperator, "button_Commands_Path1");
+//	path1Button.whenPressed(new Path1());
     }
 }
