@@ -157,7 +157,8 @@ public class SDB {
 		// Elevator
 		
 		SmartDashboard.putData("Toggle Shifting", new DBugToggleCommand(new ShiftGear(Gear.HIGH), new ShiftGear(Gear.LOW)));
-		SmartDashboard.putData(new ShiftGear(Gear.HIGH));
+		SmartDashboard.putData("HIGH GEAR",new ShiftGear(Gear.HIGH));
+		SmartDashboard.putData("LOW GEAR",new ShiftGear(Gear.LOW));
 		logger.info("Finished initSDB()");
 	}
 

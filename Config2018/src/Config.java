@@ -98,24 +98,27 @@ public class Config {
 				}
 
 				/*
-				 * Buttons
+				 * Buttons and axis
 				 */
-				{
+				{;
 					// Joystick operator
+				    	addToVariables("button_Elevetor_Top", 4);
+					addToVariables("button_Elevetor_Bottom", 1);
+					addToVariables("button_Elevetor_Switch", 2);
+					addToVariables("button_Elevetor_Scale", 3);
+					
+					addToVariables("button_Elevator_Joystick_Toggle", 10);
+					addToVariables("elevator_Joystick_Axis", 5);
 
-					addToVariables("button_Intake_RollIn", 6);
-					addToVariables("button_Intake_RollOut", 5);
+					addToVariables("button_Collection", 6);
+					addToVariables("button_Ejection", 5);
 					
 					addToVariables("button_Holder_RollIn", 8);
 					addToVariables("button_Holder_RollOut", 7);
 					
-					addToVariables("button_Auton_Align", 4);
-
 					addToVariables("button_Chassis_Break_Toggle", 1);
 					addToVariables("button_Chassis_DriveOneAxis", 3);
 					addToVariables("axis_Chassis_DriveOneAxis1", 3);
-					addToVariables("axis_Chassis_DriveOneAxis2", 2);
-					addToVariables("axis_Chassis_SwitchLimit", 0.5);
 				}
 			}
 		}
@@ -151,7 +154,6 @@ public class Config {
 				 */
 				addToConstants("ELEVATOR_ENCODER_DISTANCE_PER_PULSE", 0.0008736); // in meters
 				addToConstants("ELEVATOR_MOTORS_REVERSE", false);
-				addToVariables("elevator_Joystick_Axis", 1);
 			}
 		}
 
@@ -268,8 +270,8 @@ public class Config {
 		 * Intake
 		 */
 		{
-			addToVariables("intake_rollIn_voltage", 0.5);
-			addToVariables("intake_rollOut_voltage", -0.5);
+			addToVariables("intake_rollIn_voltage", -0.5);
+			addToVariables("intake_rollOut_voltage", 1.0);
 			addToVariables("intake_directionalRollIn_leftVoltage", -0.8);
 			addToVariables("intake_directionalRollIn_rightVoltage", -0.5);
 		}
@@ -287,11 +289,10 @@ public class Config {
 		 * Elevator
 		 */
 		{
-			// TODO - Add setpoints
 			addToVariables("elevator_setpoint_bottom", 0.0);
 			addToVariables("elevator_setpoint_switch", 0.7);
-			addToVariables("elevator_setpoint_scale", 0.0);
-			addToVariables("elevator_setpoint_top", 0.0);
+			addToVariables("elevator_setpoint_scale", 1.8);
+			addToVariables("elevator_setpoint_top", 1.92);
 			
 			/*
 			 * Elevator to Level
@@ -306,6 +307,10 @@ public class Config {
 			    addToVariables("elevator_PID_Tolerance", 0.005);
 			    addToVariables("elevator_BangBang_UpVoltage", 0.4);
 			    addToVariables("elevator_BangBang_DownVoltage", -0.15);
+			    
+			    // SHAKEN
+			    addToVariables("elevator_Shaken_Tolerance", 0.001);
+			    addToVariables("elevator_Shaken_Voltage", 0.15);
 			}
 			
 			/*

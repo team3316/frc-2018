@@ -8,6 +8,10 @@ import org.usfirst.frc.team3316.robot.auton.commands.AlignToCube;
 import org.usfirst.frc.team3316.robot.commands.chassis.BrakeMode;
 import org.usfirst.frc.team3316.robot.commands.chassis.CoastMode;
 import org.usfirst.frc.team3316.robot.commands.chassis.DriveOneAxis;
+import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorEmptyCommand;
+import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorJoystick;
+import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorMoveToEdge;
+import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorToLevelBangbang;
 import org.usfirst.frc.team3316.robot.commands.holder.HolderCollection;
 import org.usfirst.frc.team3316.robot.commands.holder.HolderEjection;
 import org.usfirst.frc.team3316.robot.commands.holder.HolderRoll;
@@ -16,6 +20,10 @@ import org.usfirst.frc.team3316.robot.commands.intake.IntakeRoll;
 import org.usfirst.frc.team3316.robot.commands.intake.IntakeRollType;
 import org.usfirst.frc.team3316.robot.config.Config;
 import org.usfirst.frc.team3316.robot.logger.DBugLogger;
+import org.usfirst.frc.team3316.robot.sequences.CollectCube;
+import org.usfirst.frc.team3316.robot.sequences.EjectCube;
+import org.usfirst.frc.team3316.robot.sequences.StopCollectionEjection;
+import org.usfirst.frc.team3316.robot.subsystems.Elevator.Level;
 
 import edu.wpi.first.wpilibj.AnalogTrigger;
 import edu.wpi.first.wpilibj.Joystick;
@@ -70,20 +78,18 @@ public class Joysticks {
 	/*
 	 * Chassis
 	 */
-	DBugJoystickButton toggleChassisBrakeMode = new DBugJoystickButton(joystickOperator,
-		"button_Chassis_Break_Toggle");
-	toggleChassisBrakeMode.whenPressed(new DBugToggleCommand(new BrakeMode(), new CoastMode()));
+//	DBugJoystickButton toggleChassisBrakeMode = new DBugJoystickButton(joystickOperator,
+//		"button_Chassis_Break_Toggle");
+//	toggleChassisBrakeMode.whenPressed(new DBugToggleCommand(new BrakeMode(), new CoastMode()));
 	
 	/*
-	 * Intake
+	 * Collection and Ejection
 	 */
-	DBugJoystickButton toggleIntakeRollIn = new DBugJoystickButton(joystickOperator, "button_Intake_RollIn");
-	toggleIntakeRollIn.whenPressed(
-		new DBugToggleCommand(new IntakeRoll(IntakeRollType.RollIn), new IntakeRoll(IntakeRollType.Stop)));
-
-	DBugJoystickButton toggleIntakeRollOut = new DBugJoystickButton(joystickOperator, "button_Intake_RollOut");
-	toggleIntakeRollOut.whenPressed(
-		new DBugToggleCommand(new IntakeRoll(IntakeRollType.RollOut), new IntakeRoll(IntakeRollType.Stop)));
+	DBugJoystickButton buttonCollection = new DBugJoystickButton(joystickOperator, "button_Collection");
+	buttonCollection.whenPressed(new DBugToggleCommand(new CollectCube(), new StopCollectionEjection()));
+	
+	DBugJoystickButton buttonEjection = new DBugJoystickButton(joystickOperator, "button_Ejection");
+	buttonEjection.whenPressed(new DBugToggleCommand(new EjectCube(), new StopCollectionEjection()));
 	
 	/*
 	 * Holder
@@ -95,13 +101,28 @@ public class Joysticks {
 	DBugJoystickButton toggleHolderRollOut = new DBugJoystickButton(joystickOperator, "button_Holder_RollOut");
 	toggleHolderRollOut.whenPressed(
 		new DBugToggleCommand(new HolderEjection(), new HolderRoll(HolderRollType.Stop)));
-    
+	
 	/*
-	 * Other
+	 * Elevator
 	 */
-	DBugJoystickButton alignToCube = new DBugJoystickButton(joystickOperator, "button_Auton_Align");
-	alignToCube.whenPressed(
-	new AlignToCube());
+	DBugJoystickButton elevatorTop = new DBugJoystickButton(joystickOperator,
+		"button_Elevetor_Top");
+	elevatorTop.whenPressed(new ElevatorMoveToEdge(Level.Top));
+	DBugJoystickButton elevatorScale = new DBugJoystickButton(joystickOperator,
+		"button_Elevetor_Scale");
+	elevatorScale.whenPressed(new ElevatorToLevelBangbang(Level.Scale));
+	DBugJoystickButton elevatorSwitch = new DBugJoystickButton(joystickOperator,
+		"button_Elevetor_Switch");
+	elevatorSwitch.whenPressed(new ElevatorToLevelBangbang(Level.Switch));
+	DBugJoystickButton elevatorBottom = new DBugJoystickButton(joystickOperator,
+		"button_Elevetor_Bottom");
+	elevatorBottom.whenPressed(new ElevatorMoveToEdge(Level.Bottom));
+	
+	DBugJoystickButton toggleElevatorJoystick = new DBugJoystickButton(joystickOperator, "button_Elevator_Joystick_Toggle");
+	toggleElevatorJoystick.whenPressed(
+		new DBugToggleCommand(new ElevatorJoystick(), new ElevatorEmptyCommand()));
+	
+	
     
     }
 }

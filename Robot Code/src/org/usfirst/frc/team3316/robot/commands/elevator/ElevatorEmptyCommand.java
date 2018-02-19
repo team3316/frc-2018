@@ -1,32 +1,30 @@
-package org.usfirst.frc.team3316.robot.commands.holder;
+package org.usfirst.frc.team3316.robot.commands.elevator;
 
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
 
-public class WaitForCubeIn extends DBugCommand {
-    private double timer;
+public class ElevatorEmptyCommand extends DBugCommand {
 
-    public WaitForCubeIn() {}
+    public ElevatorEmptyCommand() {
+	requires(Robot.elevator);
+    }
 
     @Override
     protected void init() {
-	timer = 0.0;
+	// TODO Auto-generated method stub
+
     }
 
     @Override
     protected void execute() {
-	if (Robot.holder.isCubeIn()) {
-	    timer += 20.0;
-	}
-	else {
-	    timer = 0.0;
-	}
+	// TODO Auto-generated method stub
+
     }
 
     @Override
     protected boolean isFinished() {
 	// TODO Auto-generated method stub
-	return (Robot.holder.isCubeIn() && timer >= 500.0);
+	return false;
     }
 
     @Override

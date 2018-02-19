@@ -3,25 +3,22 @@ package org.usfirst.frc.team3316.robot.commands.elevator;
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
 
-import edu.wpi.first.wpilibj.Joystick;
+public class ElevatorMoveVoltage extends DBugCommand {
+	private double voltage;
 
-public class ElevatorJoystick extends DBugCommand {
-	private Joystick joystick;
-
-	public ElevatorJoystick() {
+	public ElevatorMoveVoltage(double voltage) {
 		requires(Robot.elevator);
-		joystick = Robot.joysticks.joystickOperator;
+		this.voltage = voltage;
 	}
 
 	@Override
 	protected void init() {
-		// Nothin' here
+		// Nothin' here boi
 	}
 
 	@Override
 	protected void execute() {
-		double joystickValue = -joystick.getRawAxis((int) Robot.config.get("elevator_Joystick_Axis"));
-		Robot.elevator.setMotors(joystickValue);
+		Robot.elevator.setMotors(this.voltage);
 	}
 
 	@Override
@@ -31,7 +28,7 @@ public class ElevatorJoystick extends DBugCommand {
 
 	@Override
 	protected void fin() {
-		Robot.elevator.setMotors(0.0);
+		// nothing much
 	}
 
 	@Override

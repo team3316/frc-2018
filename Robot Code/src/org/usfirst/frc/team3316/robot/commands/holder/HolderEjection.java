@@ -7,7 +7,7 @@ public class HolderEjection extends DBugCommandGroup {
     public HolderEjection() {
 	addParallel(new HolderRoll(HolderRollType.RollOut));
 	addSequential(new WaitForCubeOut());
-	addParallel(new HolderRoll(HolderRollType.Stop));
+	addParallel(new HolderRoll(HolderRollType.Stop), 0.1);
     }
 
 }

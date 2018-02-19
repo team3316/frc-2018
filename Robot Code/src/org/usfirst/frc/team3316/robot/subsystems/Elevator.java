@@ -2,6 +2,7 @@ package org.usfirst.frc.team3316.robot.subsystems;
 
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorJoystick;
+import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorShaken;
 import org.usfirst.frc.team3316.robot.robotIO.DBugSpeedController;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -126,7 +127,7 @@ public class Elevator extends DBugSubsystem {
 
 	@Override
 	public void initDefaultCommand() {
-		setDefaultCommand(new ElevatorJoystick());
+	    setDefaultCommand(new ElevatorShaken());
 	}
 
 	@Override
@@ -194,10 +195,13 @@ public class Elevator extends DBugSubsystem {
 		switch (gear) {
 		case HIGH:
 			this.shifter.set(Value.kForward);
+			break;
 		case LOW:
 			this.shifter.set(Value.kReverse);
+			break;
 		default:
 			this.shifter.set(Value.kOff);
+			break;
 		}
 	}
 
