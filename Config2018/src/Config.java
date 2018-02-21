@@ -215,11 +215,11 @@ public class Config {
 			 */
 			{
 				// PID
-				addToVariables("chassis_TurnByGyro_PID_Tolerance", 1.0);
+				addToVariables("chassis_TurnByGyro_PID_Tolerance", 2.0);
 
-				addToVariables("chassis_TurnByGyro_PID_KP", 30.0);
+				addToVariables("chassis_TurnByGyro_PID_KP", 100.0);
 				addToVariables("chassis_TurnByGyro_PID_KI", 0.0);
-				addToVariables("chassis_TurnByGyro_PID_KD", 0.0);
+				addToVariables("chassis_TurnByGyro_PID_KD", 300.0);
 			}
 
 			/*
@@ -270,8 +270,8 @@ public class Config {
 		 * Intake
 		 */
 		{
-			addToVariables("intake_rollIn_voltage", -0.5);
-			addToVariables("intake_rollOut_voltage", 1.0);
+			addToVariables("intake_rollIn_voltage", 0.6);
+			addToVariables("intake_rollOut_voltage", -1.0);
 			addToVariables("intake_directionalRollIn_leftVoltage", -0.8);
 			addToVariables("intake_directionalRollIn_rightVoltage", -0.5);
 		}
@@ -311,6 +311,13 @@ public class Config {
 			    // SHAKEN
 			    addToVariables("elevator_Shaken_Tolerance", 0.001);
 			    addToVariables("elevator_Shaken_Voltage", 0.15);
+			}
+			
+			/*
+			 * ElevatorJoystick
+			 */
+			{
+				addToVariables("elevator_Joystick_LowPassVal", 0.2);
 			}
 			
 			/*

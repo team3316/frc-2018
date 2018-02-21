@@ -10,28 +10,18 @@ import org.usfirst.frc.team3316.robot.utils.falcon.PathPoints;
 
 public class RightPositionSwitch extends DBugCommandGroup {
 
-    public RightPositionSwitch (SwitchType type) {
-	PathPoints startPoints = new PathPoints();
-	startPoints.addPathPoint(0.0, 0.0);
-	startPoints.addPathPoint(-0.35, 2.6);
-	PathFollowCommand startPath = new PathFollowCommand(startPoints, 3);
-	
-	PathPoints endPoints = new PathPoints();
-	endPoints.addPathPoint(0.0, 0.0);
-	endPoints.addPathPoint(1.5, 0.0);
-	endPoints.addPathPoint(1.5, 2.0);
-	endPoints.addPathPoint(-0.5, 2.0);
-	
-	PathFollowCommand endPath = new PathFollowCommand(endPoints, 6);
+	public RightPositionSwitch(SwitchType type) {
 
-//	addSequential(new ElevatorToLevelBangbang(Level.Switch));
-	addSequential(startPath);
-//	addSequential(new HolderEjection());
-//	addSequential(new ElevatorToLevelBangbang(Level.Bottom));
-	addSequential(new DriveDistance(-1.0));
-	addSequential(endPath);
-	
-	
-    }
+		PathPoints startPoints = new PathPoints();
+		startPoints.addPathPoint(0.0, 0.0);
+		startPoints.addPathPoint(0.0, 2.5);
+		startPoints.addPathPoint(-0.6, 3.0);
+		PathFollowCommand startPath = new PathFollowCommand(startPoints, 4);
+
+		addParallel(startPath);
+		addSequential(new ElevatorToLevelBangbang(1.7));
+		addSequential(new HolderEjection());
+
+	}
 
 }

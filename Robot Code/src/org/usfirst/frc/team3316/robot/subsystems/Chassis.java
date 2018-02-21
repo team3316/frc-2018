@@ -36,13 +36,15 @@ public class Chassis extends DBugSubsystem {
 		rightMotor2 = Robot.actuators.chassisRight2;
 		leftMotor2 = Robot.actuators.chassisLeft2;
 		rightMotor1 = Robot.actuators.chassisRight1;
-
+		
 		// Sensors
 		Robot.sensors.ChassisSensors();
 
 		leftEncoder = Robot.sensors.chassisLeftEncoder;
 		rightEncoder = Robot.sensors.chassisRightEncoder;
 		navx = Robot.sensors.navx;
+		
+		resetYaw();
 	}
 
 	public void initDefaultCommand() {
@@ -79,7 +81,6 @@ public class Chassis extends DBugSubsystem {
 
 	public void resetYaw() {
 		 yawOffset = yawOffset - getYaw();
-		// SmartDashboard.putNumber("Yaw offset", yawOffset);
 	}
 
 	public void resetRoll() {

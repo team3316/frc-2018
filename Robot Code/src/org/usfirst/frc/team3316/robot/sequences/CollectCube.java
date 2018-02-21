@@ -10,11 +10,11 @@ import org.usfirst.frc.team3316.robot.subsystems.Elevator.Level;
 
 public class CollectCube extends DBugCommandGroup {
 
-    public CollectCube() {
-	addSequential(new ElevatorMoveToEdge(Level.Bottom));
-	addParallel(new IntakeRoll(IntakeRollType.RollIn));
-	addSequential(new HolderCollection());
-	addParallel(new IntakeRoll(IntakeRollType.Stop), 0.1);
-    }
+	public CollectCube() {
+		addSequential(new ElevatorMoveToEdge(Level.Bottom));
+		addParallel(new IntakeRoll(IntakeRollType.Directional));
+		addSequential(new HolderCollection());
+		addParallel(new IntakeRoll(IntakeRollType.Stop), 0.1);
+	}
 
 }

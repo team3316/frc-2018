@@ -11,13 +11,14 @@ import org.usfirst.frc.team3316.robot.utils.falcon.PathPoints;
 
 public class LeftPositionSwitch extends DBugCommandGroup { 
     public LeftPositionSwitch (SwitchType type) {
-	PathPoints startPoints = new PathPoints();
-	startPoints.addPathPoint(0.0, 0.0);
-	startPoints.addPathPoint(0.4, 2.5);
-	PathFollowCommand startPath = new PathFollowCommand(startPoints, 3);
+		PathPoints startPoints = new PathPoints();
+		startPoints.addPathPoint(0.0, 0.0);
+		startPoints.addPathPoint(0.0, 2.5);
+		startPoints.addPathPoint(0.6, 3.0);
+		PathFollowCommand startPath = new PathFollowCommand(startPoints, 4);
 
-	addParallel(new ElevatorToLevelBangbang(Level.Switch));
-	addSequential(startPath);
-	addSequential(new HolderEjection());
+		addParallel(startPath);
+		addSequential(new ElevatorToLevelBangbang(1.7));
+		addSequential(new HolderEjection());
     }
 }

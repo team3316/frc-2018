@@ -2,6 +2,7 @@ package org.usfirst.frc.team3316.robot.commands.elevator;
 
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
+import org.usfirst.frc.team3316.robot.utils.Utils;
 
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -21,6 +22,7 @@ public class ElevatorJoystick extends DBugCommand {
 	@Override
 	protected void execute() {
 		double joystickValue = -joystick.getRawAxis((int) Robot.config.get("elevator_Joystick_Axis"));
+		joystickValue = Utils.lowPassFilter(joystickValue, (double)config.get("elevator_Joystick_LowPassVal"), 0.0);
 		Robot.elevator.setMotors(joystickValue);
 	}
 

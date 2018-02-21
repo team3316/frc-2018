@@ -3,7 +3,9 @@ package org.usfirst.frc.team3316.robot;
 
 import java.util.Timer;
 
+import org.usfirst.frc.team3316.robot.commands.chassis.ResetGyro;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorMoveToEdge;
+import org.usfirst.frc.team3316.robot.commands.elevator.ShiftGear;
 import org.usfirst.frc.team3316.robot.config.Config;
 import org.usfirst.frc.team3316.robot.humanIO.Joysticks;
 import org.usfirst.frc.team3316.robot.humanIO.SDB;
@@ -12,6 +14,7 @@ import org.usfirst.frc.team3316.robot.robotIO.Actuators;
 import org.usfirst.frc.team3316.robot.robotIO.Sensors;
 import org.usfirst.frc.team3316.robot.subsystems.Chassis;
 import org.usfirst.frc.team3316.robot.subsystems.Elevator;
+import org.usfirst.frc.team3316.robot.subsystems.Elevator.Gear;
 import org.usfirst.frc.team3316.robot.subsystems.Elevator.Level;
 import org.usfirst.frc.team3316.robot.subsystems.EmptySubsystem;
 import org.usfirst.frc.team3316.robot.subsystems.Holder;
@@ -117,7 +120,7 @@ public class Robot extends IterativeRobot {
 
 	public void disabledInit() {
 		chassis.setBrake(false);
-		elevator.setBrake(false);
+		elevator.setBrake(true);
 	}
 
 	public void disabledPeriodic() {
@@ -134,7 +137,10 @@ public class Robot extends IterativeRobot {
 
 	public void teleopInit() {
 	    elevator.setBrake(true);
+	    (new ResetGyro()).start();
+	    
 	    (new ElevatorMoveToEdge(Level.Bottom)).start();
+	    (new ShiftGear(Gear.LOW)).start();
 	}
 
 	public void teleopPeriodic() {

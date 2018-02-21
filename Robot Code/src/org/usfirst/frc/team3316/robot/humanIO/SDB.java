@@ -10,6 +10,8 @@ import java.util.TimerTask;
 
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.auton.commands.DriveDistance;
+import org.usfirst.frc.team3316.robot.auton.commands.TurnByGyro;
+import org.usfirst.frc.team3316.robot.auton.sequences.CenterPositionSwitch;
 import org.usfirst.frc.team3316.robot.auton.sequences.LeftPositionSwitch;
 import org.usfirst.frc.team3316.robot.auton.sequences.RightPositionSwitch;
 import org.usfirst.frc.team3316.robot.auton.sequences.SwitchType;
@@ -42,26 +44,26 @@ public class SDB {
 
 		public void run() {
 			/*
-			 * For driver (shai shai)
+			 * For driver (mitel)
 			 */
 
 			// Chassis
 			put("Distace right", Robot.chassis.getRightDistance());
 			put("Distace left", Robot.chassis.getLeftDistance());
-			put("Speed", Robot.chassis.getSpeed());
-
 			put("Yaw angle", Robot.chassis.getYaw());
-//			put("Roll angle", Robot.chassis.getRoll());
-//			put("Pitch angle", Robot.chassis.getPitch());
 			
-//			logger.info("yaw:" + Robot.chassis.getYaw() + ", roll:" + Robot.chassis.getRoll() + ", pitch:" + Robot.chassis.getPitch());
-
-			put("Low Speed", Robot.chassis.isDrivingSlowly());
-
+			// Elevator
 			put("Elevator position", Robot.elevator.getPosition());
-			put("pulse count", Robot.sensors.elevatorEncoder.getRaw());
 			
-			put("Elevator Level", Robot.elevator.getLevel().toString());
+			put("LOW GEAR", Robot.elevator.getGear() == Gear.LOW);
+			
+			put("BOTTOM LEVEL", Robot.elevator.getLevel() == Level.Bottom);
+			put("INTER LEVEL", Robot.elevator.getLevel() == Level.Intermediate);
+			put("TOP LEVEL", Robot.elevator.getLevel() == Level.Top);
+			
+			// Holder
+			put("IS CUBE IN", Robot.holder.isCubeIn());
+			
 		}
 
 		private void put(String name, double d) {
@@ -141,24 +143,27 @@ public class SDB {
 
 	private void initSDB() {
 		initDriverCameras();
-	    
+
 		SmartDashboard.putData(new UpdateVariablesInConfig()); // NEVER REMOVE
 		// THIS COMMAND
-		
+
 		// Auton
 		SmartDashboard.putData(new LeftPositionSwitch(SwitchType.LEFT));
 		SmartDashboard.putData(new RightPositionSwitch(SwitchType.RIGHT));
 		
-		SmartDashboard.putData("drive -1m", new DriveDistance(-1.0));
+		SmartDashboard.putData("RIGHT CENTER", new CenterPositionSwitch(SwitchType.RIGHT));
+		SmartDashboard.putData("LEFT CENTER", new CenterPositionSwitch(SwitchType.LEFT));
 
+		SmartDashboard.putData(new TurnByGyro(-90.0));
 		// Chassis
 		SmartDashboard.putData(new ResetGyro());
-		
+
 		// Elevator
-		
-		SmartDashboard.putData("Toggle Shifting", new DBugToggleCommand(new ShiftGear(Gear.HIGH), new ShiftGear(Gear.LOW)));
-		SmartDashboard.putData("HIGH GEAR",new ShiftGear(Gear.HIGH));
-		SmartDashboard.putData("LOW GEAR",new ShiftGear(Gear.LOW));
+
+		SmartDashboard.putData("Toggle Shifting",
+				new DBugToggleCommand(new ShiftGear(Gear.HIGH), new ShiftGear(Gear.LOW)));
+		SmartDashboard.putData("HIGH GEAR", new ShiftGear(Gear.HIGH));
+		SmartDashboard.putData("LOW GEAR", new ShiftGear(Gear.LOW));
 		logger.info("Finished initSDB()");
 	}
 
@@ -183,6 +188,6 @@ public class SDB {
 	}
 
 	private void initLiveWindowSensors() {
-		
+
 	}
 }

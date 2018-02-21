@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Elevator extends DBugSubsystem {
 	// Variables
 	private double offset;
-	private Gear gear;
 
 	// Sensors
 	private DigitalInput heBottom, heTop;
@@ -173,6 +172,15 @@ public class Elevator extends DBugSubsystem {
 		if (!this.heTop.get()) return Level.Top;
 		return Level.Intermediate;
 	}
+	
+	public Gear getGear() {
+		if (shifter.get() == Value.kReverse) {
+			return Gear.LOW;
+		}
+		else {
+			return Gear.HIGH;
+		}
+	}
 
 	/**
 	 * Retrieves the current position of the elevator using the ball shifter's
@@ -191,7 +199,6 @@ public class Elevator extends DBugSubsystem {
 	 *            - The wanted gear: high or low
 	 */
 	public void shiftGear(Gear gear) {
-	    	this.gear = gear;
 		switch (gear) {
 		case HIGH:
 			this.shifter.set(Value.kForward);
