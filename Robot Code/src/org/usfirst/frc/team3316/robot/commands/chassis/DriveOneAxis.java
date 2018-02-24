@@ -2,8 +2,9 @@ package org.usfirst.frc.team3316.robot.commands.chassis;
 
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
+import org.usfirst.frc.team3316.robot.humanIO.Joysticks.AxisType;
+import org.usfirst.frc.team3316.robot.humanIO.Joysticks.JoystickType;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
@@ -11,15 +12,13 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 
 public class DriveOneAxis extends DBugCommand {
 
-	private Joystick joystickOperator;
-	private boolean invertY;
-	private double deadBand = 0.0, speedFactor, initYaw = 0, ratio = 0;
+	private JoystickType type;
+	private double speedFactor, initYaw = 0, ratio = 0;
 	private PIDController pidYaw;
 
-	public DriveOneAxis() {
+	public DriveOneAxis(JoystickType type) {
 		requires(Robot.chassis);
-
-		joystickOperator = Robot.joysticks.joystickOperator;
+		this.type = type;
 	}
 
 	private void initPIDYaw() {
@@ -62,29 +61,19 @@ public class DriveOneAxis extends DBugCommand {
 		pidYaw.enable();
 	}
 
-	protected double getY() {
-		updateConfigVariables();
-		double y = deadBand(joystickOperator.getRawAxis((int) config.get("chassis_Joystick_Right_Axis")));
-		if (invertY) {
-			return -y;
-		}
-		return y;
-	}
-
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
 		speedFactor = (double) config.get("chassis_SpeedFactor_Current");
 
-		double leftVoltage = getLeftVolatge(getY() * speedFactor, ratio);
-		double rightVoltage = getRightVoltage(getY() * speedFactor, ratio);
+		double axisValue = Robot.joysticks.getAxis(AxisType.RightY, this.type);
+		double leftVoltage = Robot.chassis.getLeftVolatge(axisValue * speedFactor, ratio);
+		double rightVoltage = Robot.chassis.getRightVoltage(axisValue * speedFactor, ratio);
 
 		Robot.chassis.setMotors(leftVoltage, rightVoltage);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -100,56 +89,4 @@ public class DriveOneAxis extends DBugCommand {
 	protected void interr() {
 		fin();
 	}
-
-	// Utils
-
-	/*
-	 * Here we call the get method of the config every execute because we want the
-	 * variables to update without needing to cancel the commands.
-	 */
-	private void updateConfigVariables() {
-		deadBand = (double) config.get("chassis_TankDrive_DeadBand");
-
-		invertY = (boolean) config.get("chassis_TankDrive_InvertY");
-	}
-
-	private double deadBand(double x) {
-		if (Math.abs(x) < deadBand) {
-			return 0;
-		}
-		return x;
-	}
-
-	private double getLeftVolatge(double v, double r) {
-		if (v > 0) { // Driving forward
-			if (r > 0) { // Swerving right
-				return v * (-r + 1);
-			} else { // Swerving left
-				return v;
-			}
-		} else { // Driving back
-			if (r < 0) { // Swerving right
-				return v * (r + 1);
-			} else { // Swerving left
-				return v;
-			}
-		}
-	}
-
-	private double getRightVoltage(double v, double r) {
-		if (v > 0) { // Driving forward
-			if (r < 0) { // Swerving left
-				return v * (r + 1);
-			} else { // Swerving right
-				return v;
-			}
-		} else { // Driving back
-			if (r > 0) { // Swerving left
-				return v * (-r + 1);
-			} else { // Swerving right
-				return v;
-			}
-		}
-	}
-
 }
