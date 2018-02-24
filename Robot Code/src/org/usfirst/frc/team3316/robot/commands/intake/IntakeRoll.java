@@ -31,9 +31,8 @@ public class IntakeRoll extends DBugCommand {
 
 	@Override
 	protected void execute() {
-	    	Robot.intake.setMotors(this.type.getLeftVoltage(), this.type.getRightVoltage());
+		Robot.intake.setMotors(this.type.getLeftVoltage(), this.type.getRightVoltage());
 	}
-
 
 	@Override
 	protected boolean isFinished() {

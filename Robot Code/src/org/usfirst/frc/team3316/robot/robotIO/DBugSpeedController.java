@@ -122,7 +122,7 @@ public class DBugSpeedController {
 		}
 	}
 
-	public void invert () {
+	public void invert() {
 		boolean r = this.reverse;
 		this.sc.setInverted(!r);
 		this.reverse = !r;

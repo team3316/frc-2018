@@ -9,113 +9,97 @@ import org.usfirst.frc.team3316.robot.logger.DBugLogger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class VisionServer implements Runnable
-{
+public class VisionServer implements Runnable {
 	public static Map<String, Double> Data;
 	private static DBugLogger logger;
-	
+
 	public static boolean isConnected = false;
 
-	static
-	{
+	static {
 		Data = new HashMap<String, Double>();
 		logger = Robot.logger;
 	}
 
-	private Map<String, Double> parseLine(String s)
-	{
+	private Map<String, Double> parseLine(String s) {
 		// Input e.g.: {'Var1':'33.16','Var2':'22.12'}
 		Map<String, Double> data = new HashMap<String, Double>();
 
-//		logger.finest(s);
-		
+		// logger.finest(s);
+
 		String vars[] = s.split(",");
-		
-		for (String var : vars)
-		{
-//			logger.info(var);
-			
+
+		for (String var : vars) {
+			// logger.info(var);
+
 			String parts[] = var.split(":", 0);
 
-			String key = parts[0].substring(parts[0].indexOf('\'') + 1,
-					parts[0].lastIndexOf('\''));
+			String key = parts[0].substring(parts[0].indexOf('\'') + 1, parts[0].lastIndexOf('\''));
 
-//			logger.finest("Key: " + key);
-			
-			String valueString = parts[1].substring(parts[1].indexOf('\'') + 1,
-					parts[1].lastIndexOf('\''));
-			
-			if (valueString.contains("}"))
-			{
+			// logger.finest("Key: " + key);
+
+			String valueString = parts[1].substring(parts[1].indexOf('\'') + 1, parts[1].lastIndexOf('\''));
+
+			if (valueString.contains("}")) {
 				valueString = valueString.substring(0, valueString.indexOf('}') - 2);
 			}
-			
+
 			double value = Double.parseDouble(valueString);
-			
-//			logger.finest("Value: " + value);
+
+			// logger.finest("Value: " + value);
 
 			data.put(key, value);
 		}
 
-//		logger.fine("data: " + data.toString());
-		
+		// logger.fine("data: " + data.toString());
+
 		return data;
 	}
-	
+
 	private long lastTime = 0;
 
-	public void run()
-	{
+	public void run() {
 		DatagramSocket serverSocket = null;
-		try
-		{
+		try {
 			serverSocket = new DatagramSocket(8000);
-		}
-		catch (SocketException e)
-		{
+		} catch (SocketException e) {
 			System.err.println("Error with creating the UDP Socket.");
 		}
 
 		byte[] receiveData = new byte[70];
 
-		while (true)
-		{
-		    SmartDashboard.putBoolean("is connected", isConnected);
-			if (lastTime == 0)
-			{
+		while (true) {
+			SmartDashboard.putBoolean("is connected", isConnected);
+			if (lastTime == 0) {
 				lastTime = System.currentTimeMillis();
 			}
-			
-//			logger.finest("Time difference from last while: " + (System.currentTimeMillis() - lastTime));
+
+			// logger.finest("Time difference from last while: " +
+			// (System.currentTimeMillis() - lastTime));
 			lastTime = System.currentTimeMillis();
-			
-			DatagramPacket receivePacket = new DatagramPacket(receiveData,
-					receiveData.length);
-			try
-			{
+
+			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+			try {
 				serverSocket.setSoTimeout(100);
 				serverSocket.receive(receivePacket);
 
-//				logger.finest("Received packet");
-				
+				// logger.finest("Received packet");
+
 				isConnected = true;
-				
+
 				String sentence = new String(receivePacket.getData());
-				
+
 				System.out.println("PACKET DATA: " + sentence);
 				SmartDashboard.putString("PACKET DATA", sentence);
-				
-//				logger.finest("Packet data length: " + receivePacket.getLength());
+
+				// logger.finest("Packet data length: " + receivePacket.getLength());
 				VisionServer.Data = parseLine(sentence);
 				SmartDashboard.putNumber("AA", VisionServer.Data.get("AA"));
-				
-//				logger.finest("Parsed line");
-			}
-			catch (Exception e)
-			{
-//				logger.severe("Vision server couldn't receive a packet");
+
+				// logger.finest("Parsed line");
+			} catch (Exception e) {
+				// logger.severe("Vision server couldn't receive a packet");
 				isConnected = false;
-//				logger.severe(e);
+				// logger.severe(e);
 			}
 		}
 	}

@@ -9,8 +9,8 @@ import org.usfirst.frc.team3316.robot.commands.holder.HolderRollType;
 import org.usfirst.frc.team3316.robot.subsystems.Elevator.Level;
 import org.usfirst.frc.team3316.robot.utils.falcon.PathPoints;
 
-public class LeftPositionSwitch extends DBugCommandGroup { 
-    public LeftPositionSwitch (SwitchType type) {
+public class LeftPositionSwitch extends DBugCommandGroup {
+	public LeftPositionSwitch(SwitchType type) {
 		PathPoints startPoints = new PathPoints();
 		startPoints.addPathPoint(0.0, 0.0);
 		startPoints.addPathPoint(0.0, 2.5);
@@ -20,5 +20,5 @@ public class LeftPositionSwitch extends DBugCommandGroup {
 		addParallel(startPath);
 		addSequential(new ElevatorToLevelBangbang(1.7));
 		addSequential(new HolderEjection());
-    }
+	}
 }

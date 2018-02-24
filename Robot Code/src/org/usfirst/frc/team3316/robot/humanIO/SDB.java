@@ -51,19 +51,19 @@ public class SDB {
 			put("Distace right", Robot.chassis.getRightDistance());
 			put("Distace left", Robot.chassis.getLeftDistance());
 			put("Yaw angle", Robot.chassis.getYaw());
-			
+
 			// Elevator
 			put("Elevator position", Robot.elevator.getPosition());
-			
+
 			put("LOW GEAR", Robot.elevator.getGear() == Gear.LOW);
-			
+
 			put("BOTTOM LEVEL", Robot.elevator.getLevel() == Level.Bottom);
 			put("INTER LEVEL", Robot.elevator.getLevel() == Level.Intermediate);
 			put("TOP LEVEL", Robot.elevator.getLevel() == Level.Top);
-			
+
 			// Holder
 			put("IS CUBE IN", Robot.holder.isCubeIn());
-			
+
 		}
 
 		private void put(String name, double d) {
@@ -150,7 +150,7 @@ public class SDB {
 		// Auton
 		SmartDashboard.putData(new LeftPositionSwitch(SwitchType.LEFT));
 		SmartDashboard.putData(new RightPositionSwitch(SwitchType.RIGHT));
-		
+
 		SmartDashboard.putData("RIGHT CENTER", new CenterPositionSwitch(SwitchType.RIGHT));
 		SmartDashboard.putData("LEFT CENTER", new CenterPositionSwitch(SwitchType.LEFT));
 

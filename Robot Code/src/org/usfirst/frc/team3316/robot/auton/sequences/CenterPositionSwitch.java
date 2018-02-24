@@ -21,8 +21,7 @@ public class CenterPositionSwitch extends DBugCommandGroup {
 			addParallel(new ElevatorToLevelBangbang(1.7));
 			addSequential(startPath);
 			addSequential(new HolderEjection());
-		}
-		else if (type == SwitchType.LEFT) {
+		} else if (type == SwitchType.LEFT) {
 			PathPoints startPoints = new PathPoints();
 			startPoints.addPathPoint(0.0, 0.0);
 			startPoints.addPathPoint(-3.7, 1.75);

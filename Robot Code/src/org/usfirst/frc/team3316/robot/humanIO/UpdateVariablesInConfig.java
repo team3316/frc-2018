@@ -13,47 +13,41 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * Updates all the variables that are in the SmartDashboard
  */
-public class UpdateVariablesInConfig extends Command 
-{
+public class UpdateVariablesInConfig extends Command {
 	Config config = Robot.config;
-	
-    public UpdateVariablesInConfig() 
-    {
-    	setRunWhenDisabled(true);
-    }
 
-    protected void initialize()
-    {
-    	/*
-    	 * Iterates over all of the entries in the map and replaces their value in the config from the SDB
-    	 */
-    	Set <Entry <String, Class <?> > > variables = Robot.sdb.getVariablesInSDB();
-    	
-    	for (Map.Entry<String, Class <?> > entry : variables)
-    	{
-    		if (entry.getValue() == Double.class)
-    		{
-    		    	config.add(entry.getKey(), (double) SmartDashboard.getNumber(entry.getKey(), 0.0));
-    		}
-    		else if (entry.getValue() == Integer.class)
-    		{
-    			config.add(entry.getKey(), (int) SmartDashboard.getNumber(entry.getKey(), 0.0));
-    		}
-    		else if (entry.getValue() == Boolean.class)
-    		{
-    		    	config.add(entry.getKey(), (boolean) SmartDashboard.getBoolean(entry.getKey(), false));
-    		}
-    	}
-    }
+	public UpdateVariablesInConfig() {
+		setRunWhenDisabled(true);
+	}
 
-    protected void execute() {}
+	protected void initialize() {
+		/*
+		 * Iterates over all of the entries in the map and replaces their value in the
+		 * config from the SDB
+		 */
+		Set<Entry<String, Class<?>>> variables = Robot.sdb.getVariablesInSDB();
 
-    protected boolean isFinished() 
-    {
-        return true;
-    }
+		for (Map.Entry<String, Class<?>> entry : variables) {
+			if (entry.getValue() == Double.class) {
+				config.add(entry.getKey(), (double) SmartDashboard.getNumber(entry.getKey(), 0.0));
+			} else if (entry.getValue() == Integer.class) {
+				config.add(entry.getKey(), (int) SmartDashboard.getNumber(entry.getKey(), 0.0));
+			} else if (entry.getValue() == Boolean.class) {
+				config.add(entry.getKey(), (boolean) SmartDashboard.getBoolean(entry.getKey(), false));
+			}
+		}
+	}
 
-    protected void end() {}
-    
-    protected void interrupted() {}
+	protected void execute() {
+	}
+
+	protected boolean isFinished() {
+		return true;
+	}
+
+	protected void end() {
+	}
+
+	protected void interrupted() {
+	}
 }

@@ -15,7 +15,7 @@ public class ElevatorToLevel extends DBugCommand {
 		requires(Robot.elevator);
 		this.setpoint = level.getSetpoint();
 	}
-	
+
 	public ElevatorToLevel(double setpoint) {
 		requires(Robot.elevator);
 		this.setpoint = setpoint;
@@ -24,10 +24,8 @@ public class ElevatorToLevel extends DBugCommand {
 	@Override
 	protected void init() {
 		this.pid = Robot.elevator.getPIDControllerElevator((double) config.get("elevator_PID_KP") / 1000.0,
-												  (double) config.get("elevator_PID_KI") * (0.2 / setpoint) / 1000.0,
-												  (double) config.get("elevator_PID_KD") * (setpoint / 0.2) / 1000.0,
-												  0.0,
-												  setpoint);
+				(double) config.get("elevator_PID_KI") * (0.2 / setpoint) / 1000.0,
+				(double) config.get("elevator_PID_KD") * (setpoint / 0.2) / 1000.0, 0.0, setpoint);
 		this.pid.setSetpoint(setpoint);
 		this.pid.enable();
 	}

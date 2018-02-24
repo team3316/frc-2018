@@ -22,7 +22,7 @@ public class ElevatorJoystick extends DBugCommand {
 	@Override
 	protected void execute() {
 		double joystickValue = -joystick.getRawAxis((int) Robot.config.get("elevator_Joystick_Axis"));
-		joystickValue = Utils.lowPassFilter(joystickValue, (double)config.get("elevator_Joystick_LowPassVal"), 0.0);
+		joystickValue = Utils.lowPassFilter(joystickValue, (double) config.get("elevator_Joystick_LowPassVal"), 0.0);
 		Robot.elevator.setMotors(joystickValue);
 	}
 
