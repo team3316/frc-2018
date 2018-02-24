@@ -219,7 +219,7 @@ public class Chassis extends DBugSubsystem {
 	}
 
 	// Utils for YawPID function
-	private double getLeftVolatge(double v, double r) {
+	public double getLeftVolatge(double v, double r) {
 		if (v > 0) { // Driving forward
 			if (r > 0) { // Swerving right
 				return v * (-r + 1);
@@ -235,7 +235,7 @@ public class Chassis extends DBugSubsystem {
 		}
 	}
 
-	private double getRightVoltage(double v, double r) {
+	public double getRightVoltage(double v, double r) {
 		if (v > 0) { // Driving forward
 			if (r < 0) { // Swerving left
 				return v * (r + 1);

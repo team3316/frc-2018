@@ -220,6 +220,8 @@ public class Config {
 				addToVariables("chassis_TurnByGyro_PID_KP", 100.0);
 				addToVariables("chassis_TurnByGyro_PID_KI", 0.0);
 				addToVariables("chassis_TurnByGyro_PID_KD", 300.0);
+
+				addToVariables("chassis_TurnByGyro_VelocityFilter", 0.05);
 			}
 
 			/*
@@ -290,7 +292,7 @@ public class Config {
 		 */
 		{
 			addToVariables("elevator_setpoint_bottom", 0.0);
-			addToVariables("elevator_setpoint_switch", 0.7);
+			addToVariables("elevator_setpoint_switch", 1.7);
 			addToVariables("elevator_setpoint_scale", 1.8);
 			addToVariables("elevator_setpoint_top", 1.92);
 			

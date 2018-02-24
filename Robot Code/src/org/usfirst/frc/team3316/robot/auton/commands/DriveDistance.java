@@ -24,13 +24,15 @@ public class DriveDistance extends DBugCommand {
 		this.dist = dist;
 
 		started = false;
-
-		initPIDDrive();
-		initPIDYaw();
+		
+		pidDrive = this.initPIDDrive();
+		pidYaw = Robot.chassis.setYawPID((double) config.get("chassis_DriveDistance_PID_YAW_KP") / 1000,
+				(double) config.get("chassis_DriveDistance_PID_YAW_KI") / 1000,
+				(double) config.get("chassis_DriveDistance_PID_YAW_KD") / 1000, 0);
 	}
 
-	private void initPIDDrive() {
-		pidDrive = new PIDController(0, 0, 0, new PIDSource() {
+	private PIDController initPIDDrive() {
+		return new PIDController(0, 0, 0, new PIDSource() {
 			public void setPIDSourceType(PIDSourceType pidSource) {
 				return;
 			}
@@ -52,29 +54,6 @@ public class DriveDistance extends DBugCommand {
 		}, 0.02);
 	}
 
-	private void initPIDYaw() {
-		pidYaw = new PIDController(0, 0, 0, new PIDSource() {
-			public void setPIDSourceType(PIDSourceType pidSource) {
-				return;
-			}
-
-			public double pidGet() {
-				double currentYaw = Robot.chassis.getYaw() - initYaw;
-
-				return currentYaw;
-			}
-
-			public PIDSourceType getPIDSourceType() {
-				return PIDSourceType.kDisplacement;
-			}
-		}, new PIDOutput() {
-
-			public void pidWrite(double output) {
-				ratio = -output;
-			}
-		}, 0.02);
-	}
-
 	// Called just before this Command runs the first time
 	protected void init() {
 		Robot.chassis.setBrake(true);
@@ -87,16 +66,13 @@ public class DriveDistance extends DBugCommand {
 		pidDrive.setPID((double) config.get("chassis_DriveDistance_PID_DRIVE_KP") / 1000,
 				(double) config.get("chassis_DriveDistance_PID_DRIVE_KI") / 1000,
 				(double) config.get("chassis_DriveDistance_PID_DRIVE_KD") / 1000);
-		pidYaw.setPID((double) config.get("chassis_DriveDistance_PID_YAW_KP") / 1000,
-				(double) config.get("chassis_DriveDistance_PID_YAW_KI") / 1000,
-				(double) config.get("chassis_DriveDistance_PID_YAW_KD") / 1000);
 
 		pidDrive.setSetpoint(dist);
 		pidYaw.setSetpoint(0.0);
 
+		// REMARK: Need to reset yaw _before_ this command initializes
 		initDist = Robot.chassis.getDistance();
-		// initYaw = Robot.chassis.getYaw();
-		initYaw = 0.0;
+		initYaw = Robot.chassis.getYaw();
 
 		pidDrive.enable();
 		pidYaw.enable();
@@ -105,7 +81,9 @@ public class DriveDistance extends DBugCommand {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.chassis.setMotors(getLeftVolatge(velocity, ratio), getRightVoltage(velocity, ratio));
+		double leftVoltage = Robot.chassis.getLeftVolatge(velocity, ratio);
+		double rightVoltage = Robot.chassis.getRightVoltage(velocity, ratio);
+		Robot.chassis.setMotors(leftVoltage, rightVoltage);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -129,38 +107,5 @@ public class DriveDistance extends DBugCommand {
 	protected void interr() {
 		logger.info("DriveDistance interrupted");
 		fin();
-	}
-
-	// Utils
-	private double getLeftVolatge(double v, double r) {
-		if (v > 0) { // Driving forward
-			if (r > 0) { // Swerving right
-				return v * (-r + 1);
-			} else { // Swerving left
-				return v;
-			}
-		} else { // Driving back
-			if (r < 0) { // Swerving right
-				return v * (r + 1);
-			} else { // Swerving left
-				return v;
-			}
-		}
-	}
-
-	private double getRightVoltage(double v, double r) {
-		if (v > 0) { // Driving forward
-			if (r < 0) { // Swerving left
-				return v * (r + 1);
-			} else { // Swerving right
-				return v;
-			}
-		} else { // Driving back
-			if (r > 0) { // Swerving left
-				return v * (-r + 1);
-			} else { // Swerving right
-				return v;
-			}
-		}
 	}
 }
