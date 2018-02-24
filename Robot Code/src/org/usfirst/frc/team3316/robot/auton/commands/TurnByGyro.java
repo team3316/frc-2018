@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -71,7 +70,8 @@ public class TurnByGyro extends DBugCommand {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Math.abs(velocity) < 0.05 && pid.onTarget();
+		double velocityFilter = (double) config.get("chassis_TurnByGyro_VelocityFilter");
+		return Math.abs(velocity) < velocityFilter && pid.onTarget();
 	}
 
 	// Called once after isFinished returns true

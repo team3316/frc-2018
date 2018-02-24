@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 public class AlignToCube extends DBugCommand {
 	private static PIDController pid;
 	private static double setPoint;
-	private double lastTowerAngle;
+	private double lastAngle;
 	private static double tolerance;
 
 	public AlignToCube() {
@@ -43,7 +43,7 @@ public class AlignToCube extends DBugCommand {
 
 	protected void init() {
 		setPoint = 0.0;
-		lastTowerAngle = Double.MAX_VALUE;
+		lastAngle = Double.MAX_VALUE;
 		tolerance = (double) config.get("chassis_TurnByGyro_PID_Tolerance");
 
 		pid.setAbsoluteTolerance(tolerance);
@@ -64,13 +64,13 @@ public class AlignToCube extends DBugCommand {
 		 * This code is with setpoint set by the vision
 		 */
 		if (AlignRobot.isObjectDetected()) {
-			double towerAngle = AlignRobot.getCubeAngle();
+			double powerCubeAngle = AlignRobot.getCubeAngle();
 
-			if (towerAngle != lastTowerAngle && towerAngle != 3316.0) {
+			if (powerCubeAngle != lastAngle && powerCubeAngle != 3316.0) {
 
-				setPoint = towerAngle + currentAngle;
+				setPoint = powerCubeAngle + currentAngle;
 
-				lastTowerAngle = towerAngle;
+				lastAngle = powerCubeAngle;
 
 				pid.setSetpoint(setPoint);
 			}
