@@ -1,6 +1,5 @@
 package org.usfirst.frc.team3316.robot.sequences;
 
-import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.DBugCommandGroup;
 import org.usfirst.frc.team3316.robot.commands.holder.HolderRoll;
 import org.usfirst.frc.team3316.robot.commands.holder.HolderRollType;

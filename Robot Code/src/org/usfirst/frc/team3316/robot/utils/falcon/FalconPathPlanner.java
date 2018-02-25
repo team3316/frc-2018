@@ -1,7 +1,5 @@
 package org.usfirst.frc.team3316.robot.utils.falcon;
 
-import java.awt.Color;
-import java.awt.GraphicsEnvironment;
 import java.util.LinkedList;
 import java.util.List;
 

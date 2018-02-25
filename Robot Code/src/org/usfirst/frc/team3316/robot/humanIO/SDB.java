@@ -9,17 +9,12 @@ import java.util.Set;
 import java.util.TimerTask;
 
 import org.usfirst.frc.team3316.robot.Robot;
-import org.usfirst.frc.team3316.robot.auton.commands.DriveDistance;
 import org.usfirst.frc.team3316.robot.auton.commands.TurnByGyro;
 import org.usfirst.frc.team3316.robot.auton.sequences.CenterPositionSwitch;
 import org.usfirst.frc.team3316.robot.auton.sequences.LeftPositionSwitch;
 import org.usfirst.frc.team3316.robot.auton.sequences.RightPositionSwitch;
 import org.usfirst.frc.team3316.robot.auton.sequences.SwitchType;
-import org.usfirst.frc.team3316.robot.commands.emptyCommand;
-import org.usfirst.frc.team3316.robot.commands.chassis.MoveChassis;
 import org.usfirst.frc.team3316.robot.commands.chassis.ResetGyro;
-import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorToLevel;
-import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorToLevelBangbang;
 import org.usfirst.frc.team3316.robot.commands.elevator.ShiftGear;
 import org.usfirst.frc.team3316.robot.config.Config;
 import org.usfirst.frc.team3316.robot.logger.DBugLogger;
@@ -27,8 +22,6 @@ import org.usfirst.frc.team3316.robot.subsystems.Elevator.Gear;
 import org.usfirst.frc.team3316.robot.subsystems.Elevator.Level;
 
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.livewindow.LiveWindowSendable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SDB {
@@ -66,18 +59,22 @@ public class SDB {
 
 		}
 
+		@SuppressWarnings("unused")
 		private void put(String name, double d) {
 			SmartDashboard.putNumber(name, d);
 		}
 
+		@SuppressWarnings("unused")
 		private void put(String name, int i) {
 			SmartDashboard.putNumber(name, i);
 		}
 
+		@SuppressWarnings("unused")
 		private void put(String name, boolean b) {
 			SmartDashboard.putBoolean(name, b);
 		}
 
+		@SuppressWarnings("unused")
 		private void put(String name, String s) {
 			SmartDashboard.putString(name, s);
 		}

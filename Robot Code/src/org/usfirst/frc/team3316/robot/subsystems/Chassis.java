@@ -2,17 +2,11 @@ package org.usfirst.frc.team3316.robot.subsystems;
 
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.chassis.TankDrive;
-import org.usfirst.frc.team3316.robot.commands.chassis.TankDriveXbox;
 import org.usfirst.frc.team3316.robot.robotIO.DBugSpeedController;
-import org.usfirst.frc.team3316.robot.utils.Utils;
 
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Chassis extends DBugSubsystem {
@@ -92,6 +86,7 @@ public class Chassis extends DBugSubsystem {
 	}
 
 	// Returns the same heading in the range (-180) to (180)
+	@SuppressWarnings("unused")
 	private static double fixYaw(double heading) {
 		double toReturn = heading % 360;
 
