@@ -175,7 +175,7 @@ public class Config {
 
 				addToVariables("chassis_SpeedFactor_Higher", -1.0);
 				addToVariables("chassis_SpeedFactor_Lower", -0.3);
-				addToVariables("chassis_SpeedFactor_Current", -0.95); // the default value
+				addToVariables("chassis_SpeedFactor_Current", -1.0);
 
 				addToVariables("chassis_TankDrive_InvertX", true);
 				addToVariables("chassis_TankDrive_InvertY", false); // false value for xbox

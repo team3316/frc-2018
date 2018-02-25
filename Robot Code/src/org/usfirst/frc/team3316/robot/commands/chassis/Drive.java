@@ -28,6 +28,7 @@ public class Drive extends Command {
 
 	protected void initialize() {
 		lowestValue = (double) config.get("chassis_LowPassFilter_LowestValue");
+		speedFactor = (double) config.get("chassis_SpeedFactor_Current");
 	}
 
 	protected double getAxis(AxisType axisType) {
@@ -36,7 +37,6 @@ public class Drive extends Command {
 	}
 
 	protected void execute() {
-		speedFactor = (double) config.get("chassis_SpeedFactor_Current");
 		left = getAxis(AxisType.LeftY);
 		right = getAxis(AxisType.RightY);
 		Robot.chassis.setMotors(left, right);

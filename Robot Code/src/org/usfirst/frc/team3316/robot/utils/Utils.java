@@ -97,4 +97,53 @@ public class Utils {
 		return m / 0.3048000;
 	}
 
+	/**
+	 * Fixes the robot's left swerve by scaling the applied voltage.
+	 * 
+	 * @param v
+	 *            The applied voltage
+	 * @param r
+	 *            The ratio between each side's angle
+	 * @return The scaled voltage
+	 */
+	public static double calculateLeftVoltage(double v, double r) {
+		if (v > 0) { // Driving forward
+			if (r > 0) { // Swerving right
+				return v * (-r + 1);
+			} else { // Swerving left
+				return v;
+			}
+		} else { // Driving back
+			if (r < 0) { // Swerving right
+				return v * (r + 1);
+			} else { // Swerving left
+				return v;
+			}
+		}
+	}
+
+	/**
+	 * Fixes the robot's right swerve by scaling the applied voltage.
+	 * 
+	 * @param v
+	 *            The applied voltage
+	 * @param r
+	 *            The ratio between each side's angle
+	 * @return The scaled voltage
+	 */
+	public static double calculateRightVoltage(double v, double r) {
+		if (v > 0) { // Driving forward
+			if (r < 0) { // Swerving left
+				return v * (r + 1);
+			} else { // Swerving right
+				return v;
+			}
+		} else { // Driving back
+			if (r > 0) { // Swerving left
+				return v * (-r + 1);
+			} else { // Swerving right
+				return v;
+			}
+		}
+	}
 }
