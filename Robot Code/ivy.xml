@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+    <info organisation="org.usfirst.frc.team3316" module="robot" />
+    <dependencies>
+		<dependency org="org.json" name="json" rev="20180130">
+			<artifact name="json" type="jar" />
+		</dependency>
+
+		<dependency org="com.jcraft" name="jsch" rev="0.1.54" />
+
+		<dependency org="com.kauailabs.navx.frc" name="navx_frc" rev="[3.0,3.1]" />
+    </dependencies>
+</ivy-module>
