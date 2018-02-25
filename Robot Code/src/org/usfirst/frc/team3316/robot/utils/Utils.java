@@ -146,4 +146,11 @@ public class Utils {
 			}
 		}
 	}
+
+	/**
+	 * Checks whether a real number x is in an epsilon neighborhood of another real number L.
+	 */
+	public static boolean isInNeighborhood(double x, double L, double epsilon) {
+		return L - epsilon <= x && x <= L + epsilon;
+	}
 }

@@ -1,7 +1,6 @@
 package org.usfirst.frc.team3316.robot.subsystems;
 
 import org.usfirst.frc.team3316.robot.Robot;
-import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorJoystick;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorShaken;
 import org.usfirst.frc.team3316.robot.robotIO.DBugSpeedController;
 
@@ -9,11 +8,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.PIDSourceType;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Class for the Elevator subsystem.
@@ -75,37 +69,6 @@ public class Elevator extends DBugSubsystem {
 	}
 
 	/**
-	 * Elevator distance PID source
-	 */
-	public class DistanceSource implements PIDSource {
-		@Override
-		public PIDSourceType getPIDSourceType() {
-			return PIDSourceType.kDisplacement;
-		}
-
-		@Override
-		public double pidGet() {
-			return Robot.elevator.getPosition();
-		}
-
-		@Override
-		public void setPIDSourceType(PIDSourceType arg0) {
-			return;
-		}
-	}
-
-	/**
-	 * Elevator distance PID output
-	 */
-	public class DistanceOutput implements PIDOutput {
-		@Override
-		public void pidWrite(double voltage) {
-			Robot.elevator.setMotors(voltage);
-			logger.info("ele_v:" + voltage);
-		}
-	}
-
-	/**
 	 * Constructor
 	 */
 	public Elevator() {
@@ -155,7 +118,7 @@ public class Elevator extends DBugSubsystem {
 	 * Sets both the motors to brake, according to the parameter.
 	 * 
 	 * @param brakeMode
-	 *            - The brake mode: true for brake, false for coast
+	 *            The brake mode: true for brake, false for coast
 	 */
 	public void setBrake(boolean brakeMode) {
 		this.motor1.switchToBrake(brakeMode);
@@ -195,10 +158,33 @@ public class Elevator extends DBugSubsystem {
 	}
 
 	/**
+	 * Sets the motor voltage according to a given setpoint and a given tolerance.
+	 * 
+	 * @param setpoint
+	 *            The given setpoint
+	 * @param tolerance
+	 *            The given tolerance
+	 * @param upVoltage
+	 *            The voltage to set the motors to when the position is too low
+	 * @param downVoltage
+	 *            The voltage to set the motors to when the position is too high
+	 */
+	public void setBangbangVoltage(double setpoint, double tolerance, double upVoltage, double downVoltage) {
+		double position = this.getPosition();
+		if (position < (setpoint - tolerance)) {
+			this.setMotors(upVoltage);
+		} else if (position > (setpoint + tolerance)) {
+			this.setMotors(downVoltage);
+		} else {
+			this.setMotors(0.0);
+		}
+	}
+
+	/**
 	 * Shifts the ball shifter gearbox to the wanted gear.
 	 * 
 	 * @param gear
-	 *            - The wanted gear: high or low
+	 *            The wanted gear: high or low
 	 */
 	public void shiftGear(Gear gear) {
 		switch (gear) {
@@ -212,47 +198,5 @@ public class Elevator extends DBugSubsystem {
 			this.shifter.set(Value.kOff);
 			break;
 		}
-	}
-
-	/**
-	 * Returns a PID controller configured with the provided parameters, and has a
-	 * setpoint according to the given level.
-	 * 
-	 * @param kP
-	 *            - The proportional constant
-	 * @param kI
-	 *            - The integral constant
-	 * @param kD
-	 *            - The differential constant
-	 * @param level
-	 *            - The wanted level to make the elevator reach
-	 * @return A PID controller with the provided constants.
-	 */
-	public PIDController getPIDControllerElevator(double kP, double kI, double kD, double kF, double setpoint) {
-		return this.getPIDController(kP, kI, kD, kF, setpoint);
-	}
-
-	/**
-	 * Returns a PID controller configured with the provided parameters.
-	 * 
-	 * @param kP
-	 *            - The proportional constant
-	 * @param kI
-	 *            - The integral constant
-	 * @param kD
-	 *            - The differential constant
-	 * @param setpoint
-	 *            - The wanted setpoint to make the elevator reach
-	 * @return A PID controller with the provided constants.
-	 */
-	public PIDController getPIDController(double kP, double kI, double kD, double kF, double setpoint) {
-		PIDController pid = new PIDController(kP, kI, kD, kF, new DistanceSource(), new DistanceOutput());
-		// if (!Double.isNaN(setpoint)) {
-		// pid.setSetpoint(setpoint);
-		// }
-		// pid.setContinuous();
-		pid.setAbsoluteTolerance((double) Robot.config.get("elevator_PID_Tolerance"));
-		pid.setOutputRange(-1.0, 1.0);
-		return pid;
 	}
 }

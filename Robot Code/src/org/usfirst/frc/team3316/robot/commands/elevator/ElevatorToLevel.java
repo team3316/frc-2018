@@ -1,51 +1,29 @@
 package org.usfirst.frc.team3316.robot.commands.elevator;
 
 import org.usfirst.frc.team3316.robot.Robot;
-import org.usfirst.frc.team3316.robot.commands.DBugCommand;
-import org.usfirst.frc.team3316.robot.subsystems.Elevator;
+import org.usfirst.frc.team3316.robot.subsystems.Elevator.Level;
 
-import edu.wpi.first.wpilibj.PIDController;
-
-public class ElevatorToLevel extends DBugCommand {
-	private PIDController pid;
-	private double setpoint;
-
-	public ElevatorToLevel(Elevator.Level level) {
+public class ElevatorToLevel extends ElevatorMovingCommand {
+	public ElevatorToLevel(Level level) {
 		requires(Robot.elevator);
 		this.setpoint = level.getSetpoint();
 	}
 
-	public ElevatorToLevel(double setpoint) {
-		requires(Robot.elevator);
-		this.setpoint = setpoint;
-	}
+	protected void setParameters() {
+		tolerance = (double) config.get("elevator_PID_Tolerance");
 
-	@Override
-	protected void init() {
-		this.pid = Robot.elevator.getPIDControllerElevator((double) config.get("elevator_PID_KP") / 1000.0,
-				(double) config.get("elevator_PID_KI") * (0.2 / setpoint) / 1000.0,
-				(double) config.get("elevator_PID_KD") * (setpoint / 0.2) / 1000.0, 0.0, setpoint);
-		this.pid.setSetpoint(setpoint);
-		this.pid.enable();
-	}
+		boolean lessThanSetpoint = setpoint > Robot.elevator.getPosition();
+		double configDownVoltage = (double) config.get("elevator_BangBang_DownVoltage");
+		double configUpVoltage = (double) config.get("elevator_BangBang_UpVoltage");
 
-	@Override
-	protected void execute() {
-
-	}
-
-	@Override
-	protected boolean isFinished() {
-		return pid.onTarget();
-	}
-
-	@Override
-	protected void fin() {
-		this.pid.disable();
-	}
-
-	@Override
-	protected void interr() {
-		fin();
+		/*
+		 * Explanation: when the elevator is lower than the setpoint, we want it to
+		 * operate usually - thus setting the down and up voltages to be the regular
+		 * ones. But, when we are higher than the setpoint, we would want to go down to
+		 * it in the same speed, thus setting the down speed to be the inverted up
+		 * speed.
+		 */
+		downVoltage = lessThanSetpoint ? configDownVoltage : -configUpVoltage;
+		upVoltage = lessThanSetpoint ? configUpVoltage : -configDownVoltage;
 	}
 }
