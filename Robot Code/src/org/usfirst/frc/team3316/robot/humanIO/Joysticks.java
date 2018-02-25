@@ -88,7 +88,7 @@ public class Joysticks {
 	}
 
 	public enum JoystickType {
-		Operator, Driver;
+		Logitech, Xbox;
 	}
 
 	/**
@@ -148,7 +148,7 @@ public class Joysticks {
 	 * @param axisType The axis to operate on
 	 * @return The axis value with dead band
 	 */
-	private double getOperatorDeadBandAxis(AxisType axisType) {
+	private double getXboxDeadBandAxis(AxisType axisType) {
 		double toBeBanded = joystickOperator.getRawAxis(axisType.getOperatorAxis());
 		return deadBand(toBeBanded);
 	}
@@ -158,7 +158,7 @@ public class Joysticks {
 	 * @param axisType The axis to operate on
 	 * @return The axis value with dead band
 	 */
-	private double getDriverDeadBandAxis(AxisType axisType) {
+	private double getLogitechDeadBandAxis(AxisType axisType) {
 		switch (axisType) {
 		case LeftX:
 			return deadBand(joystickLeft.getX());
@@ -181,10 +181,10 @@ public class Joysticks {
 	 */
 	private double getDeadBandAxis(AxisType axisType, JoystickType joystickType) {
 		switch (joystickType) {
-		case Operator:
-			return getOperatorDeadBandAxis(axisType);
-		case Driver:
-			return getDriverDeadBandAxis(axisType);
+		case Xbox:
+			return getXboxDeadBandAxis(axisType);
+		case Logitech:
+			return getLogitechDeadBandAxis(axisType);
 		default:
 			return Double.NaN;
 		}

@@ -5,9 +5,7 @@ import java.util.TimerTask;
 import org.usfirst.frc.team3316.robot.Robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Trigger.ButtonScheduler;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DBugJoystickDigitalAxis {
 
