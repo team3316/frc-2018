@@ -2,28 +2,19 @@ package org.usfirst.frc.team3316.robot.auton.commands;
 
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
+import org.usfirst.frc.team3316.robot.utils.PIDControllers;
 
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.PIDSourceType;
 
 /**
  *
  */
 public class SetSpeed extends DBugCommand {
-
-	private double speed = 0, initYaw = 0;
+	private double speed = 0;
 	private PIDController pidLeftSpeed, pidRightSpeed, pidYaw;
-	private double velocity = 0, ratio = 0;
 
 	public SetSpeed(double speed) {
 		this.speed = speed;
-
-//		initPIDSpeed();
-//		initPIDYaw();
-		this.pidLeftSpeed = Robot.chassis.setSpeedPID(true, 0, 0, 0, 0);
-		this.pidRightSpeed = Robot.chassis.setSpeedPID(false, 0, 0, 0, 0);
 
 		requires(Robot.chassis);
 	}
@@ -32,25 +23,23 @@ public class SetSpeed extends DBugCommand {
 	protected void init() {
 		Robot.chassis.setBrake(true);
 
+		pidLeftSpeed = PIDControllers.getSpeedPID(true, (double) config.get("chassis_SetSpeed_PID_KP") / 1000,
+				(double) config.get("chassis_SetSpeed_PID_KI") / 1000,
+				(double) config.get("chassis_SetSpeed_PID_KD") / 1000, 0);
+		pidRightSpeed = PIDControllers.getSpeedPID(false, (double) config.get("chassis_SetSpeed_PID_KP") / 1000,
+				(double) config.get("chassis_SetSpeed_PID_KI") / 1000,
+				(double) config.get("chassis_SetSpeed_PID_KD") / 1000, 0);
+		pidYaw = PIDControllers.getYawPID((double) config.get("chassis_DriveDistance_PID_YAW_KP") / 1000,
+				(double) config.get("chassis_DriveDistance_PID_YAW_KI") / 1000,
+				(double) config.get("chassis_DriveDistance_PID_YAW_KD") / 1000, 0);
+
 		pidLeftSpeed.setOutputRange(-1, 1);
 		pidRightSpeed.setOutputRange(-1, 1);
 		pidYaw.setOutputRange(-1, 1);
 
-		pidLeftSpeed.setPID((double) config.get("chassis_SetSpeed_PID_KP") / 1000,
-				(double) config.get("chassis_SetSpeed_PID_KI") / 1000,
-				(double) config.get("chassis_SetSpeed_PID_KD") / 1000);
-		pidRightSpeed.setPID((double) config.get("chassis_SetSpeed_PID_KP") / 1000,
-				(double) config.get("chassis_SetSpeed_PID_KI") / 1000,
-				(double) config.get("chassis_SetSpeed_PID_KD") / 1000);
-		pidYaw.setPID((double) config.get("chassis_DriveDistance_PID_YAW_KP") / 1000,
-				(double) config.get("chassis_DriveDistance_PID_YAW_KI") / 1000,
-				(double) config.get("chassis_DriveDistance_PID_YAW_KD") / 1000);
-
 		pidLeftSpeed.setSetpoint(speed);
 		pidRightSpeed.setSetpoint(speed);
 		pidYaw.setSetpoint(0.0);
-
-		initYaw = Robot.chassis.getYaw();
 
 		pidLeftSpeed.enable();
 		pidRightSpeed.enable();

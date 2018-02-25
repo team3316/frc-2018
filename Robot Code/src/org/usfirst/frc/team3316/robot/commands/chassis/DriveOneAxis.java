@@ -4,16 +4,14 @@ import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
 import org.usfirst.frc.team3316.robot.humanIO.Joysticks.AxisType;
 import org.usfirst.frc.team3316.robot.humanIO.Joysticks.JoystickType;
+import org.usfirst.frc.team3316.robot.utils.PIDControllers;
 
 import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.PIDSourceType;
 
 public class DriveOneAxis extends DBugCommand {
 
 	private JoystickType type;
-	private double speedFactor, initYaw = 0, ratio = 0;
+	private double speedFactor;
 	private PIDController pidYaw;
 
 	public DriveOneAxis(JoystickType type) {
@@ -21,55 +19,24 @@ public class DriveOneAxis extends DBugCommand {
 		this.type = type;
 	}
 
-	private void initPIDYaw() {
-		pidYaw = new PIDController(0, 0, 0, new PIDSource() {
-			public void setPIDSourceType(PIDSourceType pidSource) {
-				return;
-			}
-
-			public double pidGet() {
-				double currentYaw = Robot.chassis.getYaw() - initYaw;
-
-				return currentYaw;
-			}
-
-			public PIDSourceType getPIDSourceType() {
-				return PIDSourceType.kDisplacement;
-			}
-		}, new PIDOutput() {
-
-			public void pidWrite(double output) {
-				ratio = -output;
-			}
-		}, 0.02);
-	}
-
 	@Override
 	protected void init() {
-		initPIDYaw();
+		speedFactor = (double) config.get("chassis_SpeedFactor_Current");
 
-		pidYaw.setOutputRange(-1, 1);
-
-		pidYaw.setPID((double) config.get("chassis_DriveDistance_PID_YAW_KP") / 1000,
+		pidYaw = PIDControllers.getYawPID((double) config.get("chassis_DriveDistance_PID_YAW_KP") / 1000,
 				(double) config.get("chassis_DriveDistance_PID_YAW_KI") / 1000,
-				(double) config.get("chassis_DriveDistance_PID_YAW_KD") / 1000);
-
+				(double) config.get("chassis_DriveDistance_PID_YAW_KD") / 1000, 0);
+		pidYaw.setOutputRange(-1, 1);
 		pidYaw.setSetpoint(0.0);
-
-		initYaw = Robot.chassis.getYaw();
 
 		pidYaw.enable();
 	}
 
 	@Override
 	protected void execute() {
-		speedFactor = (double) config.get("chassis_SpeedFactor_Current");
-
 		double axisValue = Robot.joysticks.getAxis(AxisType.RightY, this.type);
-		double leftVoltage = Robot.chassis.getLeftVolatge(axisValue * speedFactor, ratio);
-		double rightVoltage = Robot.chassis.getRightVoltage(axisValue * speedFactor, ratio);
-
-		Robot.chassis.setMotors(leftVoltage, rightVoltage);
+		Robot.chassis.currentLeftV = axisValue * speedFactor;
+		Robot.chassis.currentRightV = axisValue * speedFactor;
 	}
 
 	@Override
