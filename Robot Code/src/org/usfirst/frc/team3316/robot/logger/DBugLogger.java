@@ -3,8 +3,6 @@ package org.usfirst.frc.team3316.robot.logger;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -34,8 +32,7 @@ public class DBugLogger extends Logger {
 		this.setUseParentHandlers(true); // disables console output if 'false' is given as a parameter
 
 		try {
-			String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
-			FileHandler fh = new FileHandler("/home/lvuser/logs/logFile" + timeStamp + ".log");
+			FileHandler fh = new FileHandler("%h/logs/logFile-%u-%g.log", 1024 * 200, 5, true);
 			this.addHandler(fh);
 			DBugFormatter formatter = new DBugFormatter();
 			fh.setFormatter(formatter);
