@@ -308,7 +308,7 @@ public class Config {
 			    // BANG BANG
 			    addToVariables("elevator_PID_Tolerance", 0.005);
 			    addToVariables("elevator_BangBang_UpVoltage", 0.4);
-			    addToVariables("elevator_BangBang_DownVoltage", -0.15);
+			    addToVariables("elevator_BangBang_DownVoltage", -0.4);
 			    
 			    // SHAKEN
 			    addToVariables("elevator_Shaken_Tolerance", 0.001);

@@ -17,7 +17,7 @@ public class ElevatorMoveToEdge extends DBugCommand {
 	protected void init() {
 		switch (level) {
 		case Bottom:
-			v = -(double) config.get("elevator_BangBang_UpVoltage");
+			v = (double) config.get("elevator_BangBang_DownVoltage");
 			break;
 		case Top:
 			v = (double) config.get("elevator_BangBang_UpVoltage");

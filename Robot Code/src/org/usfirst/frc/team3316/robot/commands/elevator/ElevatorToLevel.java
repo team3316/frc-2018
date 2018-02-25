@@ -3,7 +3,6 @@ package org.usfirst.frc.team3316.robot.commands.elevator;
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
 import org.usfirst.frc.team3316.robot.subsystems.Elevator;
-import org.usfirst.frc.team3316.robot.subsystems.Elevator.Level;
 
 import edu.wpi.first.wpilibj.PIDController;
 
