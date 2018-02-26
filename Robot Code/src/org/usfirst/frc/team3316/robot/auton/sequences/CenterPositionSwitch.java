@@ -10,28 +10,22 @@ import org.usfirst.frc.team3316.robot.utils.falcon.PathPoints;
 public class CenterPositionSwitch extends DBugCommandGroup {
 
 	public CenterPositionSwitch(SwitchType type) {
+		PathPoints startPoints = new PathPoints();
+		startPoints.addPathPoint(0.0, 0.0); // Robot starting point
+
 		if (type == SwitchType.RIGHT) {
-			PathPoints startPoints = new PathPoints();
-			startPoints.addPathPoint(0.0, 0.0);
-			startPoints.addPathPoint(2.1, 1.95);
-			startPoints.addPathPoint(1.2, 2.0);
-			PathFollowCommand startPath = new PathFollowCommand(startPoints, 7);
-
-			addParallel(new ElevatorToLevel(Level.Switch));
-			addSequential(startPath);
-			addSequential(new HolderEjection());
+			startPoints.addPathPoint(2.1, 1.95); // Right switch position from the center
+			startPoints.addPathPoint(1.2, 2.0); // Rotation to be able to legally install a cube
 		} else if (type == SwitchType.LEFT) {
-			PathPoints startPoints = new PathPoints();
-			startPoints.addPathPoint(0.0, 0.0);
-			startPoints.addPathPoint(-3.7, 1.75);
-			startPoints.addPathPoint(-2.4, 1.8);
-			PathFollowCommand startPath = new PathFollowCommand(startPoints, 7);
-
-			addParallel(new ElevatorToLevel(Level.Switch));
-			addSequential(startPath);
-			addSequential(new HolderEjection());
+			startPoints.addPathPoint(-3.7, 1.75); // Left switch position from the center
+			startPoints.addPathPoint(-2.4, 1.8); // Rotation to be able to legally install a cube
 		}
 
+		PathFollowCommand startPath = new PathFollowCommand(startPoints, 7);
+
+		addParallel(new ElevatorToLevel(Level.Switch));
+		addSequential(startPath);
+		addSequential(new HolderEjection());
 	}
 
 }

@@ -10,9 +10,9 @@ import org.usfirst.frc.team3316.robot.utils.falcon.PathPoints;
 public class LeftPositionSwitch extends DBugCommandGroup {
 	public LeftPositionSwitch(SwitchType type) {
 		PathPoints startPoints = new PathPoints();
-		startPoints.addPathPoint(0.0, 0.0);
-		startPoints.addPathPoint(0.0, 2.5);
-		startPoints.addPathPoint(0.6, 3.0);
+		startPoints.addPathPoint(0.0, 0.0); // Robot starting point
+		startPoints.addPathPoint(0.0, 2.5); // Switch left side
+		startPoints.addPathPoint(0.6, 3.0); // Rotation to be able to install cubes legally
 		PathFollowCommand startPath = new PathFollowCommand(startPoints, 4);
 
 		addParallel(startPath);
