@@ -1,14 +1,14 @@
 package org.usfirst.frc.team3316.robot.auton.commands;
 
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
-import org.usfirst.frc.team3316.robot.vision.AlignRobot;
+import org.usfirst.frc.team3316.robot.vision.VisionServer;
 
 public class DriveToCube extends DBugCommand {
 	DBugCommand cmd;
 
 	// Called just before this Command runs the first time
 	protected void init() {
-		cmd = new DriveDistance(AlignRobot.getDistanceFromCube());
+		cmd = new DriveDistance(VisionServer.azimuthAngle);
 		cmd.start();
 	}
 

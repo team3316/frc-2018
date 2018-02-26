@@ -2,7 +2,7 @@ package org.usfirst.frc.team3316.robot.auton.commands;
 
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
-import org.usfirst.frc.team3316.robot.vision.AlignRobot;
+import org.usfirst.frc.team3316.robot.vision.VisionServer;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
@@ -32,7 +32,7 @@ public class AlignToCube extends DBugCommand {
 		}, new PIDOutput() {
 			public void pidWrite(double output) {
 				double velocity = output;
-				if (AlignRobot.isObjectDetected()) {
+				if (VisionServer.isObjectDetected) {
 					Robot.chassis.setMotors(velocity, -velocity);
 				}
 			}
@@ -63,15 +63,12 @@ public class AlignToCube extends DBugCommand {
 		/*
 		 * This code is with setpoint set by the vision
 		 */
-		if (AlignRobot.isObjectDetected()) {
-			double powerCubeAngle = AlignRobot.getCubeAngle();
+		if (VisionServer.isObjectDetected) {
+			double powerCubeAngle = VisionServer.azimuthAngle;
 
 			if (powerCubeAngle != lastAngle && powerCubeAngle != 3316.0) {
-
 				setPoint = powerCubeAngle + currentAngle;
-
 				lastAngle = powerCubeAngle;
-
 				pid.setSetpoint(setPoint);
 			}
 		} else {
