@@ -3,6 +3,7 @@ package org.usfirst.frc.team3316.robot.subsystems;
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorShaken;
 import org.usfirst.frc.team3316.robot.robotIO.DBugSpeedController;
+import org.usfirst.frc.team3316.robot.utils.Utils;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -14,7 +15,7 @@ import edu.wpi.first.wpilibj.Encoder;
  */
 public class Elevator extends DBugSubsystem {
 	// Variables
-	private double offset;
+	private double offset, tolerance, switchPosition;
 
 	// Sensors
 	private DigitalInput heBottom, heTop;
@@ -85,6 +86,9 @@ public class Elevator extends DBugSubsystem {
 		this.motor1 = Robot.actuators.elevatorMotorOne;
 		this.motor2 = Robot.actuators.elevatorMotorTwo;
 		this.shifter = Robot.actuators.elevatorShifter;
+
+		this.switchPosition = Level.Switch.getSetpoint();
+		this.tolerance = (double) config.get("elevator_level_tolerance");
 	}
 
 	@Override
@@ -136,6 +140,8 @@ public class Elevator extends DBugSubsystem {
 			return Level.Bottom;
 		if (!this.heTop.get())
 			return Level.Top;
+		if (Utils.isInNeighborhood(this.getPosition(), switchPosition, tolerance))
+			return Level.Switch;
 		return Level.Intermediate;
 	}
 

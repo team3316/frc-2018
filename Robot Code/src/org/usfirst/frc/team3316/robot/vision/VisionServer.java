@@ -18,7 +18,7 @@ public class VisionServer implements Runnable {
 			System.err.println("Error with creating the UDP Socket.");
 		}
 
-		byte[] receiveData = new byte[70];
+		byte[] receiveData = new byte[80];
 
 		while (true) {
 			SmartDashboard.putBoolean("is connected", isConnected);

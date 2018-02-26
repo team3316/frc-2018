@@ -295,6 +295,7 @@ public class Config {
 			addToVariables("elevator_setpoint_switch", 1.7);
 			addToVariables("elevator_setpoint_scale", 1.8);
 			addToVariables("elevator_setpoint_top", 1.92);
+			addToVariables("elevator_level_tolerance", 0.07);
 			
 			/*
 			 * Elevator to Level
