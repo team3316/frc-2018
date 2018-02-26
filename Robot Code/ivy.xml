@@ -8,8 +8,15 @@
 			<artifact name="json" type="jar" />
 		</dependency>
 
-		<dependency org="com.jcraft" name="jsch" rev="0.1.54" />
+		<dependency
+			org="com.jcraft"
+			name="jsch"
+			rev="0.1.54" />
 
-		<dependency org="com.kauailabs.navx.frc" name="navx_frc" rev="[3.0,3.1]" />
+		<dependency
+			org="com.kauailabs.navx.frc"
+			name="navx_frc"
+			rev="[3.0,3.1]"
+			transitive="false" />
     </dependencies>
 </ivy-module>
