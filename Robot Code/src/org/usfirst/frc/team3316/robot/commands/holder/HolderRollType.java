@@ -22,6 +22,8 @@ public enum HolderRollType {
 			return "holder_rollIn_voltage";
 		case 2:
 			return "holder_rollOut_voltage";
+		case 3:
+			return "holder_stop_voltage";
 		default:
 			return "";
 		}
@@ -34,6 +36,8 @@ public enum HolderRollType {
 	 */
 	public double getVoltage() {
 		String key = this.configKey();
-		return key == "" ? 0.0 : (double) Robot.config.get(key);
+		// TODO: Ask Barak whether this should be in the config or not.
+		if (key == "holder_stop_voltage") return 0.0;
+		return key == "" ? Double.NaN : (double) Robot.config.get(key);
 	}
 }

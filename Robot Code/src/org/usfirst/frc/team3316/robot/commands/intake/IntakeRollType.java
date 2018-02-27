@@ -22,6 +22,8 @@ public enum IntakeRollType {
 			return "intake_rollIn_voltage";
 		case 2:
 			return "intake_rollOut_voltage";
+		case 3:
+			return "intake_stop_voltage";
 		case 4:
 			return "intake_directionalRollIn_leftVoltage";
 		default:
@@ -40,6 +42,8 @@ public enum IntakeRollType {
 			return "intake_rollIn_voltage";
 		case 2:
 			return "intake_rollOut_voltage";
+		case 3:
+			return "intake_stop_voltage";
 		case 4:
 			return "intake_directionalRollIn_rightVoltage";
 		default:
@@ -54,7 +58,8 @@ public enum IntakeRollType {
 	 */
 	public double getLeftVoltage() {
 		String key = this.leftConfigKey();
-		return key == "" ? 0.0 : (double) Robot.config.get(key);
+		if (key == "intake_stop_voltage") return 0.0;
+		return key == "" ? Double.NaN : (double) Robot.config.get(key);
 	}
 
 	/**
@@ -64,6 +69,7 @@ public enum IntakeRollType {
 	 */
 	public double getRightVoltage() {
 		String key = this.rightConfigKey();
-		return key == "" ? 0.0 : (double) Robot.config.get(key);
+		if (key == "intake_stop_voltage") return 0.0;
+		return key == "" ? Double.NaN : (double) Robot.config.get(key);
 	}
 }
