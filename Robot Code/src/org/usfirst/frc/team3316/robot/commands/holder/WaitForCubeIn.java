@@ -4,12 +4,13 @@ import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
 
 public class WaitForCubeIn extends DBugCommand {
-	private long difference, currentTime;
+	private long difference, currentTime, stallTime;
 
 	@Override
 	protected void init() {
 		difference = 0;
 		currentTime = System.currentTimeMillis();
+		stallTime = (long) config.get("cubeWait_stall_time");
 	}
 
 	@Override
@@ -20,7 +21,7 @@ public class WaitForCubeIn extends DBugCommand {
 
 	@Override
 	protected boolean isFinished() {
-		return Robot.holder.isCubeIn() && difference >= 500.0;
+		return Robot.holder.isCubeIn() && difference >= stallTime;
 	}
 
 	@Override

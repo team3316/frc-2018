@@ -100,7 +100,7 @@ public class Config {
 				/*
 				 * Buttons and axis
 				 */
-				{;
+				{
 					// Joystick operator
 				    	addToVariables("button_Elevetor_Top", 4);
 					addToVariables("button_Elevetor_Bottom", 1);
@@ -285,6 +285,13 @@ public class Config {
 		{
 			addToVariables("holder_rollIn_voltage", -0.85);
 			addToVariables("holder_rollOut_voltage", 1.0);
+		}
+
+		/*
+		 * Holder + intake sequences
+		 */
+		{
+			addToVariables("cubeWait_stall_time", 500.0);
 		}
 
 		/*
