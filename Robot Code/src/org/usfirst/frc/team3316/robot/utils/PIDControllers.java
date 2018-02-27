@@ -1,13 +1,19 @@
 package org.usfirst.frc.team3316.robot.utils;
 
 import org.usfirst.frc.team3316.robot.Robot;
+import org.usfirst.frc.team3316.robot.commands.emptyCommand;
+import org.usfirst.frc.team3316.robot.subsystems.DBugSubsystem;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDOutput;
 
-public class PIDControllers {
+/*
+ * REMARK: This class is defined as a subsystem so that commands who use it will
+ * need to require it, making it unavailable to other commands at the same time.
+ */
+public class PIDControllers extends DBugSubsystem {
 	public static PIDController getSpeedPID(boolean leftSide, double Kp, double Ki, double Kd, double Kf) {
 		PIDController pid = new PIDController(Kp, Ki, Kd, Kf, new PIDSource() {
 			@Override
@@ -103,5 +109,10 @@ public class PIDControllers {
 		}, 0.02);
 
 		return pid;
+	}
+
+	@Override
+	public void initDefaultCommand() {
+		setDefaultCommand(new emptyCommand());
 	}
 }

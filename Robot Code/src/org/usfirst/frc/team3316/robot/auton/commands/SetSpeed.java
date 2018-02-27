@@ -14,9 +14,9 @@ public class SetSpeed extends DBugCommand {
 	private PIDController pidLeftSpeed, pidRightSpeed, pidYaw;
 
 	public SetSpeed(double speed) {
-		this.speed = speed;
-
 		requires(Robot.chassis);
+		requires(Robot.pidControllers);
+		this.speed = speed;
 	}
 
 	// Called just before this Command runs the first time

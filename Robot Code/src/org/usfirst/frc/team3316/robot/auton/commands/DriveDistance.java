@@ -17,6 +17,7 @@ public class DriveDistance extends DBugCommand {
 
 	public DriveDistance(double dist) {
 		requires(Robot.chassis);
+		requires(Robot.pidControllers);
 
 		distance = dist;
 		started = false;

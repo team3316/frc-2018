@@ -26,6 +26,7 @@ public class SetPathPIDController extends DBugCommand {
 		logger.fine("pid set path ended");
 
 		requires(Robot.chassis);
+		requires(Robot.pidControllers);
 
 		// Setting values
 		this.setpointLeft = setpointLeft;

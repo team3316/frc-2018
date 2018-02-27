@@ -15,6 +15,7 @@ import org.usfirst.frc.team3316.robot.subsystems.Elevator;
 import org.usfirst.frc.team3316.robot.subsystems.EmptySubsystem;
 import org.usfirst.frc.team3316.robot.subsystems.Holder;
 import org.usfirst.frc.team3316.robot.subsystems.Intake;
+import org.usfirst.frc.team3316.robot.utils.PIDControllers;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -52,6 +53,7 @@ public class Robot extends IterativeRobot {
 	public static Intake intake;
 	public static Holder holder;
 	public static Elevator elevator;
+	public static PIDControllers pidControllers;
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -88,6 +90,7 @@ public class Robot extends IterativeRobot {
 			intake = new Intake();
 			elevator = new Elevator();
 			holder = new Holder();
+			pidControllers = new PIDControllers();
 
 			/*
 			 * Human IO (that requires subsystems)

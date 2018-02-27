@@ -17,6 +17,7 @@ public class DriveOneAxis extends DBugCommand {
 
 	public DriveOneAxis(JoystickType type) {
 		requires(Robot.chassis);
+		requires(Robot.pidControllers);
 		this.type = type;
 	}
 
