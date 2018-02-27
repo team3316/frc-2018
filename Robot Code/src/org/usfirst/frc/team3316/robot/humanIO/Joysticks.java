@@ -85,6 +85,14 @@ public class Joysticks {
 			String configKey = this.getOperatorConfigKey();
 			return (int) Robot.config.get(configKey);
 		}
+
+		public boolean isX() {
+			return this.type == 1 || this.type == 3;
+		}
+
+		public boolean isY() {
+			return this.type == 2 || this.type == 4;
+		}
 	}
 
 	public enum JoystickType {
@@ -198,8 +206,9 @@ public class Joysticks {
 	 */
 	public double getAxis(AxisType axisType, JoystickType joystickType) {
 		updateConfigVariables();
-		double y = getDeadBandAxis(axisType, joystickType);
-		return invertY ? -y : y;
+		double deadBand = getDeadBandAxis(axisType, joystickType);
+		boolean invert = axisType.isX() ? invertX : invertY;
+		return invert ? -deadBand : deadBand;
 	}
 
 	private double deadBand(double x) {
