@@ -220,6 +220,30 @@ public class IO {
 				 * Robot B
 				 */
 				{
+					// Chassis
+					// Left front
+					putCANB("CHASSIS_MOTOR_LEFT_1", 14);
+					// Left back
+					putCANB("CHASSIS_MOTOR_LEFT_2", 15);
+					// Right front
+					putCANB("CHASSIS_MOTOR_RIGHT_1", 12);
+					// Right back
+					putCANB("CHASSIS_MOTOR_RIGHT_2", 13);
+
+					// Intake
+					// Left
+					putPWMB("INTAKE_MOTOR_LEFT", 1);
+					// Right
+					putPWMB("INTAKE_MOTOR_RIGHT", 2);
+
+					// Elevator
+					// Left front
+					putCANB("ELEVATOR_MOTOR_1", 2);
+					// Left back
+					putCANB("ELEVATOR_MOTOR_2", 3);
+
+					// Holder
+					putPWMB("HOLDER_MOTOR", 0);
 				}
 			}
 
