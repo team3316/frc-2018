@@ -2,6 +2,7 @@ package org.usfirst.frc.team3316.robot.subsystems;
 
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.chassis.TankDrive;
+import org.usfirst.frc.team3316.robot.humanIO.Joysticks.JoystickType;
 import org.usfirst.frc.team3316.robot.robotIO.DBugSpeedController;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -43,7 +44,8 @@ public class Chassis extends DBugSubsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new TankDrive());
+		// REMARK: This year the driver is using the Logitech joysticks as the controls.
+		setDefaultCommand(new TankDrive(JoystickType.Logitech));
 	}
 
 	/*
