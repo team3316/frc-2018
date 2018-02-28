@@ -275,7 +275,7 @@ public class Config {
 		{
 			addToVariables("intake_rollIn_voltage", 0.7);
 			addToVariables("intake_rollOut_voltage", -1.0);
-			addToVariables("intake_shaken_stepTime", 750.0);
+			addToVariables("intake_shaken_stepTime", 500.0);
 			addToVariables("intake_shaken_stopTime", 200.0);
 			addToVariables("intake_directionalRollIn_leftVoltage", 1.0);
 			addToVariables("intake_directionalRollIn_rightVoltage", 0.4);
