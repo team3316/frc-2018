@@ -40,8 +40,8 @@ public class Chassis extends DBugSubsystem {
 		// Sensors
 		Robot.sensors.ChassisSensors();
 
-		leftEncoder = Robot.sensors.chassisLeftEncoder;
-		rightEncoder = Robot.sensors.chassisRightEncoder;
+//		leftEncoder = Robot.sensors.chassisLeftEncoder;
+//		rightEncoder = Robot.sensors.chassisRightEncoder;
 		navx = Robot.sensors.navx;
 		
 		resetYaw();

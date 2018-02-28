@@ -222,19 +222,19 @@ public class IO {
 				{
 					// Chassis
 					// Left front
-					putCANB("CHASSIS_MOTOR_LEFT_1", 14);
+					putCANB("CHASSIS_MOTOR_LEFT_1", 13);
 					// Left back
-					putCANB("CHASSIS_MOTOR_LEFT_2", 15);
+					putCANB("CHASSIS_MOTOR_LEFT_2", 12);
 					// Right front
-					putCANB("CHASSIS_MOTOR_RIGHT_1", 12);
+					putCANB("CHASSIS_MOTOR_RIGHT_1", 15);
 					// Right back
-					putCANB("CHASSIS_MOTOR_RIGHT_2", 13);
+					putCANB("CHASSIS_MOTOR_RIGHT_2", 14);
 
 					// Intake
 					// Left
-					putPWMB("INTAKE_MOTOR_LEFT", 1);
+					putPWMB("INTAKE_MOTOR_LEFT", 2);
 					// Right
-					putPWMB("INTAKE_MOTOR_RIGHT", 2);
+					putPWMB("INTAKE_MOTOR_RIGHT", 1);
 
 					// Elevator
 					// Left front
@@ -277,6 +277,22 @@ public class IO {
 				 * Robot B
 				 */
 				{
+					// Chassis
+					putDIOB("CHASSIS_LEFT_ENCODER_CHANNEL_A", 6);
+					putDIOB("CHASSIS_LEFT_ENCODER_CHANNEL_B", 8);
+
+					putDIOB("CHASSIS_RIGHT_ENCODER_CHANNEL_A", 3);
+					putDIOB("CHASSIS_RIGHT_ENCODER_CHANNEL_B", 2);
+
+					// Elevator
+					putDIOB("ELEVATOR_ENCODER_CHANNEL_A", 5);
+					putDIOB("ELEVATOR_ENCODER_CHANNEL_B", 4);
+
+					putDIOB("ELEVATOR_BOTTOM_HE", 1);
+					putDIOB("ELEVATOR_TOP_HE", 0);
+					
+					// Holder
+					putDIOB("HOLDER_LIMIT_SWITCH", 7);
 				}
 			}
 
@@ -317,6 +333,12 @@ public class IO {
 				 * Robot B
 				 */
 				{
+					putPDPB("CHASSIS_MOTOR_LEFT_1_PDP_CHANNEL", 13);
+					putPDPB("CHASSIS_MOTOR_LEFT_2_PDP_CHANNEL", 12);
+					putPDPB("CHASSIS_MOTOR_RIGHT_1_PDP_CHANNEL", 15);
+					putPDPB("CHASSIS_MOTOR_RIGHT_2_PDP_CHANNEL", 14);
+					putPDPB("ELEVATOR_MOTOR_1_PDP_CHANNEL", 2);
+					putPDPB("ELEVATOR_MOTOR_2_PDP_CHANNEL", 3);
 				}
 			}
 

@@ -23,6 +23,7 @@ import org.usfirst.frc.team3316.robot.config.Config;
 import org.usfirst.frc.team3316.robot.logger.DBugLogger;
 import org.usfirst.frc.team3316.robot.sequences.CollectCube;
 import org.usfirst.frc.team3316.robot.sequences.EjectCube;
+import org.usfirst.frc.team3316.robot.sequences.RollInShaken;
 import org.usfirst.frc.team3316.robot.sequences.StopCollectionEjection;
 import org.usfirst.frc.team3316.robot.subsystems.Elevator.Level;
 

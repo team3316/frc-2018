@@ -66,6 +66,8 @@ public class Actuators {
 	}
 
 	private void ChassisActuatorsB() {
+		// TODO: MAKE THIS LOOK GOOD
+		ChassisActuatorsA();
 	}
 
 	public void ChassisActuators() {
@@ -96,7 +98,7 @@ public class Actuators {
 	}
 
 	private void IntakeActuatorsB() {
-		// Nothin' here atm
+		IntakeActuatorsA();
 	}
 
 	public void IntakeActuators() {
@@ -118,7 +120,7 @@ public class Actuators {
 	}
 
 	private void HolderActuatorsB() {
-		// Nothin' here atm
+		HolderActuatorsA();
 	}
 
 	public void HolderActuators() {
@@ -142,7 +144,7 @@ public class Actuators {
 	}
 
 	private void ElevatorActuatorsB() {
-		// Nothin' here atm
+		ElevatorActuatorA();
 	}
 
 	public void ElevatorActuators() {

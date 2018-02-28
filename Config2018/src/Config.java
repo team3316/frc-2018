@@ -100,9 +100,9 @@ public class Config {
 				/*
 				 * Buttons and axis
 				 */
-				{;
+				{
 					// Joystick operator
-				    	addToVariables("button_Elevetor_Top", 4);
+				    addToVariables("button_Elevetor_Top", 4);
 					addToVariables("button_Elevetor_Bottom", 1);
 					addToVariables("button_Elevetor_Switch", 2);
 					addToVariables("button_Elevetor_Scale", 3);
@@ -138,6 +138,9 @@ public class Config {
 				 */
 				addToConstantsA("CHASSIS_MOTOR_LEFT_REVERSE", false);
 				addToConstantsA("CHASSIS_MOTOR_RIGHT_REVERSE", true);
+
+				addToConstantsB("CHASSIS_MOTOR_LEFT_REVERSE", true);
+				addToConstantsB("CHASSIS_MOTOR_RIGHT_REVERSE", false);
 
 				addToVariables("chassis_Joystick_Right_Axis", 1);
 				addToVariables("chassis_Joystick_Left_Axis", 5);
@@ -270,10 +273,12 @@ public class Config {
 		 * Intake
 		 */
 		{
-			addToVariables("intake_rollIn_voltage", 0.6);
+			addToVariables("intake_rollIn_voltage", 0.7);
 			addToVariables("intake_rollOut_voltage", -1.0);
-			addToVariables("intake_directionalRollIn_leftVoltage", -0.8);
-			addToVariables("intake_directionalRollIn_rightVoltage", -0.5);
+			addToVariables("intake_shaken_stepTime", 750.0);
+			addToVariables("intake_shaken_stopTime", 200.0);
+			addToVariables("intake_directionalRollIn_leftVoltage", 1.0);
+			addToVariables("intake_directionalRollIn_rightVoltage", 0.4);
 		}
 		
 		
