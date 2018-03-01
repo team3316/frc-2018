@@ -1,30 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="FRC Deployment" default="deploy">
+<project xmlns:ivy="antlib:org.apache.ivy.ant" name="FRC Deployment" default="deploy">
+	<property file="${user.home}/wpilib/wpilib.properties"/>
+	<property file="build.properties"/>
+	<property file="${user.home}/wpilib/java/${version}/ant/build.properties"/>
 
-  <!--
-  The following properties can be defined to override system level
-  settings. These should not be touched unless you know what you're
-  doing. The primary use is to override the wpilib version when
-  working with older robots that can't compile with the latest
-  libraries.
-  -->
+	<property name="ivy.install.version" value="2.4.0"/>
+	<property name="ivy.jar.dir" value="${basedir}/ivy"/>
+	<property name="ivy.jar.file" value="${ivy.jar.dir}/ivy.jar"/>
+	<target name="download-ivy" unless="skip.download">
+		<mkdir dir="${ivy.jar.dir}"/>
+		<echo message="Installing ivy..."/>
+		<get src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar" dest="${ivy.jar.file}" usetimestamp="true"/>
+	</target>
 
-  <!-- By default the system version of WPI is used -->
-  <!-- <property name="version" value=""/> -->
+	<target name="init-ivy" depends="download-ivy" description="--> install ivy">
+		<path id="ivy.lib.path">
+			<fileset dir="${ivy.jar.dir}" includes="*.jar"/>
+		</path>
+		<taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+	</target>	
 
-  <!-- By default the system team number is used -->
-  <!-- <property name="team-number" value=""/> -->
+	<import file="${wpilib.ant.dir}/build.xml"/>
 
-  <!-- By default the target is set to 10.TE.AM.2 -->
-  <!-- <property name="target" value=""/> -->
+    <target name="resolve-deps" depends="init-ivy" description="Retrieves the code's dependencies">
+    		<ivy:retrieve pattern="${user.home}/wpilib/user/java/lib/[artifact].[ext]" sync="true" />
+    </target>
 
-  <!-- Any other property in build.properties can also be overridden. -->
+	<target name="clean-tmp" description="Cleans the temporary download directory">
+		<delete>
+			<fileset dir="${java.io.tmpdir}" includes="**/*" />
+		</delete>
+	</target>
 
-  <property file="${user.home}/wpilib/wpilib.properties"/>
-  <property file="build.properties"/>
-  <property file="${user.home}/wpilib/java/${version}/ant/build.properties"/>
+	<target name="install-ctre" description="Installs the CTRE libraries into the wpilib java user folder">
+		<get src="http://www.ctr-electronics.com//downloads/lib/CTRE_Phoenix_FRCLibs_NON-WINDOWS_v5.2.1.1.zip" dest="${java.io.tmpdir}/ctre.zip" usetimestamp="true" />
+		<unzip src="${java.io.tmpdir}/ctre.zip" dest="${java.io.tmpdir}/ctre" />
+		<copy file="${java.io.tmpdir}/ctre/java/lib/CTRE_Phoenix.jar" tofile="${user.home}/wpilib/user/java/lib/ctre-phoenix.jar" />
+		<copy file="${java.io.tmpdir}/ctre/java/lib/CTRE_Phoenix-sources.jar" tofile="${user.home}/wpilib/user/java/lib/ctre-phoenix-sources.jar" />
+		<copy file="${java.io.tmpdir}/ctre/java/lib/libCTRE_PhoenixCCI.so" tofile="${user.home}/wpilib/user/java/lib/libCTRE_PhoenixCCI.so" />
+		<antcall target="clean-tmp" />
+	</target>
 
-  <import file="${wpilib.ant.dir}/build.xml"/>
-
+	<target name="install-deps" depends="resolve-deps,install-ctre" description="Installs all of the dependencies" />
 </project>

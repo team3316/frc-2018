@@ -1,84 +1,57 @@
 package org.usfirst.frc.team3316.robot.commands.chassis;
 
 import org.usfirst.frc.team3316.robot.Robot;
+import org.usfirst.frc.team3316.robot.config.Config;
+import org.usfirst.frc.team3316.robot.humanIO.Joysticks.AxisType;
+import org.usfirst.frc.team3316.robot.humanIO.Joysticks.JoystickType;
+import org.usfirst.frc.team3316.robot.logger.DBugLogger;
+import org.usfirst.frc.team3316.robot.utils.Utils;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.command.Command;
 
-public class TankDrive extends Drive {
-    // TODO: Add commenting
+/**
+ *
+ */
+public class TankDrive extends Command {
+	protected static Config config = Robot.config;
+	protected static DBugLogger logger = Robot.logger;
+	protected double speedFactor;
 
-    protected static Joystick joystickLeft, joystickRight;
+	double left = 0, right = 0;
+	double lowestValue = 0;
+	JoystickType type;
 
-    static boolean invertY, invertX;
-
-    static double deadBand = 0.0, speedFactor;
-
-    public TankDrive() {
-	super();
-	joystickLeft = Robot.joysticks.joystickLeft;
-	joystickRight = Robot.joysticks.joystickRight;
-    }
-
-    protected void set() {
-	SmartDashboard.putNumber("Distance c", Robot.sensors.chassisLeftEncoder.getRaw());
-	left = getLeftY() * speedFactor;
-	right = getRightY() * speedFactor;
-
-	speedFactor = (double) config.get("chassis_SpeedFactor_Current");
-    }
-
-    protected static double getLeftY() {
-	updateConfigVariables();
-	double y = deadBand(joystickLeft.getY());
-	if (invertY) {
-	    return -y;
+	public TankDrive(JoystickType type) {
+		requires(Robot.chassis);
+		this.type = type;
 	}
-	return y;
-    }
 
-    protected static double getLeftX() {
-	updateConfigVariables();
-	double x = deadBand(joystickLeft.getX());
-	if (invertX) {
-	    return -x;
+	protected void initialize() {
+		lowestValue = (double) config.get("chassis_LowPassFilter_LowestValue");
+		speedFactor = (double) config.get("chassis_SpeedFactor_Current");
 	}
-	return x;
-    }
 
-    protected static double getRightY() {
-	updateConfigVariables();
-	double y = deadBand(joystickRight.getY());
-	if (invertY) {
-	    return -y;
+	protected double getAxis(AxisType axisType) {
+		double rawAxis = Robot.joysticks.getAxis(axisType, this.type);
+		double lowPass = Utils.lowPassFilter(rawAxis, lowestValue, 0.0);
+		return lowPass * speedFactor;
 	}
-	return y;
-    }
 
-    protected static double getRightX() {
-	updateConfigVariables();
-	double x = deadBand(joystickRight.getX());
-	if (invertX) {
-	    return -x;
+	protected void execute() {
+		left = getAxis(AxisType.LeftY);
+		right = getAxis(AxisType.RightY);
+		Robot.chassis.setMotors(left, right);
 	}
-	return x;
-    }
 
-    private static double deadBand(double x) {
-	if (Math.abs(x) < deadBand) {
-	    return 0;
+	protected boolean isFinished() {
+		return false;
 	}
-	return x;
-    }
 
-    /*
-     * Here we call the get method of the config every execute because we want
-     * the variables to update without needing to cancel the commands.
-     */
-    private static void updateConfigVariables() {
-	deadBand = (double) config.get("chassis_TankDrive_DeadBand");
+	protected void end() {
+		Robot.chassis.setMotors(0, 0);
+	}
 
-	invertX = (boolean) config.get("chassis_TankDrive_InvertX");
-	invertY = (boolean) config.get("chassis_TankDrive_InvertY");
-    }
+	protected void interrupted() {
+		end();
+	}
 }

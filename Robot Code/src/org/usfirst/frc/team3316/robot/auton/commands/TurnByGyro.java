@@ -7,14 +7,12 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class TurnByGyro extends DBugCommand {
-
-	private double angle, velocity = 0.0;
+	private double angle, velocity = 0.0, velocityFilter;
 	private PIDController pid;
 
 	public TurnByGyro(double angle) {
@@ -51,6 +49,8 @@ public class TurnByGyro extends DBugCommand {
 	protected void init() {
 		Robot.chassis.setBrake(false);
 
+		velocityFilter = (double) config.get("chassis_TurnByGyro_VelocityFilter");
+
 		pid.setOutputRange(-1.0, 1.0);
 
 		pid.setAbsoluteTolerance((double) config.get("chassis_TurnByGyro_PID_Tolerance"));
@@ -71,7 +71,7 @@ public class TurnByGyro extends DBugCommand {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Math.abs(velocity) < 0.05 && pid.onTarget();
+		return Math.abs(velocity) < velocityFilter && pid.onTarget();
 	}
 
 	// Called once after isFinished returns true

@@ -4,41 +4,33 @@ import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
 
 public class WaitForCubeIn extends DBugCommand {
-    private double timer;
+	private long difference, currentTime, stallTime;
 
-    public WaitForCubeIn() {}
-
-    @Override
-    protected void init() {
-	timer = 0.0;
-    }
-
-    @Override
-    protected void execute() {
-	if (Robot.holder.isCubeIn()) {
-	    timer += 20.0;
+	@Override
+	protected void init() {
+		difference = 0;
+		currentTime = System.currentTimeMillis();
+		stallTime = (long) config.get("cubeWait_stall_time");
 	}
-	else {
-	    timer = 0.0;
+
+	@Override
+	protected void execute() {
+		currentTime = System.currentTimeMillis();
+		difference = Robot.holder.isCubeIn() ? currentTime - difference : 0;
 	}
-    }
 
-    @Override
-    protected boolean isFinished() {
-	// TODO Auto-generated method stub
-	return (Robot.holder.isCubeIn() && timer >= 500.0);
-    }
+	@Override
+	protected boolean isFinished() {
+		return Robot.holder.isCubeIn() && difference >= stallTime;
+	}
 
-    @Override
-    protected void fin() {
-	// TODO Auto-generated method stub
+	@Override
+	protected void fin() {
+		// TODO Auto-generated method stub
+	}
 
-    }
-
-    @Override
-    protected void interr() {
-	// TODO Auto-generated method stub
-
-    }
-
+	@Override
+	protected void interr() {
+		// TODO Auto-generated method stub
+	}
 }

@@ -8,6 +8,6 @@ public class ClimbUp extends DBugCommandGroup {
 	public ClimbUp() {
 		addParallel(new ElevatorMoveToEdge(Level.Top));
 		addSequential(new ShiftGear(Gear.HIGH));
-		addSequential(new ElevatorMoveVoltage(-0.5));
+		addSequential(new ElevatorMoveToEdge(Level.Bottom));
 	}
 }
