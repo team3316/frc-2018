@@ -3,12 +3,11 @@ package org.usfirst.frc.team3316.robot.commands.chassis;
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
 
-public class ResetGyro extends DBugCommand
-{
+public class ResetGyro extends DBugCommand {
 	// TODO: Add commenting
 
-	public ResetGyro()
-	{}
+	public ResetGyro() {
+	}
 
 	@Override
 	protected void init() {
@@ -18,7 +17,8 @@ public class ResetGyro extends DBugCommand
 	}
 
 	@Override
-	protected void execute() {}
+	protected void execute() {
+	}
 
 	@Override
 	protected boolean isFinished() {
@@ -26,8 +26,10 @@ public class ResetGyro extends DBugCommand
 	}
 
 	@Override
-	protected void fin() {}
+	protected void fin() {
+	}
 
 	@Override
-	protected void interr() {}
+	protected void interr() {
+	}
 }

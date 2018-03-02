@@ -7,9 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.util.WPILibVersion;
 
 /**
  * A unique speed controller class team 3316. This class contains a special
@@ -122,7 +120,7 @@ public class DBugSpeedController {
 		}
 	}
 
-	public void invert () {
+	public void invert() {
 		boolean r = this.reverse;
 		this.sc.setInverted(!r);
 		this.reverse = !r;

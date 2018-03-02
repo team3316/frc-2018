@@ -19,7 +19,7 @@ public class Holder extends DBugSubsystem {
 		// Actuators
 		Robot.actuators.HolderActuators();
 		this.motor = Robot.actuators.holderMotor;
-	
+
 		// Sensors
 		Robot.sensors.HolderSensors();
 		this.limitSwitch = Robot.sensors.holderLimitSwitch;
@@ -32,32 +32,35 @@ public class Holder extends DBugSubsystem {
 
 	/**
 	 * Sets the holder's motor output voltage.
-	 * @param v - The output voltage
+	 * 
+	 * @param v
+	 *            - The output voltage
 	 */
-	public void setMotor (double v) {
+	public void setMotor(double v) {
 		this.motor.setMotor(v);
 	}
 
-	
 	/**
 	 * Inverts the motor's direction.
 	 */
-	public void changeDirection () {
+	public void changeDirection() {
 		this.motor.invert();
 	}
-	
+
 	/**
-	 * Checks whether the limit switch is pressed or not, indicating whether a cube is in or not.
+	 * Checks whether the limit switch is pressed or not, indicating whether a cube
+	 * is in or not.
+	 * 
 	 * @return A boolean indicating whether there is a cube in the robot
 	 */
-	public boolean isCubeIn () {
+	public boolean isCubeIn() {
 		return !this.limitSwitch.get();
 	}
-	
+
 	public boolean isRollingIn() {
 		return this.motor.getVoltage() > 0.0;
 	}
-	
+
 	public boolean isRollingOut() {
 		return this.motor.getVoltage() < 0.0;
 	}

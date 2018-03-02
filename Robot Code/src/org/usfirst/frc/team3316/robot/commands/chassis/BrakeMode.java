@@ -3,12 +3,11 @@ package org.usfirst.frc.team3316.robot.commands.chassis;
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
 
-public class BrakeMode extends DBugCommand
-{
+public class BrakeMode extends DBugCommand {
 	// TODO: Add commenting
 
-	public BrakeMode()
-	{}
+	public BrakeMode() {
+	}
 
 	@Override
 	protected void init() {
@@ -16,7 +15,8 @@ public class BrakeMode extends DBugCommand
 	}
 
 	@Override
-	protected void execute() {}
+	protected void execute() {
+	}
 
 	@Override
 	protected boolean isFinished() {
@@ -24,8 +24,10 @@ public class BrakeMode extends DBugCommand
 	}
 
 	@Override
-	protected void fin() {}
+	protected void fin() {
+	}
 
 	@Override
-	protected void interr() {}
+	protected void interr() {
+	}
 }

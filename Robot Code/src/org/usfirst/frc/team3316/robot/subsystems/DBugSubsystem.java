@@ -9,8 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * Class for bundling stuff that we want in every subsystem.
  */
-public abstract class DBugSubsystem extends Subsystem
-{
+public abstract class DBugSubsystem extends Subsystem {
 	static DBugLogger logger = Robot.logger;
 	static Config config = Robot.config;
 

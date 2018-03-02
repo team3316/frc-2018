@@ -24,10 +24,10 @@ public class PathPoints {
 	}
 
 	// UTIL
-	private double[][] listToArray(List list) {
+	private double[][] listToArray(List<double[]> list) {
 		double[][] toReturn = new double[list.size()][2];
 		for (int i = 0; i < list.size(); i++) {
-			toReturn[i] = (double[]) list.get(i);
+			toReturn[i] = list.get(i);
 		}
 
 		return toReturn;

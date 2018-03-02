@@ -4,8 +4,6 @@ package org.usfirst.frc.team3316.robot;
 import java.util.Timer;
 
 import org.usfirst.frc.team3316.robot.commands.chassis.ResetGyro;
-import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorMoveToEdge;
-import org.usfirst.frc.team3316.robot.commands.elevator.ShiftGear;
 import org.usfirst.frc.team3316.robot.config.Config;
 import org.usfirst.frc.team3316.robot.humanIO.Joysticks;
 import org.usfirst.frc.team3316.robot.humanIO.SDB;
@@ -14,11 +12,10 @@ import org.usfirst.frc.team3316.robot.robotIO.Actuators;
 import org.usfirst.frc.team3316.robot.robotIO.Sensors;
 import org.usfirst.frc.team3316.robot.subsystems.Chassis;
 import org.usfirst.frc.team3316.robot.subsystems.Elevator;
-import org.usfirst.frc.team3316.robot.subsystems.Elevator.Gear;
-import org.usfirst.frc.team3316.robot.subsystems.Elevator.Level;
 import org.usfirst.frc.team3316.robot.subsystems.EmptySubsystem;
 import org.usfirst.frc.team3316.robot.subsystems.Holder;
 import org.usfirst.frc.team3316.robot.subsystems.Intake;
+import org.usfirst.frc.team3316.robot.utils.PIDControllers;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -56,6 +53,7 @@ public class Robot extends IterativeRobot {
 	public static Intake intake;
 	public static Holder holder;
 	public static Elevator elevator;
+	public static PIDControllers pidControllers;
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -88,11 +86,11 @@ public class Robot extends IterativeRobot {
 			/*
 			 * Subsystems
 			 */
-			emptySubsystem = new EmptySubsystem();	
 			chassis = new Chassis();
 			intake = new Intake();
 			elevator = new Elevator();
 			holder = new Holder();
+			pidControllers = new PIDControllers();
 
 			/*
 			 * Human IO (that requires subsystems)
@@ -136,11 +134,12 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void teleopInit() {
-	    elevator.setBrake(true);
-	    (new ResetGyro()).start();
-	    
-	    (new ElevatorMoveToEdge(Level.Bottom)).start();
-	    (new ShiftGear(Gear.LOW)).start();
+		elevator.setBrake(true);
+		(new ResetGyro()).start();
+
+		// TODO: Move to a specific command activated by a button.
+//		(new ElevatorMoveToEdge(Level.Bottom)).start();
+//		(new ShiftGear(Gear.LOW)).start();
 	}
 
 	public void teleopPeriodic() {

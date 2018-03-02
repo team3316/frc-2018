@@ -2,7 +2,7 @@ package org.usfirst.frc.team3316.robot.auton.commands;
 
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
-import org.usfirst.frc.team3316.robot.vision.AlignRobot;
+import org.usfirst.frc.team3316.robot.vision.VisionServer;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 public class AlignToCube extends DBugCommand {
 	private static PIDController pid;
 	private static double setPoint;
-	private double lastTowerAngle;
+	private double lastAngle;
 	private static double tolerance;
 
 	public AlignToCube() {
@@ -32,7 +32,7 @@ public class AlignToCube extends DBugCommand {
 		}, new PIDOutput() {
 			public void pidWrite(double output) {
 				double velocity = output;
-				if (AlignRobot.isObjectDetected()) {
+				if (VisionServer.isObjectDetected) {
 					Robot.chassis.setMotors(velocity, -velocity);
 				}
 			}
@@ -43,7 +43,7 @@ public class AlignToCube extends DBugCommand {
 
 	protected void init() {
 		setPoint = 0.0;
-		lastTowerAngle = Double.MAX_VALUE;
+		lastAngle = Double.MAX_VALUE;
 		tolerance = (double) config.get("chassis_TurnByGyro_PID_Tolerance");
 
 		pid.setAbsoluteTolerance(tolerance);
@@ -63,15 +63,12 @@ public class AlignToCube extends DBugCommand {
 		/*
 		 * This code is with setpoint set by the vision
 		 */
-		if (AlignRobot.isObjectDetected()) {
-			double towerAngle = AlignRobot.getCubeAngle();
+		if (VisionServer.isObjectDetected) {
+			double powerCubeAngle = VisionServer.azimuthAngle;
 
-			if (towerAngle != lastTowerAngle && towerAngle != 3316.0) {
-
-				setPoint = towerAngle + currentAngle;
-
-				lastTowerAngle = towerAngle;
-
+			if (powerCubeAngle != lastAngle && powerCubeAngle != 3316.0) {
+				setPoint = powerCubeAngle + currentAngle;
+				lastAngle = powerCubeAngle;
 				pid.setSetpoint(setPoint);
 			}
 		} else {

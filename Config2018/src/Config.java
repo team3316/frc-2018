@@ -178,7 +178,7 @@ public class Config {
 
 				addToVariables("chassis_SpeedFactor_Higher", -1.0);
 				addToVariables("chassis_SpeedFactor_Lower", -0.3);
-				addToVariables("chassis_SpeedFactor_Current", -0.95); // the default value
+				addToVariables("chassis_SpeedFactor_Current", -1.0);
 
 				addToVariables("chassis_TankDrive_InvertX", true);
 				addToVariables("chassis_TankDrive_InvertY", false); // false value for xbox
@@ -223,6 +223,8 @@ public class Config {
 				addToVariables("chassis_TurnByGyro_PID_KP", 100.0);
 				addToVariables("chassis_TurnByGyro_PID_KI", 0.0);
 				addToVariables("chassis_TurnByGyro_PID_KD", 300.0);
+
+				addToVariables("chassis_TurnByGyro_VelocityFilter", 0.05);
 			}
 
 			/*
@@ -291,13 +293,21 @@ public class Config {
 		}
 
 		/*
+		 * Holder + intake sequences
+		 */
+		{
+			addToVariables("cubeWait_stall_time", 500.0);
+		}
+
+		/*
 		 * Elevator
 		 */
 		{
 			addToVariables("elevator_setpoint_bottom", 0.0);
-			addToVariables("elevator_setpoint_switch", 0.7);
+			addToVariables("elevator_setpoint_switch", 1.7);
 			addToVariables("elevator_setpoint_scale", 1.8);
 			addToVariables("elevator_setpoint_top", 1.92);
+			addToVariables("elevator_level_tolerance", 0.07);
 			
 			/*
 			 * Elevator to Level
@@ -311,7 +321,7 @@ public class Config {
 			    // BANG BANG
 			    addToVariables("elevator_PID_Tolerance", 0.005);
 			    addToVariables("elevator_BangBang_UpVoltage", 0.4);
-			    addToVariables("elevator_BangBang_DownVoltage", -0.15);
+			    addToVariables("elevator_BangBang_DownVoltage", -0.4);
 			    
 			    // SHAKEN
 			    addToVariables("elevator_Shaken_Tolerance", 0.001);

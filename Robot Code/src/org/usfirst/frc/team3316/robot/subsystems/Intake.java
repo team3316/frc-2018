@@ -5,6 +5,7 @@ import org.usfirst.frc.team3316.robot.robotIO.DBugSpeedController;
 
 /**
  * The intake susbsystem
+ * 
  * @author jonathano
  */
 public class Intake extends DBugSubsystem {
@@ -27,8 +28,11 @@ public class Intake extends DBugSubsystem {
 
 	/**
 	 * Set the motor output voltage independently.
-	 * @param vLeft voltage for the left motor
-	 * @param vRight voltage for the right motor
+	 * 
+	 * @param vLeft
+	 *            voltage for the left motor
+	 * @param vRight
+	 *            voltage for the right motor
 	 */
 	public void setMotors(double vLeft, double vRight) {
 		this.leftSC.setMotor(vLeft);
@@ -37,7 +41,9 @@ public class Intake extends DBugSubsystem {
 
 	/**
 	 * Set the motor output voltage to both motors.
-	 * @param v voltage for both the motors
+	 * 
+	 * @param v
+	 *            voltage for both the motors
 	 */
 	public void setMotors(double v) {
 		this.leftSC.setMotor(v);

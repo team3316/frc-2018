@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivysettings version="2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+	<settings defaultResolver="local-chain" />
+	<resolvers>
+		<ibiblio name="ibiblio-maven2" m2compatible="true"/>
+		<ibiblio name="kauailabs-maven" root="http://www.kauailabs.com/maven2" m2compatible="true"/>
+		<chain name="local-chain">
+            <resolver ref="ibiblio-maven2"/>
+            <resolver ref="kauailabs-maven"/>
+        </chain>
+	</resolvers>
+</ivysettings>

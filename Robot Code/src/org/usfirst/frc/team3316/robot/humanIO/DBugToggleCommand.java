@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DBugToggleCommand extends DBugCommand {
 	/**
-	 * First pressing activates cmd 1 and the second activates cmd 2 Note: This
-	 * does not work on whileHeld
+	 * First pressing activates cmd 1 and the second activates cmd 2 Note: This does
+	 * not work on whileHeld
 	 */
 
 	private Command cmd1, cmd2;
@@ -55,7 +55,8 @@ public class DBugToggleCommand extends DBugCommand {
 		return true;
 	}
 
-	protected void fin() {}
+	protected void fin() {
+	}
 
 	protected void interr() {
 		fin();
