@@ -54,12 +54,14 @@ public class SDB {
 			
 			// Elevator
 			put("Elevator position", Robot.elevator.getPosition());
-			
 			put("LOW GEAR", Robot.elevator.getGear() == Gear.LOW);
 			
 			put("BOTTOM LEVEL", Robot.elevator.getLevel() == Level.Bottom);
 			put("INTER LEVEL", Robot.elevator.getLevel() == Level.Intermediate);
 			put("TOP LEVEL", Robot.elevator.getLevel() == Level.Top);
+			
+			put("MOTOR ELE 1", Robot.actuators.elevatorMotorOne.getCurrent());
+			put("MOTOR ELE 2", Robot.actuators.elevatorMotorTwo.getCurrent());
 			
 			// Holder
 			put("IS CUBE IN", Robot.holder.isCubeIn());
@@ -162,8 +164,8 @@ public class SDB {
 
 		SmartDashboard.putData("Toggle Shifting",
 				new DBugToggleCommand(new ShiftGear(Gear.HIGH), new ShiftGear(Gear.LOW)));
-		SmartDashboard.putData("HIGH GEAR", new ShiftGear(Gear.HIGH));
-		SmartDashboard.putData("LOW GEAR", new ShiftGear(Gear.LOW));
+		SmartDashboard.putData("High Gear Cmd", new ShiftGear(Gear.HIGH));
+		SmartDashboard.putData("Low Gear Cmd", new ShiftGear(Gear.LOW));
 		logger.info("Finished initSDB()");
 	}
 

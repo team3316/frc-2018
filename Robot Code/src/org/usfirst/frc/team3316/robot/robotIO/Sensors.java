@@ -44,7 +44,7 @@ public class Sensors {
 	 * General
 	 */
 	public void GeneralSensors() {
-		// pdp = new PowerDistributionPanel();
+		 pdp = new PowerDistributionPanel(0);
 	}
 
 	/*
