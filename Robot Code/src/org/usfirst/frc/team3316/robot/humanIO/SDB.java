@@ -14,13 +14,16 @@ import org.usfirst.frc.team3316.robot.auton.commands.TurnByGyro;
 import org.usfirst.frc.team3316.robot.auton.sequences.CenterPositionSwitch;
 import org.usfirst.frc.team3316.robot.auton.sequences.LeftPositionSwitch;
 import org.usfirst.frc.team3316.robot.auton.sequences.RightPositionSwitch;
-import org.usfirst.frc.team3316.robot.auton.sequences.SwitchType;
+import org.usfirst.frc.team3316.robot.auton.sequences.SwitchScaleType;
+import org.usfirst.frc.team3316.robot.commands.DisableCompressor;
+import org.usfirst.frc.team3316.robot.commands.EnableCompressor;
 import org.usfirst.frc.team3316.robot.commands.emptyCommand;
 import org.usfirst.frc.team3316.robot.commands.chassis.MoveChassis;
 import org.usfirst.frc.team3316.robot.commands.chassis.ResetGyro;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorToLevel;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorToLevelBangbang;
 import org.usfirst.frc.team3316.robot.commands.elevator.ShiftGear;
+import org.usfirst.frc.team3316.robot.commands.holder.MoveServo;
 import org.usfirst.frc.team3316.robot.config.Config;
 import org.usfirst.frc.team3316.robot.logger.DBugLogger;
 import org.usfirst.frc.team3316.robot.subsystems.Elevator.Gear;
@@ -44,13 +47,15 @@ public class SDB {
 
 		public void run() {
 			/*
-			 * For driver (mitel)
+			 * For driver (mitel & leehi)
 			 */
 
 			// Chassis
 			put("Distace right", Robot.chassis.getRightDistance());
 			put("Distace left", Robot.chassis.getLeftDistance());
 			put("Yaw angle", Robot.chassis.getYaw());
+			
+			put("ON BRAKE", Robot.chassis.onBrake());
 			
 			// Elevator
 			put("Elevator position", Robot.elevator.getPosition());
@@ -61,9 +66,18 @@ public class SDB {
 			put("INTER LEVEL", Robot.elevator.getLevel() == Level.Intermediate);
 			put("TOP LEVEL", Robot.elevator.getLevel() == Level.Top);
 			
-			// Holder
-			put("IS CUBE IN", Robot.holder.isCubeIn());
+			put("JOYSTICK CONTROL", Robot.elevator.joystickControl);
 			
+			// Holder & Intake
+			put("IS CUBE IN", Robot.holder.isCubeIn());
+		
+			put("IS EJECTING", Robot.holder.isRollingOut());
+			put("IS COLLECTING", Robot.holder.isRollingIn());
+			
+			/*
+			 * Control
+			 */
+			put("encoder counter", Robot.sensors.elevatorEncoder.getRaw());
 		}
 
 		private void put(String name, double d) {
@@ -147,23 +161,23 @@ public class SDB {
 		SmartDashboard.putData(new UpdateVariablesInConfig()); // NEVER REMOVE
 		// THIS COMMAND
 
-		// Auton
-		SmartDashboard.putData(new LeftPositionSwitch(SwitchType.LEFT));
-		SmartDashboard.putData(new RightPositionSwitch(SwitchType.RIGHT));
-		
-		SmartDashboard.putData("RIGHT CENTER", new CenterPositionSwitch(SwitchType.RIGHT));
-		SmartDashboard.putData("LEFT CENTER", new CenterPositionSwitch(SwitchType.LEFT));
+		// Auton		
 
-		SmartDashboard.putData(new TurnByGyro(-90.0));
 		// Chassis
 		SmartDashboard.putData(new ResetGyro());
 
 		// Elevator
-
-		SmartDashboard.putData("Toggle Shifting",
-				new DBugToggleCommand(new ShiftGear(Gear.HIGH), new ShiftGear(Gear.LOW)));
-		SmartDashboard.putData("HIGH GEAR", new ShiftGear(Gear.HIGH));
-		SmartDashboard.putData("LOW GEAR", new ShiftGear(Gear.LOW));
+		SmartDashboard.putData("High Gear Cmd", new ShiftGear(Gear.HIGH));
+		SmartDashboard.putData("Low Gear Cmd", new ShiftGear(Gear.LOW));
+		
+		// Other
+		SmartDashboard.putData(new EnableCompressor());
+		SmartDashboard.putData(new DisableCompressor());
+		
+		/*
+		 * Control
+		 */
+		SmartDashboard.putData("SERVO SWITCH STATE", new MoveServo((double) config.get("servo_Final_Angle"), false));
 		logger.info("Finished initSDB()");
 	}
 

@@ -10,7 +10,7 @@ import org.usfirst.frc.team3316.robot.utils.falcon.PathPoints;
 
 public class RightPositionSwitch extends DBugCommandGroup {
 
-	public RightPositionSwitch(SwitchType type) {
+	public RightPositionSwitch(SwitchScaleType type) {
 
 		PathPoints startPoints = new PathPoints();
 		startPoints.addPathPoint(0.0, 0.0);

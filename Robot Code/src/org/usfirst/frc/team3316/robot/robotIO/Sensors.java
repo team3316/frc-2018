@@ -24,7 +24,7 @@ public class Sensors {
 	DBugLogger logger = Robot.logger;
 
 	// General
-	public PowerDistributionPanel pdp;
+//	public PowerDistributionPanel pdp;
 
 	// Chassis
 	public AHRS navx;
@@ -44,7 +44,7 @@ public class Sensors {
 	 * General
 	 */
 	public void GeneralSensors() {
-		// pdp = new PowerDistributionPanel();
+//		 pdp = new PowerDistributionPanel(0);
 	}
 
 	/*

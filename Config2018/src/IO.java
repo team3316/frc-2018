@@ -198,9 +198,9 @@ public class IO {
 
 					// Intake
 					// Left
-					putPWMA("INTAKE_MOTOR_LEFT", 1);
+					putPWMA("INTAKE_MOTOR_LEFT", 2);
 					// Right
-					putPWMA("INTAKE_MOTOR_RIGHT", 2);
+					putPWMA("INTAKE_MOTOR_RIGHT", 1);
 
 					// Elevator
 					// Left front
@@ -210,6 +210,7 @@ public class IO {
 
 					// Holder
 					putPWMA("HOLDER_MOTOR", 0);
+					putPWMA("HOLDER_SERVO", 4);
 					
 					
 					// OTHER
@@ -244,6 +245,7 @@ public class IO {
 
 					// Holder
 					putPWMB("HOLDER_MOTOR", 0);
+					putPWMB("HOLDER_SERVO", 3);
 				}
 			}
 
@@ -278,21 +280,21 @@ public class IO {
 				 */
 				{
 					// Chassis
-					putDIOB("CHASSIS_LEFT_ENCODER_CHANNEL_A", 6);
+					putDIOB("CHASSIS_LEFT_ENCODER_CHANNEL_A", 7);
 					putDIOB("CHASSIS_LEFT_ENCODER_CHANNEL_B", 8);
 
-					putDIOB("CHASSIS_RIGHT_ENCODER_CHANNEL_A", 3);
-					putDIOB("CHASSIS_RIGHT_ENCODER_CHANNEL_B", 2);
+					putDIOB("CHASSIS_RIGHT_ENCODER_CHANNEL_A", 5);
+					putDIOB("CHASSIS_RIGHT_ENCODER_CHANNEL_B", 6);
 
 					// Elevator
-					putDIOB("ELEVATOR_ENCODER_CHANNEL_A", 5);
+					putDIOB("ELEVATOR_ENCODER_CHANNEL_A", 3);
 					putDIOB("ELEVATOR_ENCODER_CHANNEL_B", 4);
 
 					putDIOB("ELEVATOR_BOTTOM_HE", 1);
 					putDIOB("ELEVATOR_TOP_HE", 0);
 					
 					// Holder
-					putDIOB("HOLDER_LIMIT_SWITCH", 7);
+					putDIOB("HOLDER_LIMIT_SWITCH", 2);
 				}
 			}
 

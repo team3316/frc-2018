@@ -3,9 +3,19 @@ package org.usfirst.frc.team3316.robot;
 
 import java.util.Timer;
 
+import org.usfirst.frc.team3316.robot.auton.commands.AutonMode;
+import org.usfirst.frc.team3316.robot.auton.sequences.AutonPosition;
+import org.usfirst.frc.team3316.robot.auton.sequences.CenterPosition;
+import org.usfirst.frc.team3316.robot.auton.sequences.CrossLine;
+import org.usfirst.frc.team3316.robot.auton.sequences.LeftPosition;
+import org.usfirst.frc.team3316.robot.auton.sequences.RightPosition;
+import org.usfirst.frc.team3316.robot.auton.sequences.SwitchScaleType;
+import org.usfirst.frc.team3316.robot.commands.DBugCommand;
+import org.usfirst.frc.team3316.robot.commands.DBugCommandGroup;
 import org.usfirst.frc.team3316.robot.commands.chassis.ResetGyro;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorMoveToEdge;
 import org.usfirst.frc.team3316.robot.commands.elevator.ShiftGear;
+import org.usfirst.frc.team3316.robot.commands.holder.MoveServo;
 import org.usfirst.frc.team3316.robot.config.Config;
 import org.usfirst.frc.team3316.robot.humanIO.Joysticks;
 import org.usfirst.frc.team3316.robot.humanIO.SDB;
@@ -20,9 +30,12 @@ import org.usfirst.frc.team3316.robot.subsystems.EmptySubsystem;
 import org.usfirst.frc.team3316.robot.subsystems.Holder;
 import org.usfirst.frc.team3316.robot.subsystems.Intake;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -57,6 +70,12 @@ public class Robot extends IterativeRobot {
 	public static Holder holder;
 	public static Elevator elevator;
 
+	/*
+	 * Choosers
+	 */
+	SendableChooser<AutonPosition> positionChooser;
+	SendableChooser<AutonMode> modeChooser;
+
 	/**
 	 * This function is run when the robot is first started up and should be used
 	 * for any initialization code.
@@ -88,7 +107,7 @@ public class Robot extends IterativeRobot {
 			/*
 			 * Subsystems
 			 */
-			emptySubsystem = new EmptySubsystem();	
+			emptySubsystem = new EmptySubsystem();
 			chassis = new Chassis();
 			intake = new Intake();
 			elevator = new Elevator();
@@ -112,6 +131,19 @@ public class Robot extends IterativeRobot {
 			/*
 			 * Choosers
 			 */
+			positionChooser = new SendableChooser<AutonPosition>();
+			positionChooser.addDefault("Center", new CenterPosition());
+			positionChooser.addObject("Left", new LeftPosition());
+			positionChooser.addObject("Right", new RightPosition());
+			
+			SmartDashboard.putData("ROBOT POSITION A", positionChooser);
+
+			modeChooser = new SendableChooser<AutonMode>();
+			modeChooser.addDefault("Cross Line", AutonMode.CrossLine);
+			modeChooser.addObject("Switch", AutonMode.Switch);
+			modeChooser.addObject("Scale Or Switch", AutonMode.ScaleOrSwitch);
+			
+			SmartDashboard.putData("AUTON MODE A", modeChooser);
 
 		} catch (Exception e) {
 			logger.severe(e);
@@ -128,7 +160,36 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousInit() {
+		if (modeChooser.getSelected() != AutonMode.CrossLine) {
+			AutonPosition posCmd = positionChooser.getSelected();
+			posCmd.setMode(modeChooser.getSelected());
+			
+			SwitchScaleType switchType = SwitchScaleType.LEFT, scaleType = SwitchScaleType.LEFT;
+			String gameData;
+			gameData = DriverStation.getInstance().getGameSpecificMessage();
+			if (gameData.length() > 0) {
+				if (gameData.charAt(0) == 'L') {
+					switchType = SwitchScaleType.LEFT;
+				} else {
+					switchType = SwitchScaleType.RIGHT;
+				}
+				
+				if (gameData.charAt(1) == 'L') {
+					scaleType = SwitchScaleType.LEFT;
+				} else {
+					scaleType = SwitchScaleType.RIGHT;
+				}
+			}
+			
+			posCmd.setSwitchType(switchType);
+			posCmd.setScaleType(scaleType);
+			
+			posCmd.analizeMode();
 
+			posCmd.start();
+		} else {
+			(new CrossLine()).start();
+		}
 	}
 
 	public void autonomousPeriodic() {
@@ -136,11 +197,11 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void teleopInit() {
-	    elevator.setBrake(true);
-	    (new ResetGyro()).start();
-	    
-	    (new ElevatorMoveToEdge(Level.Bottom)).start();
-	    (new ShiftGear(Gear.LOW)).start();
+		elevator.setBrake(true);
+		(new ResetGyro()).start();
+
+		(new ElevatorMoveToEdge(Level.Bottom)).start();
+		(new ShiftGear(Gear.LOW)).start();
 	}
 
 	public void teleopPeriodic() {

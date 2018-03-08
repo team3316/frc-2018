@@ -10,8 +10,8 @@ import org.usfirst.frc.team3316.robot.utils.falcon.PathPoints;
 
 public class CenterPositionSwitch extends DBugCommandGroup {
 
-	public CenterPositionSwitch(SwitchType type) {
-		if (type == SwitchType.RIGHT) {
+	public CenterPositionSwitch(SwitchScaleType type) {
+		if (type == SwitchScaleType.RIGHT) {
 			PathPoints startPoints = new PathPoints();
 			startPoints.addPathPoint(0.0, 0.0);
 			startPoints.addPathPoint(2.1, 1.95);
@@ -22,7 +22,7 @@ public class CenterPositionSwitch extends DBugCommandGroup {
 			addSequential(startPath);
 			addSequential(new HolderEjection());
 		}
-		else if (type == SwitchType.LEFT) {
+		else if (type == SwitchScaleType.LEFT) {
 			PathPoints startPoints = new PathPoints();
 			startPoints.addPathPoint(0.0, 0.0);
 			startPoints.addPathPoint(-3.7, 1.75);

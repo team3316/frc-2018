@@ -10,7 +10,7 @@ import org.usfirst.frc.team3316.robot.subsystems.Elevator.Level;
 import org.usfirst.frc.team3316.robot.utils.falcon.PathPoints;
 
 public class LeftPositionSwitch extends DBugCommandGroup { 
-    public LeftPositionSwitch (SwitchType type) {
+    public LeftPositionSwitch (SwitchScaleType type) {
 		PathPoints startPoints = new PathPoints();
 		startPoints.addPathPoint(0.0, 0.0);
 		startPoints.addPathPoint(0.0, 2.5);

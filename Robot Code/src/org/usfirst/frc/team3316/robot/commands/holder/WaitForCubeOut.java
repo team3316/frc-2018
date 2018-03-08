@@ -26,7 +26,7 @@ public class WaitForCubeOut extends DBugCommand {
     @Override
     protected boolean isFinished() {
 	// TODO Auto-generated method stub
-	return (!Robot.holder.isCubeIn() && timer >= 500.0);
+	return (!Robot.holder.isCubeIn() && timer >= 1000.0);
     }
 
     @Override

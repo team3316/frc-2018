@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Elevator extends DBugSubsystem {
 	// Variables
 	private double offset;
+	public boolean joystickControl = false;
 
 	// Sensors
 	private DigitalInput heBottom, heTop;

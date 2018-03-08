@@ -16,7 +16,7 @@ public class ElevatorJoystick extends DBugCommand {
 
 	@Override
 	protected void init() {
-		// Nothin' here
+		Robot.elevator.joystickControl = true;
 	}
 
 	@Override
@@ -34,6 +34,7 @@ public class ElevatorJoystick extends DBugCommand {
 	@Override
 	protected void fin() {
 		Robot.elevator.setMotors(0.0);
+		Robot.elevator.joystickControl = false;
 	}
 
 	@Override

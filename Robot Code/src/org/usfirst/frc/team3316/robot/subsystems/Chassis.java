@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3316.robot.subsystems;
 
 import org.usfirst.frc.team3316.robot.Robot;
+import org.usfirst.frc.team3316.robot.commands.chassis.BrakeMode;
 import org.usfirst.frc.team3316.robot.commands.chassis.TankDrive;
 import org.usfirst.frc.team3316.robot.commands.chassis.TankDriveXbox;
 import org.usfirst.frc.team3316.robot.robotIO.DBugSpeedController;
@@ -27,6 +28,7 @@ public class Chassis extends DBugSubsystem {
 	// Variables
 	private double pitchOffset, rollOffset, yawOffset = 0.0;
 	public double tempLeftV = 0, tempRightV = 0;
+	private boolean onBrake = false;
 
 	public Chassis() {
 		// Actuators
@@ -40,8 +42,8 @@ public class Chassis extends DBugSubsystem {
 		// Sensors
 		Robot.sensors.ChassisSensors();
 
-//		leftEncoder = Robot.sensors.chassisLeftEncoder;
-//		rightEncoder = Robot.sensors.chassisRightEncoder;
+		leftEncoder = Robot.sensors.chassisLeftEncoder;
+		rightEncoder = Robot.sensors.chassisRightEncoder;
 		navx = Robot.sensors.navx;
 		
 		resetYaw();
@@ -105,10 +107,16 @@ public class Chassis extends DBugSubsystem {
 	}
 
 	public void setBrake(boolean brakeMode) {
+		onBrake = brakeMode;
+		
 		leftMotor1.switchToBrake(brakeMode);
 		leftMotor2.switchToBrake(brakeMode);
 		rightMotor1.switchToBrake(brakeMode);
 		rightMotor2.switchToBrake(brakeMode);
+	}
+
+	public boolean onBrake() {
+		return onBrake;
 	}
 
 	/*
