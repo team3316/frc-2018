@@ -3,11 +3,13 @@ package org.usfirst.frc.team3316.robot.vision;
 import java.net.*;
 
 import org.json.*;
+import org.usfirst.frc.team3316.robot.Robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionServer implements Runnable {
-	public static boolean isConnected = false, isObjectDetected;
+	private boolean isConnected = false;
+	public static boolean isObjectDetected;
 	public static double azimuthAngle, distanceFromCube;
 
 	public void run() {
@@ -25,7 +27,7 @@ public class VisionServer implements Runnable {
 
 			DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 			try {
-				serverSocket.setSoTimeout(100);
+				serverSocket.setSoTimeout(120);
 				serverSocket.receive(receivePacket);
 
 				isConnected = true;
@@ -34,8 +36,8 @@ public class VisionServer implements Runnable {
 				JSONObject parsed = new JSONObject(sentence);
 
 				VisionServer.azimuthAngle = parsed.getDouble("AA");
-				VisionServer.distanceFromCube = parsed.getDouble("DFC");
-				VisionServer.isObjectDetected = parsed.getInt("IOD") == 1;
+				VisionServer.distanceFromCube = parsed.getDouble("DIS");
+				VisionServer.isObjectDetected = parsed.getDouble("IOD") == 1;
 			} catch (Exception e) {
 				// TODO - Add throttling
 				isConnected = false;

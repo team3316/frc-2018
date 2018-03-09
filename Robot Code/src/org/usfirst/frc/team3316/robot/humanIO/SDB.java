@@ -20,6 +20,7 @@ import org.usfirst.frc.team3316.robot.config.Config;
 import org.usfirst.frc.team3316.robot.logger.DBugLogger;
 import org.usfirst.frc.team3316.robot.subsystems.Elevator.Gear;
 import org.usfirst.frc.team3316.robot.subsystems.Elevator.Level;
+import org.usfirst.frc.team3316.robot.vision.VisionServer;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -56,6 +57,10 @@ public class SDB {
 
 			// Holder
 			put("IS CUBE IN", Robot.holder.isCubeIn());
+
+			// Vision
+			put("AA", VisionServer.azimuthAngle);
+			put("DIS", VisionServer.distanceFromCube);
 
 		}
 
@@ -145,13 +150,8 @@ public class SDB {
 		// THIS COMMAND
 
 		// Auton
-		SmartDashboard.putData(new LeftPositionSwitch(SwitchType.LEFT));
-		SmartDashboard.putData(new RightPositionSwitch(SwitchType.RIGHT));
 
-		SmartDashboard.putData("RIGHT CENTER", new CenterPositionSwitch(SwitchType.RIGHT));
-		SmartDashboard.putData("LEFT CENTER", new CenterPositionSwitch(SwitchType.LEFT));
-
-		SmartDashboard.putData(new TurnByGyro(-90.0));
+		SmartDashboard.putData("TURN TO 90", new TurnByGyro(90.0));
 		// Chassis
 		SmartDashboard.putData(new ResetGyro());
 
