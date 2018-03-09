@@ -23,7 +23,7 @@ public class ElevatorToLevel extends ElevatorMovingCommand {
 		 * it in the same speed, thus setting the down speed to be the inverted up
 		 * speed.
 		 */
-		downVoltage = lessThanSetpoint ? configDownVoltage : -configUpVoltage;
+		downVoltage = lessThanSetpoint ? configDownVoltage : (double) config.get("elevator_MoveToEdge_DownVoltage");
 		upVoltage = lessThanSetpoint ? configUpVoltage : -configDownVoltage;
 	}
 

@@ -27,6 +27,7 @@ public abstract class ElevatorMovingCommand extends DBugCommand {
 	@Override
 	protected boolean isFinished() {
 		if (!this.isShaken()) {
+			logger.info(Utils.isInNeighborhood(Robot.elevator.getPosition(), setpoint, tolerance) ? "in neighborhood" : "out of neighborhood");
 			return Utils.isInNeighborhood(Robot.elevator.getPosition(), setpoint, tolerance);
 		} else {
 			return false;

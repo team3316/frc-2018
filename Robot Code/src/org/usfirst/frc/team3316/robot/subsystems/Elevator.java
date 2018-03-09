@@ -99,8 +99,8 @@ public class Elevator extends DBugSubsystem {
 	@Override
 	public void periodic() {
 		double setpoint = this.getLevel().getSetpoint();
-		if (!Double.isNaN(setpoint)) {
-			this.offset = setpoint - this.encoder.getRaw() * encoderDistPerPulse;
+		if (this.getLevel() == Level.Bottom) {
+			this.encoder.reset();
 		}
 	}
 
@@ -160,7 +160,7 @@ public class Elevator extends DBugSubsystem {
 	 * @return The elevator's position (in meters)
 	 */
 	public double getPosition() {
-		return this.encoder.getRaw() * encoderDistPerPulse + this.offset;
+		return this.encoder.getDistance();
 	}
 
 	/**
