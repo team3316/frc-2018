@@ -155,7 +155,8 @@ public class Config {
 				/*
 				 * Elevator
 				 */
-				addToConstants("ELEVATOR_ENCODER_DISTANCE_PER_PULSE", 0.0008736); // in meters
+				addToConstantsA("ELEVATOR_ENCODER_DISTANCE_PER_PULSE", 0.0008736); // in meters
+				addToConstantsB("ELEVATOR_ENCODER_DISTANCE_PER_PULSE", 0.000035803278); // in meters
 				addToConstants("ELEVATOR_MOTORS_REVERSE", false);
 			}
 		}
@@ -178,7 +179,9 @@ public class Config {
 
 				addToVariables("chassis_SpeedFactor_Higher", -1.0);
 				addToVariables("chassis_SpeedFactor_Lower", -0.3);
-				addToVariables("chassis_SpeedFactor_Current", -1.0);
+				
+				addToVariablesA("chassis_SpeedFactor_Current", -1.0);
+				addToVariablesB("chassis_SpeedFactor_Current", 1.0);
 
 				addToVariables("chassis_TankDrive_InvertX", true);
 				addToVariables("chassis_TankDrive_InvertY", false); // false value for xbox
@@ -296,7 +299,7 @@ public class Config {
 		 * Holder + intake sequences
 		 */
 		{
-			addToVariables("cubeWait_stall_time", 500.0);
+			addToVariables("cubeWait_stall_time", 1000.0);
 		}
 
 		/*
@@ -324,8 +327,9 @@ public class Config {
 			    addToVariables("elevator_BangBang_DownVoltage", -0.4);
 			    
 			    // SHAKEN
-			    addToVariables("elevator_Shaken_Tolerance", 0.001);
-			    addToVariables("elevator_Shaken_Voltage", 0.15);
+			    addToVariables("elevator_Shaken_Tolerance", 0.02);
+			    addToVariables("elevator_Shaken_DownVoltage", -0.1);
+			    addToVariables("elevator_Shaken_UpVoltage", 0.2);
 			}
 			
 			/*

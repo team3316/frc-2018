@@ -41,14 +41,14 @@ public class SDB {
 			 */
 
 			// Chassis
-			put("Distace right", Robot.chassis.getRightDistance());
-			put("Distace left", Robot.chassis.getLeftDistance());
+//			put("Distace right", Robot.chassis.getRightDistance());
+//			put("Distace left", Robot.chassis.getLeftDistance());
 			put("Yaw angle", Robot.chassis.getYaw());
 
 			// Elevator
 			put("Elevator position", Robot.elevator.getPosition());
 
-			put("LOW GEAR", Robot.elevator.getGear() == Gear.LOW);
+//			put("LOW GEAR", Robot.elevator.getGear() == Gear.LOW);
 
 			put("BOTTOM LEVEL", Robot.elevator.getLevel() == Level.Bottom);
 			put("INTER LEVEL", Robot.elevator.getLevel() == Level.Intermediate);

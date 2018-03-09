@@ -45,7 +45,6 @@ public class DBugToggleCommand extends DBugCommand {
 			toggle = true;
 		}
 
-		SmartDashboard.putNumber("counter", counter);
 	}
 
 	protected void execute() {

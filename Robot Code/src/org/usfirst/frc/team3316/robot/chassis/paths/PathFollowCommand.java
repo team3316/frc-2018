@@ -24,8 +24,6 @@ public class PathFollowCommand extends DBugCommand {
 	int i = 0;
 
 	public PathFollowCommand(PathPoints waypoints, double totalTime) {
-		requires(Robot.emptySubsystem);
-
 		path = new FalconPathPlanner(waypoints.getPathPoints());
 		path.calculate(totalTime, (double) config.get("chassis_PF_Steptime"),
 				(double) config.get("CHASSIS_PF_TRACKWIDTH"));

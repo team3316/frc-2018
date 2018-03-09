@@ -26,4 +26,8 @@ public class ElevatorToLevel extends ElevatorMovingCommand {
 		downVoltage = lessThanSetpoint ? configDownVoltage : -configUpVoltage;
 		upVoltage = lessThanSetpoint ? configUpVoltage : -configDownVoltage;
 	}
+
+	protected boolean isShaken() {
+		return false;
+	}
 }

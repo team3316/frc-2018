@@ -12,6 +12,7 @@ public abstract class ElevatorMovingCommand extends DBugCommand {
 	}
 
 	protected abstract void setParameters();
+	protected abstract boolean isShaken();
 
 	@Override
 	protected void init() {
@@ -25,7 +26,11 @@ public abstract class ElevatorMovingCommand extends DBugCommand {
 
 	@Override
 	protected boolean isFinished() {
-		return Utils.isInNeighborhood(Robot.elevator.getPosition(), setpoint, tolerance);
+		if (!this.isShaken()) {
+			return Utils.isInNeighborhood(Robot.elevator.getPosition(), setpoint, tolerance);
+		} else {
+			return false;
+		}
 	}
 
 	@Override

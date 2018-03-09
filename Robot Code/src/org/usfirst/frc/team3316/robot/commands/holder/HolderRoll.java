@@ -9,12 +9,9 @@ public class HolderRoll extends DBugCommand {
 	HolderRollType type;
 
 	public HolderRoll(HolderRollType type) {
-		if (type != null) {
-			requires(Robot.holder);
-			this.type = type;
-		} else {
-			logger.severe("No holder roll type!!!");
-		}
+		requires(Robot.holder);
+		this.type = type;
+
 	}
 
 	@Override
