@@ -95,8 +95,6 @@ public class VisionServer implements Runnable
 			{
 				serverSocket.setSoTimeout(100);
 				serverSocket.receive(receivePacket);
-
-//				logger.finest("Received packet");
 				
 				isConnected = true;
 				
@@ -105,17 +103,14 @@ public class VisionServer implements Runnable
 				System.out.println("PACKET DATA: " + sentence);
 				SmartDashboard.putString("PACKET DATA", sentence);
 				
-//				logger.finest("Packet data length: " + receivePacket.getLength());
 				VisionServer.Data = parseLine(sentence);
 				SmartDashboard.putNumber("AA", VisionServer.Data.get("AA"));
 				
-//				logger.finest("Parsed line");
 			}
 			catch (Exception e)
 			{
-//				logger.severe("Vision server couldn't receive a packet");
+				System.out.println(e);
 				isConnected = false;
-//				logger.severe(e);
 			}
 		}
 	}
