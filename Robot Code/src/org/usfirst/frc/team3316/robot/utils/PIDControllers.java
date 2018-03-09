@@ -113,6 +113,6 @@ public class PIDControllers extends DBugSubsystem {
 
 	@Override
 	public void initDefaultCommand() {
-		setDefaultCommand(new emptyCommand());
+		// Do nothing here
 	}
 }

@@ -117,6 +117,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void disabledInit() {
+		System.out.println(chassis);
 		chassis.setBrake(false);
 		elevator.setBrake(true);
 	}
