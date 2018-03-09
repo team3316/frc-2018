@@ -156,7 +156,7 @@ public class Config {
 				 * Elevator
 				 */
 				addToConstantsA("ELEVATOR_ENCODER_DISTANCE_PER_PULSE", 0.0008736); // in meters
-				addToConstantsB("ELEVATOR_ENCODER_DISTANCE_PER_PULSE", 0.000035803278); // in meters
+				addToConstantsB("ELEVATOR_ENCODER_DISTANCE_PER_PULSE", 0.00014321112); // in meters
 				addToConstants("ELEVATOR_MOTORS_REVERSE", false);
 			}
 		}
@@ -223,9 +223,9 @@ public class Config {
 				// PID
 				addToVariables("chassis_TurnByGyro_PID_Tolerance", 2.0);
 
-				addToVariables("chassis_TurnByGyro_PID_KP", 100.0);
+				addToVariables("chassis_TurnByGyro_PID_KP", 50.0);
 				addToVariables("chassis_TurnByGyro_PID_KI", 0.0);
-				addToVariables("chassis_TurnByGyro_PID_KD", 300.0);
+				addToVariables("chassis_TurnByGyro_PID_KD", 0.0);
 
 				addToVariables("chassis_TurnByGyro_VelocityFilter", 0.05);
 			}
@@ -307,7 +307,7 @@ public class Config {
 		 */
 		{
 			addToVariables("elevator_setpoint_bottom", 0.0);
-			addToVariables("elevator_setpoint_switch", 1.7);
+			addToVariables("elevator_setpoint_switch", 0.7);
 			addToVariables("elevator_setpoint_scale", 1.8);
 			addToVariables("elevator_setpoint_top", 1.92);
 			addToVariables("elevator_level_tolerance", 0.07);
@@ -322,12 +322,16 @@ public class Config {
 			    addToVariables("elevator_PID_KD", 60.0);
 			    
 			    // BANG BANG
-			    addToVariables("elevator_PID_Tolerance", 0.005);
-			    addToVariables("elevator_BangBang_UpVoltage", 0.4);
-			    addToVariables("elevator_BangBang_DownVoltage", -0.4);
+			    addToVariables("elevator_PID_Tolerance", 0.025);
+			    addToVariables("elevator_BangBang_UpVoltage", 0.65);
+			    addToVariables("elevator_BangBang_DownVoltage", -0.3);
+			    
+			    addToVariables("elevator_MoveToEdge_UpVoltage", 0.6);
+			    addToVariables("elevator_MoveToEdge_DownVoltage", -0.4);
+			    
 			    
 			    // SHAKEN
-			    addToVariables("elevator_Shaken_Tolerance", 0.02);
+			    addToVariables("elevator_Shaken_Tolerance", 0.025);
 			    addToVariables("elevator_Shaken_DownVoltage", -0.1);
 			    addToVariables("elevator_Shaken_UpVoltage", 0.2);
 			}
