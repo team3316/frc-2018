@@ -31,15 +31,11 @@ public class IntakeShaken extends DBugCommand {
 		this.diff2 = time - this.currentTime;
 
 		if (diff1 <= this.stepTime) {
-//			double vLeft = isInverted ? this.rightVoltage : this.leftVoltage;
-//			double vRight = isInverted ? this.leftVoltage : this.rightVoltage;
-//			Robot.intake.setMotors(vLeft, vRight);
 			Robot.intake.setMotors(this.leftVoltage, this.rightVoltage);
 		} else if (diff2 <= this.stepTime + this.stopTime) {
 			this.diff1 = 0;
 			Robot.intake.setMotors(this.leftVoltage, 0.0);
 		} else {
-//			this.isInverted = !this.isInverted;
 			this.diff1 = 0;
 			this.diff2 = 0;
 			this.currentTime = time;

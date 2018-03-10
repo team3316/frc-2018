@@ -160,8 +160,8 @@ public class SDB {
 
 		SmartDashboard.putData("Toggle Shifting",
 				new DBugToggleCommand(new ShiftGear(Gear.HIGH), new ShiftGear(Gear.LOW)));
-		SmartDashboard.putData("HIGH GEAR", new ShiftGear(Gear.HIGH));
-		SmartDashboard.putData("LOW GEAR", new ShiftGear(Gear.LOW));
+		SmartDashboard.putData("High Gear Cmd", new ShiftGear(Gear.HIGH));
+		SmartDashboard.putData("Low Gear Cmd", new ShiftGear(Gear.LOW));
 		logger.info("Finished initSDB()");
 	}
 

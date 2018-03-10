@@ -278,21 +278,21 @@ public class IO {
 				 */
 				{
 					// Chassis
-					putDIOB("CHASSIS_LEFT_ENCODER_CHANNEL_A", 6);
+					putDIOB("CHASSIS_LEFT_ENCODER_CHANNEL_A", 7);
 					putDIOB("CHASSIS_LEFT_ENCODER_CHANNEL_B", 8);
 
-					putDIOB("CHASSIS_RIGHT_ENCODER_CHANNEL_A", 3);
-					putDIOB("CHASSIS_RIGHT_ENCODER_CHANNEL_B", 2);
+					putDIOB("CHASSIS_RIGHT_ENCODER_CHANNEL_A", 5);
+					putDIOB("CHASSIS_RIGHT_ENCODER_CHANNEL_B", 6);
 
 					// Elevator
-					putDIOB("ELEVATOR_ENCODER_CHANNEL_A", 5);
+					putDIOB("ELEVATOR_ENCODER_CHANNEL_A", 3);
 					putDIOB("ELEVATOR_ENCODER_CHANNEL_B", 4);
 
 					putDIOB("ELEVATOR_BOTTOM_HE", 1);
 					putDIOB("ELEVATOR_TOP_HE", 0);
 					
 					// Holder
-					putDIOB("HOLDER_LIMIT_SWITCH", 7);
+					putDIOB("HOLDER_LIMIT_SWITCH", 2);
 				}
 			}
 
