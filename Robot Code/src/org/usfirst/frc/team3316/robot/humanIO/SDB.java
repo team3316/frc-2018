@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.TimerTask;
 
 import org.usfirst.frc.team3316.robot.Robot;
+import org.usfirst.frc.team3316.robot.auton.commands.AlignToCube;
 import org.usfirst.frc.team3316.robot.auton.commands.TurnByGyro;
 import org.usfirst.frc.team3316.robot.auton.sequences.CenterPositionSwitch;
 import org.usfirst.frc.team3316.robot.auton.sequences.LeftPositionSwitch;
@@ -151,7 +152,7 @@ public class SDB {
 
 		// Auton
 
-		SmartDashboard.putData("TURN TO 90", new TurnByGyro(90.0));
+		SmartDashboard.putData("ALIGN TO CUBE", new AlignToCube());
 		// Chassis
 		SmartDashboard.putData(new ResetGyro());
 

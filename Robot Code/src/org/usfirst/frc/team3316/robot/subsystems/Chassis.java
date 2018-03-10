@@ -77,6 +77,7 @@ public class Chassis extends DBugSubsystem {
 
 	public void resetYaw() {
 		yawOffset = yawOffset - getYaw();
+		logger.info("Yaw offset is now: " + this.yawOffset);
 	}
 
 	public void resetRoll() {

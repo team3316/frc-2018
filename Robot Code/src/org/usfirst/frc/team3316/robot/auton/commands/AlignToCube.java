@@ -2,6 +2,7 @@ package org.usfirst.frc.team3316.robot.auton.commands;
 
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
+import org.usfirst.frc.team3316.robot.commands.chassis.BrakeMode;
 import org.usfirst.frc.team3316.robot.vision.VisionServer;
 
 import edu.wpi.first.wpilibj.PIDController;
@@ -33,7 +34,7 @@ public class AlignToCube extends DBugCommand {
 			public void pidWrite(double output) {
 				double velocity = output;
 				if (VisionServer.isObjectDetected) {
-					Robot.chassis.setMotors(velocity, -velocity);
+					Robot.chassis.setMotors(-velocity, velocity);
 				}
 			}
 		});
@@ -42,6 +43,7 @@ public class AlignToCube extends DBugCommand {
 	}
 
 	protected void init() {
+		(new BrakeMode()).start();
 		setPoint = 0.0;
 		lastAngle = Double.MAX_VALUE;
 		tolerance = (double) config.get("chassis_TurnByGyro_PID_Tolerance");
@@ -80,7 +82,7 @@ public class AlignToCube extends DBugCommand {
 	}
 
 	protected boolean isFinished() {
-		return false;
+		return pid.onTarget();
 	}
 
 	protected void fin() {

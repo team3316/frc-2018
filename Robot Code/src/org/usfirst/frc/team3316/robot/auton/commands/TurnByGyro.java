@@ -2,6 +2,8 @@ package org.usfirst.frc.team3316.robot.auton.commands;
 
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
+import org.usfirst.frc.team3316.robot.commands.chassis.BrakeMode;
+import org.usfirst.frc.team3316.robot.commands.chassis.ResetGyro;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
@@ -42,16 +44,18 @@ public class TurnByGyro extends DBugCommand {
 				velocity = output;
 
 			}
-		});
+		}, 0.02);
 	}
 
 	// Called just before this Command runs the first time
 	protected void init() {
-		Robot.chassis.setBrake(false);
+		(new BrakeMode()).start();
+		(new ResetGyro()).start();
 
 		velocityFilter = (double) config.get("chassis_TurnByGyro_VelocityFilter");
 
 		pid.setOutputRange(-1.0, 1.0);
+		pid.setInputRange(-360.0, 360.0);
 
 		pid.setAbsoluteTolerance((double) config.get("chassis_TurnByGyro_PID_Tolerance"));
 
@@ -66,7 +70,7 @@ public class TurnByGyro extends DBugCommand {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.chassis.setMotors(velocity, -velocity);
+		Robot.chassis.setMotors(-velocity, velocity);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
