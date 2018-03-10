@@ -181,7 +181,7 @@ public class Config {
 
 				addToVariables("chassis_SpeedFactor_Higher", -1.0);
 				addToVariables("chassis_SpeedFactor_Lower", -0.3);
-
+				
 				addToVariablesA("chassis_SpeedFactor_Current", -1.0); // the default value
 				addToVariablesB("chassis_SpeedFactor_Current", 1.0); // the default value
 
@@ -223,13 +223,17 @@ public class Config {
 			 */
 			{
 				// PID
-				addToVariables("chassis_TurnByGyro_PID_Tolerance", 2.0);
+				addToVariables("chassis_TurnByGyro_PID_Tolerance", 10.0);
 
 				addToVariables("chassis_TurnByGyro_PID_KP", 30.0);
 				addToVariables("chassis_TurnByGyro_PID_KI", 0.0);
 				addToVariables("chassis_TurnByGyro_PID_KD", 10.0);
 
 				addToVariables("chassis_TurnByGyro_VelocityFilter", 0.025);
+
+				// BangBang
+				addToVariables("chassis_TurnByGyro_UpVoltage", 0.6);
+				addToVariables("chassis_TurnByGyro_DownVoltage", -0.3);
 			}
 
 			/*
