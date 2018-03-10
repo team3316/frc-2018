@@ -18,7 +18,6 @@ public class TurnByGyro extends DBugCommand {
 	private PIDController pid;
 
 	public TurnByGyro(double angle) {
-		requires(Robot.chassis);
 		this.angle = angle;
 		initPID();
 	}

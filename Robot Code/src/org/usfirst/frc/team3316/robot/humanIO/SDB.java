@@ -10,7 +10,9 @@ import java.util.TimerTask;
 
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.auton.commands.AlignToCube;
+import org.usfirst.frc.team3316.robot.auton.commands.DriveDistance;
 import org.usfirst.frc.team3316.robot.auton.commands.TurnByGyro;
+import org.usfirst.frc.team3316.robot.auton.commands.TurnByGyroBB;
 import org.usfirst.frc.team3316.robot.auton.sequences.SwitchScaleType;
 import org.usfirst.frc.team3316.robot.commands.DisableCompressor;
 import org.usfirst.frc.team3316.robot.commands.EnableCompressor;
@@ -48,6 +50,7 @@ public class SDB {
 //			put("Distace right", Robot.chassis.getRightDistance());
 //			put("Distace left", Robot.chassis.getLeftDistance());
 			put("Yaw angle", Robot.chassis.getYaw());
+			put("NavX Angle", Robot.sensors.navx.getAngle());
 
 			// Vision
 			put("AA", VisionServer.azimuthAngle);
@@ -175,7 +178,8 @@ public class SDB {
 		/*
 		 * Control
 		 */
-		SmartDashboard.putData("SERVO SWITCH STATE", new MoveServo((double) config.get("servo_Final_Angle"), false));
+		SmartDashboard.putData("Turn to -140deg", new TurnByGyroBB(-140));
+		SmartDashboard.putData("Drive 1 m", new DriveDistance(1.0));
 		logger.info("Finished initSDB()");
 	}
 

@@ -27,6 +27,10 @@ public class PathFollowCommand extends DBugCommand {
 		path = new FalconPathPlanner(waypoints.getPathPoints());
 		path.calculate(totalTime, (double) config.get("chassis_PF_Steptime"),
 				(double) config.get("CHASSIS_PF_TRACKWIDTH"));
+		Robot.logger.info("Ended construction of PathFollowCommand");
+		
+		cmd = (new SetPathPIDController(Utils.convertFootToMeter(path.smoothLeftVelocity[0][1]),
+				Utils.convertFootToMeter(path.smoothRightVelocity[0][1]), path.heading[0][1], path));
 	}
 
 	/**
@@ -37,9 +41,6 @@ public class PathFollowCommand extends DBugCommand {
 	}
 
 	protected void init() {
-		cmd = (new SetPathPIDController(Utils.convertFootToMeter(path.smoothLeftVelocity[0][1]),
-				Utils.convertFootToMeter(path.smoothRightVelocity[0][1]), path.heading[0][1], path));
-
 		cmd.start();
 
 		i = 0;

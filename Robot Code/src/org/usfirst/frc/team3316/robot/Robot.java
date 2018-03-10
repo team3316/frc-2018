@@ -12,6 +12,7 @@ import org.usfirst.frc.team3316.robot.auton.sequences.RightPosition;
 import org.usfirst.frc.team3316.robot.auton.sequences.SwitchScaleType;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
 import org.usfirst.frc.team3316.robot.commands.DBugCommandGroup;
+import org.usfirst.frc.team3316.robot.commands.chassis.BrakeMode;
 import org.usfirst.frc.team3316.robot.commands.chassis.ResetGyro;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorMoveToEdge;
 import org.usfirst.frc.team3316.robot.commands.elevator.ShiftGear;
@@ -136,14 +137,14 @@ public class Robot extends IterativeRobot {
 			positionChooser.addDefault("Center", new CenterPosition());
 			positionChooser.addObject("Left", new LeftPosition());
 			positionChooser.addObject("Right", new RightPosition());
-			
+
 			SmartDashboard.putData("ROBOT POSITION A", positionChooser);
 
 			modeChooser = new SendableChooser<AutonMode>();
 			modeChooser.addDefault("Cross Line", AutonMode.CrossLine);
 			modeChooser.addObject("Switch", AutonMode.Switch);
 			modeChooser.addObject("Scale Or Switch", AutonMode.ScaleOrSwitch);
-			
+
 			SmartDashboard.putData("AUTON MODE A", modeChooser);
 
 		} catch (Exception e) {
@@ -162,10 +163,12 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousInit() {
+		(new BrakeMode()).start();
+		this.chassis.setBrake(true);
 		if (modeChooser.getSelected() != AutonMode.CrossLine) {
 			AutonPosition posCmd = positionChooser.getSelected();
 			posCmd.setMode(modeChooser.getSelected());
-			
+
 			SwitchScaleType switchType = SwitchScaleType.LEFT, scaleType = SwitchScaleType.LEFT;
 			String gameData;
 			gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -175,17 +178,17 @@ public class Robot extends IterativeRobot {
 				} else {
 					switchType = SwitchScaleType.RIGHT;
 				}
-				
+
 				if (gameData.charAt(1) == 'L') {
 					scaleType = SwitchScaleType.LEFT;
 				} else {
 					scaleType = SwitchScaleType.RIGHT;
 				}
 			}
-			
+
 			posCmd.setSwitchType(switchType);
 			posCmd.setScaleType(scaleType);
-			
+
 			posCmd.analizeMode();
 
 			posCmd.start();
@@ -200,11 +203,12 @@ public class Robot extends IterativeRobot {
 
 	public void teleopInit() {
 		elevator.setBrake(true);
+		chassis.initDefaultCommandTeleop();
 		(new ResetGyro()).start();
 
 		// TODO: Move to a specific command activated by a button.
-//		(new ElevatorMoveToEdge(Level.Bottom)).start();
-//		(new ShiftGear(Gear.LOW)).start();
+		// (new ElevatorMoveToEdge(Level.Bottom)).start();
+		// (new ShiftGear(Gear.LOW)).start();
 	}
 
 	public void teleopPeriodic() {

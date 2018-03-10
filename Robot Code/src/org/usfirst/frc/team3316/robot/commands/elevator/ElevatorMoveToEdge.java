@@ -19,6 +19,7 @@ public class ElevatorMoveToEdge extends DBugCommand {
 		switch (level) {
 		case Bottom:
 			v = (double) config.get("elevator_MoveToEdge_DownVoltage");
+			(new MoveServo((double) config.get("servo_Initial_Angle"), false)).start();
 			break;
 		case Top:
 			v = (double) config.get("elevator_MoveToEdge_UpVoltage");
@@ -28,7 +29,6 @@ public class ElevatorMoveToEdge extends DBugCommand {
 			break;
 		}
 
-		(new MoveServo((double) config.get("servo_Initial_Angle"), false)).start();
 	}
 
 	@Override

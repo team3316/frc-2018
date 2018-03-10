@@ -1,29 +1,38 @@
 package org.usfirst.frc.team3316.robot.auton.sequences;
 
+import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.auton.commands.AutonMode;
 import org.usfirst.frc.team3316.robot.auton.commands.DriveDistance;
+import org.usfirst.frc.team3316.robot.auton.commands.TurnByGyro;
+import org.usfirst.frc.team3316.robot.auton.commands.TurnByGyroBB;
 import org.usfirst.frc.team3316.robot.chassis.paths.PathFollowCommand;
 import org.usfirst.frc.team3316.robot.commands.DBugCommandGroup;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorMoveToEdge;
+import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorShaken;
 import org.usfirst.frc.team3316.robot.commands.holder.HolderEjection;
 import org.usfirst.frc.team3316.robot.commands.holder.MoveServo;
+import org.usfirst.frc.team3316.robot.sequences.CollectCube;
 import org.usfirst.frc.team3316.robot.subsystems.Elevator.Level;
 import org.usfirst.frc.team3316.robot.utils.falcon.PathPoints;
 
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
 public class RightPosition extends AutonPosition {
-	PathFollowCommand startPath;
+	PathFollowCommand startPath, middlePath;
 
-
+	public RightPosition() {
+		// TODO Auto-generated constructor stub
+		requires(Robot.emptySubsystem);
+	}
+	
 	@Override
 	public void analizeMode() {
 		if (mode != null && mode == AutonMode.Switch) {
 			toSwitch();
-		}
-		else {
+		} else {
 			if (scaleType == SwitchScaleType.RIGHT) {
 				logger.info("I'll go straight to Right Scale");
+				toRightScale();
 			} else {
 				toSwitch();
 			}
@@ -39,6 +48,24 @@ public class RightPosition extends AutonPosition {
 			toLeftSwitch();
 		}
 	}
+
+	private void toRightScale() {
+		PathPoints startPoints = new PathPoints();
+		startPoints.addPathPoint(0.0, 0.0);
+		startPoints.addPathPoint(0.0, 4.06);
+		startPoints.addPathPoint(-0.61, 6.1);
+	
+		
+		addParallel(new ElevatorMoveToEdge(Level.Top));
+		addSequential(new PathFollowCommand(startPoints, 4));
+		addSequential(new ElevatorMoveToEdge(Level.Top));
+		addSequential(new HolderEjection());
+		addSequential(new DriveDistance(-0.5));
+		addSequential(new ElevatorMoveToEdge(Level.Bottom));
+		addSequential(new TurnByGyroBB(-105.0));
+		addParallel(new DriveDistance(1.0));
+		addSequential(new CollectCube());
+	}
 	
 	private void toRightSwitch() {
 		PathPoints startPoints = new PathPoints();
@@ -51,8 +78,6 @@ public class RightPosition extends AutonPosition {
 		addSequential(startPath);
 		addSequential(new HolderEjection());
 		addSequential(new WaitCommand(1.0));
-//		addSequential(new DriveDistance(-0.5));
-//		addSequential(new ElevatorMoveToEdge(Level.Bottom));
 	}
 	
 	private void toLeftSwitch() {

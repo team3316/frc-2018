@@ -8,7 +8,6 @@ public class TurnByGyroBB extends DBugCommand {
 	private double upVoltage, downVoltage, angle, setpoint, tolerance;
 
 	public TurnByGyroBB(double setpoint) {
-		requires(Robot.chassis);
 		this.setpoint = setpoint;
 	}
 

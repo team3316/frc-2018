@@ -157,7 +157,7 @@ public class Config {
 				/*
 				 * Elevator
 				 */
-				addToConstantsA("ELEVATOR_ENCODER_DISTANCE_PER_PULSE", 0.0008736); // in meters
+				addToConstantsA("ELEVATOR_ENCODER_DISTANCE_PER_PULSE", 0.0001092); // in meters
 				addToConstantsB("ELEVATOR_ENCODER_DISTANCE_PER_PULSE", 0.00014321112); // in meters
 				addToConstants("ELEVATOR_MOTORS_REVERSE", false);
 			}
@@ -206,7 +206,7 @@ public class Config {
 				// BY ENCODERS
 				{
 					// Drive
-					addToVariables("chassis_DriveDistance_PID_DRIVE_KP", 670.0);
+					addToVariables("chassis_DriveDistance_PID_DRIVE_KP", 1000.0);
 					addToVariables("chassis_DriveDistance_PID_DRIVE_KI", 0.0);
 					addToVariables("chassis_DriveDistance_PID_DRIVE_KD", 0.0);
 
@@ -232,8 +232,8 @@ public class Config {
 				addToVariables("chassis_TurnByGyro_VelocityFilter", 0.025);
 
 				// BangBang
-				addToVariables("chassis_TurnByGyro_UpVoltage", 0.6);
-				addToVariables("chassis_TurnByGyro_DownVoltage", -0.3);
+				addToVariables("chassis_TurnByGyro_UpVoltage", -0.6);
+				addToVariables("chassis_TurnByGyro_DownVoltage", 0.6);
 			}
 
 			/*
@@ -311,7 +311,7 @@ public class Config {
 		 * Holder + intake sequences
 		 */
 		{
-			addToVariables("cubeWait_stall_time", 1000.0);
+			addToVariables("cubeWait_stall_time", 1500.0);
 		}
 
 		/*

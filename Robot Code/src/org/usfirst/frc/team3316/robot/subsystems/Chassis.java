@@ -43,8 +43,10 @@ public class Chassis extends DBugSubsystem {
 
 		resetYaw();
 	}
+	
+	public void initDefaultCommand() {}
 
-	public void initDefaultCommand() {
+	public void initDefaultCommandTeleop() {
 		// REMARK: This year the driver is using the Logitech joysticks as the controls.
 		setDefaultCommand(new TankDrive(JoystickType.Logitech));
 	}
