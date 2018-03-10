@@ -14,7 +14,7 @@ public class CollectCube extends DBugCommandGroup {
 	public CollectCube() {
 //		addSequential(new ElevatorMoveToEdge(Level.Bottom));
 //		addParallel(new IntakeRoll(IntakeRollType.RollIn));
-		addParallel(new IntakeShaken());
+//		addParallel(new IntakeShaken());
 		addSequential(new HolderCollection());
 		addParallel(new IntakeRoll(IntakeRollType.Stop), 0.1);
 	}
