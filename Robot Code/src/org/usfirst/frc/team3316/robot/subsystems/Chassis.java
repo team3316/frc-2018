@@ -23,6 +23,7 @@ public class Chassis extends DBugSubsystem {
 	// Variables
 	private double pitchOffset, rollOffset, yawOffset = 0.0;
 	public double currentLeftV = 0, currentRightV = 0, currentRatio = 0;
+	private boolean onBrake = false;
 
 	public Chassis() {
 		// Actuators
@@ -36,8 +37,8 @@ public class Chassis extends DBugSubsystem {
 		// Sensors
 		Robot.sensors.ChassisSensors();
 
-//		leftEncoder = Robot.sensors.chassisLeftEncoder;
-//		rightEncoder = Robot.sensors.chassisRightEncoder;
+		leftEncoder = Robot.sensors.chassisLeftEncoder;
+		rightEncoder = Robot.sensors.chassisRightEncoder;
 		navx = Robot.sensors.navx;
 
 		resetYaw();
@@ -102,10 +103,16 @@ public class Chassis extends DBugSubsystem {
 	}
 
 	public void setBrake(boolean brakeMode) {
+		onBrake = brakeMode;
+		
 		leftMotor1.switchToBrake(brakeMode);
 		leftMotor2.switchToBrake(brakeMode);
 		rightMotor1.switchToBrake(brakeMode);
 		rightMotor2.switchToBrake(brakeMode);
+	}
+
+	public boolean onBrake() {
+		return onBrake;
 	}
 
 	/*

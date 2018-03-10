@@ -4,10 +4,12 @@ import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.robotIO.DBugSpeedController;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Servo;
 
 public class Holder extends DBugSubsystem {
 	// Actuators
 	private DBugSpeedController motor;
+	private Servo servo;
 
 	// Sensors
 	private DigitalInput limitSwitch;
@@ -19,6 +21,7 @@ public class Holder extends DBugSubsystem {
 		// Actuators
 		Robot.actuators.HolderActuators();
 		this.motor = Robot.actuators.holderMotor;
+		this.servo = Robot.actuators.holderServo;
 
 		// Sensors
 		Robot.sensors.HolderSensors();
@@ -63,5 +66,9 @@ public class Holder extends DBugSubsystem {
 
 	public boolean isRollingOut() {
 		return this.motor.getVoltage() < 0.0;
+	}
+	
+	public void moveServo(double angle) {
+		this.servo.setAngle(angle);
 	}
 }

@@ -25,6 +25,7 @@ public class Actuators {
 	// Roller grippers
 	public DBugSpeedController holderMotor, intakeLeft, intakeRight;
 	public VictorSP holderSC, intakeLeftSC, intakeRightSC;
+	public Servo holderServo;
 
 	// Elevator
 	public DBugSpeedController elevatorMotorOne, elevatorMotorTwo;
@@ -45,13 +46,13 @@ public class Actuators {
 	}
 
 	public void GeneralActuators() {
-		// if (config.robotA) {
-		// GeneralActuatorsA();
-		// compressor = new Compressor(0);
-		// } else {
-		// GeneralActuatorsB();s
-		// compressor = new Compressor(0);
-		// }
+		if (config.robotA) {
+			GeneralActuatorsA();
+			compressor = new Compressor(1);
+		} else {
+			GeneralActuatorsB();
+			compressor = new Compressor(1);
+		}
 	}
 
 	/*
@@ -130,6 +131,7 @@ public class Actuators {
 		}
 
 		holderMotor = new DBugSpeedController(holderSC, true, 9);
+		holderServo = new Servo((int) Robot.config.get("HOLDER_SERVO"));
 	}
 
 	/*

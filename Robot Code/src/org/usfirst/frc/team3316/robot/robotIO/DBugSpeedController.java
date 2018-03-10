@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 public class DBugSpeedController {
 	DBugLogger logger = Robot.logger;
 	Config config = Robot.config;
-	PowerDistributionPanel pdp = Robot.sensors.pdp;
+//	PowerDistributionPanel pdp = Robot.sensors.pdp;
 
 	private boolean reverse; // Negative factor of velocity
 	private boolean isSetLimit;
@@ -99,18 +99,15 @@ public class DBugSpeedController {
 	}
 
 	public double getCurrent() {
-		return pdp.getCurrent(pdpChannel);
+//		return pdp.getCurrent(pdpChannel);
+		return 0.0;
 	}
 
 	/**
 	 * Returns the set speed of the DBugSpeedController between -1 to 1.
 	 */
 	public double getVoltage() {
-		if (sc instanceof TalonSRX) {
-			return 0.0;
-		} else {
-			return sc.get();
-		}
+		return sc.get();
 
 	}
 

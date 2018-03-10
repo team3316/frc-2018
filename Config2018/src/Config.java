@@ -109,6 +109,8 @@ public class Config {
 					
 					addToVariables("button_Elevator_Joystick_Toggle", 10);
 					addToVariables("elevator_Joystick_Axis", 5);
+					
+					addToVariables("button_Climb_Up", 9);
 
 					addToVariables("button_Collection", 6);
 					addToVariables("button_Ejection", 5);
@@ -179,9 +181,9 @@ public class Config {
 
 				addToVariables("chassis_SpeedFactor_Higher", -1.0);
 				addToVariables("chassis_SpeedFactor_Lower", -0.3);
-				
-				addToVariablesA("chassis_SpeedFactor_Current", -1.0);
-				addToVariablesB("chassis_SpeedFactor_Current", 1.0);
+
+				addToVariablesA("chassis_SpeedFactor_Current", -1.0); // the default value
+				addToVariablesB("chassis_SpeedFactor_Current", 1.0); // the default value
 
 				addToVariables("chassis_TankDrive_InvertX", true);
 				addToVariables("chassis_TankDrive_InvertY", false); // false value for xbox
@@ -293,6 +295,12 @@ public class Config {
 		{
 			addToVariables("holder_rollIn_voltage", -0.85);
 			addToVariables("holder_rollOut_voltage", 1.0);
+		
+			addToVariables("servo_Initial_Angle", 155.0);
+			addToVariables("servo_Final_Angle", 55.0);
+			addToVariables("servo_Work_Time", 300.0); // in ms
+			addToVariables("servo_Elevator_Height_DownLimit", 0.2); // in meters
+			addToVariables("servo_Elevator_Height_UpLimit", 1.0); // in meters
 		}
 
 		/*

@@ -2,6 +2,7 @@ package org.usfirst.frc.team3316.robot.commands.elevator;
 
 import org.usfirst.frc.team3316.robot.Robot;
 import org.usfirst.frc.team3316.robot.commands.DBugCommand;
+import org.usfirst.frc.team3316.robot.commands.holder.MoveServo;
 import org.usfirst.frc.team3316.robot.subsystems.Elevator.Level;
 
 public class ElevatorMoveToEdge extends DBugCommand {
@@ -26,6 +27,8 @@ public class ElevatorMoveToEdge extends DBugCommand {
 			v = 0.0;
 			break;
 		}
+
+		(new MoveServo((double) config.get("servo_Initial_Angle"), false)).start();
 	}
 
 	@Override

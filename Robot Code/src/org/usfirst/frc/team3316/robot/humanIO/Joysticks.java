@@ -1,19 +1,21 @@
 package org.usfirst.frc.team3316.robot.humanIO;
 
 import org.usfirst.frc.team3316.robot.Robot;
+import org.usfirst.frc.team3316.robot.commands.elevator.ClimbUp;
+import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorEmptyCommand;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorJoystick;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorMoveToEdge;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorShaken;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorToLevel;
 import org.usfirst.frc.team3316.robot.commands.holder.HolderCollection;
-import org.usfirst.frc.team3316.robot.commands.holder.HolderEjection;
+import org.usfirst.frc.team3316.robot.commands.holder.HolderEjectionServo;
 import org.usfirst.frc.team3316.robot.commands.holder.HolderRoll;
 import org.usfirst.frc.team3316.robot.commands.holder.HolderRollType;
+import org.usfirst.frc.team3316.robot.commands.holder.MoveServo;
 import org.usfirst.frc.team3316.robot.config.Config;
 import org.usfirst.frc.team3316.robot.logger.DBugLogger;
 import org.usfirst.frc.team3316.robot.sequences.CollectCube;
 import org.usfirst.frc.team3316.robot.sequences.EjectCube;
-import org.usfirst.frc.team3316.robot.sequences.RollInShaken;
 import org.usfirst.frc.team3316.robot.sequences.StopCollectionEjection;
 import org.usfirst.frc.team3316.robot.subsystems.Elevator.Level;
 
@@ -132,7 +134,21 @@ public class Joysticks {
 
 		DBugJoystickButton toggleHolderRollOut = new DBugJoystickButton(joystickOperator, "button_Holder_RollOut");
 		toggleHolderRollOut
-				.whenPressed(new DBugToggleCommand(new HolderEjection(), new HolderRoll(HolderRollType.Stop)));
+				.whenPressed(new DBugToggleCommand(new HolderEjectionServo(), new HolderRoll(HolderRollType.Stop)));
+		
+		POVButton servoButtonUp1 = new POVButton(joystickOperator, 0);
+		POVButton servoButtonUp2 = new POVButton(joystickOperator, 315);
+		POVButton servoButtonUp3 = new POVButton(joystickOperator, 45);
+		servoButtonUp1.whenPressed(new MoveServo((double) config.get("servo_Final_Angle"), false));
+		servoButtonUp2.whenPressed(new MoveServo((double) config.get("servo_Final_Angle"), false));
+		servoButtonUp3.whenPressed(new MoveServo((double) config.get("servo_Final_Angle"), false));
+		
+		POVButton servoButtonDown1 = new POVButton(joystickOperator, 180);
+		POVButton servoButtonDown2 = new POVButton(joystickOperator, 135);
+		POVButton servoButtonDown3 = new POVButton(joystickOperator, 225);
+		servoButtonDown1.whenPressed(new MoveServo((double) config.get("servo_Initial_Angle"), false));
+		servoButtonDown2.whenPressed(new MoveServo((double) config.get("servo_Initial_Angle"), false));
+		servoButtonDown3.whenPressed(new MoveServo((double) config.get("servo_Initial_Angle"), false));
 
 		/*
 		 * Elevator
@@ -149,6 +165,10 @@ public class Joysticks {
 		DBugJoystickButton toggleElevatorJoystick = new DBugJoystickButton(joystickOperator,
 				"button_Elevator_Joystick_Toggle");
 		toggleElevatorJoystick.whenPressed(new DBugToggleCommand(new ElevatorJoystick(), new ElevatorShaken()));
+		
+		DBugJoystickButton toggleClimbing = new DBugJoystickButton(joystickOperator, "button_Climb_Up");
+		toggleClimbing.whenPressed(new DBugToggleCommand(new ClimbUp(), new ElevatorEmptyCommand()));
+		
 
 	}
 

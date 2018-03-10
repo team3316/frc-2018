@@ -23,8 +23,6 @@ public class SetPathPIDController extends DBugCommand {
 	private long lastTime;
 
 	public SetPathPIDController(double setpointLeft, double setpointRight, double setpointYaw, FalconPathPlanner path) {
-		logger.fine("pid set path ended");
-
 		requires(Robot.chassis);
 		requires(Robot.pidControllers);
 

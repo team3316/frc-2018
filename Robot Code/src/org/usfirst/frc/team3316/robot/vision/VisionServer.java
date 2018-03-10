@@ -3,7 +3,6 @@ package org.usfirst.frc.team3316.robot.vision;
 import java.net.*;
 
 import org.json.*;
-import org.usfirst.frc.team3316.robot.Robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -29,7 +28,6 @@ public class VisionServer implements Runnable {
 			try {
 				serverSocket.setSoTimeout(120);
 				serverSocket.receive(receivePacket);
-
 				isConnected = true;
 
 				String sentence = new String(receivePacket.getData());

@@ -57,4 +57,12 @@ public class Intake extends DBugSubsystem {
 		this.leftSC.invert();
 		this.rightSC.invert();
 	}
+	
+	public boolean isRollingIn() {
+		return this.leftSC.getVoltage() < 0.0 && this.rightSC.getVoltage() > 0.0;
+	}
+	
+	public boolean isRollingOut() {
+		return this.leftSC.getVoltage() > 0.0 && this.rightSC.getVoltage() < 0.0;
+	}
 }

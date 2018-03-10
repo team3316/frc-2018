@@ -15,12 +15,12 @@ import edu.wpi.first.wpilibj.Encoder;
  */
 public class Elevator extends DBugSubsystem {
 	// Variables
-	private double offset, tolerance, switchPosition;
+	private double tolerance, switchPosition;
+	public boolean joystickControl = false;
 
 	// Sensors
 	private DigitalInput heBottom, heTop;
 	private Encoder encoder;
-	private double encoderDistPerPulse;
 
 	// Actuators
 	private DBugSpeedController motor1, motor2;
@@ -79,8 +79,6 @@ public class Elevator extends DBugSubsystem {
 		this.heTop = Robot.sensors.elevatorHeTop;
 		this.encoder = Robot.sensors.elevatorEncoder;
 
-		this.encoderDistPerPulse = (double) config.get("ELEVATOR_ENCODER_DISTANCE_PER_PULSE");
-
 		// Actuators
 		Robot.actuators.ElevatorActuators();
 		this.motor1 = Robot.actuators.elevatorMotorOne;
@@ -98,7 +96,6 @@ public class Elevator extends DBugSubsystem {
 
 	@Override
 	public void periodic() {
-		double setpoint = this.getLevel().getSetpoint();
 		if (this.getLevel() == Level.Bottom) {
 			this.encoder.reset();
 		}

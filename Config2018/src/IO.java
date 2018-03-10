@@ -198,9 +198,9 @@ public class IO {
 
 					// Intake
 					// Left
-					putPWMA("INTAKE_MOTOR_LEFT", 1);
+					putPWMA("INTAKE_MOTOR_LEFT", 2);
 					// Right
-					putPWMA("INTAKE_MOTOR_RIGHT", 2);
+					putPWMA("INTAKE_MOTOR_RIGHT", 1);
 
 					// Elevator
 					// Left front
@@ -210,6 +210,7 @@ public class IO {
 
 					// Holder
 					putPWMA("HOLDER_MOTOR", 0);
+					putPWMA("HOLDER_SERVO", 4);
 					
 					
 					// OTHER
@@ -244,6 +245,7 @@ public class IO {
 
 					// Holder
 					putPWMB("HOLDER_MOTOR", 0);
+					putPWMB("HOLDER_SERVO", 3);
 				}
 			}
 
