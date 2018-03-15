@@ -1,0 +1,871 @@
+﻿<html>
+	<head>
+		<title>Path Follower - D-Bug #3316</title>
+		
+		<script src="js/jquery.min.js"></script>
+		<script src="js/FileSaver.js"></script>
+		<script src="js/Strings.js"></script>
+		
+		<style>
+			body {
+				background-color:white;
+				font-family:Arial;
+			}
+		
+			#screen {
+				position:fixed;
+				top:0px;
+				width:1024px;
+				overflow-x:hidden;
+				height:100%;
+				-webkit-transition: -webkit-filter 0.5s;
+				-webkit-filter:blur(0px);
+			}
+		
+			#header {
+				position:absolute;
+				width:100%;
+				height:65px;
+				top:0px;
+				left:0px;
+			}
+			
+			#path_input {
+				position:absolute;
+				top:15%;
+				height:70%;
+				left:20px;
+				width:400px;
+				background-color:white;
+				outline:none;
+				border:none;
+				border-bottom: #aaa solid 1px;
+				font-size:22px;
+			}
+			
+			.header_btn {
+				position:relative;
+				right:0px;
+				margin-right:13px;
+				height:100%;
+				width:auto;
+				cursor:pointer;
+				opacity:1.0;
+			}
+			
+			.header_btn:hover {
+				opacity:0.5;
+			}
+			
+			#field {
+				width:100%;
+				position:relative;
+				top:65px;
+				left:0px;
+			}
+			
+			#field_img {
+				position:absolute;
+				top:0px;
+				left:0px;
+				width:100%;
+			}
+			
+			#over_field {
+				position:absolute;
+				top:0px;
+				left:0px;
+				height:100%;
+				width:100%;
+			}
+			
+			.waypoint {
+				position:absolute;
+				top:calc(100% - 20px);
+				left:0px;
+				width:20px;
+				height:20px;
+				background-color:#ff9933;
+				border-radius:20px;
+				cursor:pointer;
+				border: white solid 4px;
+			}
+			
+			.selected_wp {
+				background-color:#dc842d;
+			}
+			
+			.hori_flip {
+				-moz-transform: scaleX(-1);
+				-o-transform: scaleX(-1);
+				-webkit-transform: scaleX(-1);
+				transform: scaleX(-1);
+				filter: FlipH;
+				-ms-filter: "FlipH";
+			}
+			
+			.vert_flip {
+				-moz-transform: scaleY(-1);
+				-o-transform: scaleY(-1);
+				-webkit-transform: scaleY(-1);
+				transform: scaleY(-1);
+				filter: FlipW;
+				-ms-filter: "FlipW";
+			}
+			
+			.hori_vert_flip {
+				-moz-transform: scale(-1, -1);
+				-o-transform: scale(-1, -1);
+				-webkit-transform: scale(-1, -1);
+				transform: scale(-1, -1);
+			}
+			
+			#points {
+				width:100%;
+				position:relative;
+				top:65px;
+				left:0px;
+				height:300px;
+			}
+			
+			.footer_btn
+			{
+				position:absolute;
+				top:20%;
+				height:60%;
+				width:200px;
+				color:white;
+				background-color:#ff9933;
+				border-radius:24px;
+				cursor:pointer;
+				opacity:1.0;
+				text-align:center;
+				line-height:35px;
+			}
+			
+			.footer_btn:hover {
+				opacity:0.5;
+			}
+			
+			#points_table {
+				position:relative;
+				left:0px;
+				top:0px;
+				width:100%;
+				height:240px;
+				overflow-y:scroll;
+			}
+			
+			.table_cell {
+				position:relative;
+				margin-top:5px;
+				left:0px;
+				height:40px;
+				width:100%;
+				cursor:pointer;
+			}
+			
+			.table_cell:first-child > div {
+				color:white;
+				background-color:#ff9933;
+				cursor:auto;
+			}
+			
+			.table_cell > div {
+				position:relative;
+				height:100%;
+				margin-left:1px;
+				margin-right:1px;
+				background-color:rgba(209,209,209,0.5);
+				display:inline-block;
+				text-align:center;
+				line-height:40px;
+				font-size:18px;
+				color:black;
+				top:0px;
+			}
+			
+			.table_cell > div:nth-child(1), .table_cell > div:nth-child(2), .table_cell > div:nth-child(4) {
+				width:calc(20% - 2px);
+			}
+			
+			.table_cell > div:nth-child(3) {
+				width:calc(40% - 2px);
+			}
+			
+			.table_cell > div:nth-child(1) > input, .table_cell > div:nth-child(2) > input, .table_cell > div:nth-child(3) > input {
+				width:70%;
+				left:15%;
+				height:60%;
+				top:20%;
+				position:absolute;
+				background-color:transparent;
+				outline:none;
+				border:none;
+				border-bottom: #aaa solid 1px;
+				font-size:15px;
+				text-align:center;
+			}
+			
+			.selected_cell > div {
+				background-color:rgba(178,178,178,0.8)
+			}
+			
+			.table_cell > div:nth-child(4) > img {
+				position:absolute;
+				width:30px;
+				height:30px;
+				left:calc(50% - 15px);
+				top:calc(50% - 15px);
+				cursor:pointer;
+				opacity:1.0;
+			}
+			
+			.table_cell > div:nth-child(4) > img:hover {
+				opacity:0.5;
+			}
+			
+			#settings_view {
+				width:100%;
+				height:100%;
+				position:absolute;
+				top:0px;
+				left:0px;
+				background-color:rgba(0,0,0,0.5);
+				z-index:10;
+				display:none;
+				opacity:0.0;
+				transition: opacity 0.5s;
+			}
+			
+			#settings_box {
+				background-color:white;
+				width:300px;
+				height:200px;
+				top:calc(50% - 100px);
+				left:calc(50% - 150px);
+				position:absolute;
+			}
+			
+			#settings_box > label {
+				color:#ff9933;
+				font-size:14px;
+				text-align:left;
+				margin-left:30px;
+				position:relative;
+			}
+			
+			#settings_box > input {
+				position:relative;
+				color:black;
+				font-size:20px;
+				margin-top:15px;
+				margin-left:30px;
+				width:240px;
+				height:40px;
+				background-color:transparent;
+				outline:none;
+				border:none;
+				border-bottom: #aaa solid 1px;
+			}
+		</style>
+		<script>
+			var wp_num = 0;
+			
+			var fieldDim = {width:200, height:100};
+			var vertFlipped = false, horiFlipped = false;
+			
+			var imgWHRatio = 2;
+		
+			$(function () {
+				setInterval(function () {
+					$("#field").css("height", $("#field_img").height() + "px");
+					$("svg").first().attr("height", $("#field_img").height());
+					$("svg").first().attr("width", $("#field_img").width());
+					$("#screen").css("left", innerWidth / 2 - $("#screen").width() / 2 + "px");
+				}, 50);
+				
+				$("#wp_btn").on("click", function() {addWaypoint();});
+				
+				$("#points_table").append('<div class="table_cell"><div>X Position (in meters)</div><div>Y Position (in meters)</div><div>Comments</div><div>Delete</div></div>');
+				
+				$("#clear_btn").on("click", function () {
+					clearField();
+				});
+				
+				$("#set_width").on("change", function () {
+					if ($.isNumeric($(this).val())) {
+						var width = $(this).val();
+						$("#set_height").val(width / imgWHRatio);
+					}
+					else {
+						return false;
+					}
+				});
+				
+				$("#set_height").on("change", function () {
+					if ($.isNumeric($(this).val())) {
+						var height = $(this).val();
+						$("#set_width").val(height * imgWHRatio);
+					}
+					else {
+						return false;
+					}
+				});	
+			});
+			
+			function waypointDrag(e) {
+				var objectId = "#" + e.target.id;
+					
+				var fieldSize = { width: $(objectId).parent().width(), height: $(objectId).parent().height()}; 
+					
+				var left = e.clientX - (window.innerWidth - fieldSize.width) / 2;
+				var top = e.clientY != 0 ? (e.clientY - $("#header").height() + $("#screen").scrollTop()) : parseInt($(objectId).css("top"), 10);;
+				
+				var line1, line2;
+				line2 = $("#ln" + $(e.target).attr("wp"));
+				if ($(e.target).attr("wp") > 1) {
+					line1 = $("#ln" + ($(e.target).prev().attr("wp")));
+				}
+					
+				if (left >= 0 && left <= $(objectId).parent().width() - $(objectId).width()) {
+					$(objectId).css("left", left + "px");
+					
+					var x = (left / fieldSize.width) * fieldDim.width;
+					$("#tc" + $(e.target).attr("wp")).children("div:nth-child(1)").children("input").first().val(x);
+					$("#tc" + $(e.target).attr("wp")).children("div:nth-child(1)").children("input").first().attr("lv", x);
+					
+					if (line1 != null) {
+						$(line1).attr("x2", left + 14);
+					}
+					$(line2).attr("x1", left + 14);
+				}
+					
+				if (top >= 0 && top <= $(objectId).parent().height() - $(objectId).height()) {
+					$(objectId).css("top", top + "px");
+					
+					var y = fieldDim.height - (top / fieldSize.height) * fieldDim.height;
+					$("#tc" + $(e.target).attr("wp")).children("div:nth-child(2)").children("input").first().val(y);
+					$("#tc" + $(e.target).attr("wp")).children("div:nth-child(2)").children("input").first().attr("lv", y);
+					
+					if (line1 != null) {
+						$(line1).attr("y2", top + 14);
+					}
+					$(line2).attr("y1", top + 14);
+				}
+			}
+			
+			function waypointDragStart(e) {
+				var dragIcon = document.createElement('img');
+            	dragIcon.src = 'img/blank.png';
+            	dragIcon.width = 100;
+           		e.dataTransfer.setDragImage(dragIcon, -10, -10);
+           		
+           		
+           		$(".selected_cell").first().removeClass("selected_cell");
+				$("#tc" + $(e.target).attr("wp")).addClass("selected_cell");
+							
+				$(".selected_wp").first().removeClass("selected_wp");
+				$(e.target).addClass("selected_wp");
+			}
+			
+			function previewFile(){
+       			var preview = document.getElementById("field_img"); //selects the query named img
+       			var file = document.getElementById("file_input").files[0]; //sames as here
+       			var reader = new FileReader();
+	
+     		  	reader.onloadend = function () {
+					preview.src = reader.result;
+					clearField();
+					
+					preview.onload = function () {
+						imgWHRatio = $(preview).width() / $(preview).height();
+						fieldDim = {width:fieldDim.width, height:fieldDim.width / imgWHRatio};
+					}
+				}
+
+      			if (file) {
+           			reader.readAsDataURL(file); //reads the data as a URL
+       			} else {
+           			preview.src = "";
+       			}
+  			}
+  			
+  			function flipHori() {
+  				if ($("#field_img").attr("src").match("img/nofield_image.png") == null) {
+					if (horiFlipped) {
+						$("#field_img").removeClass("hori_flip");
+						$("#field_img").removeClass("hori_vert_flip");
+						if (vertFlipped) {
+							$("#field_img").addClass("vert_flip");
+						}
+						horiFlipped = false;
+					}
+					else {
+						if (vertFlipped) {
+							$("#field_img").addClass("hori_vert_flip");
+						}
+						else {
+							$("#field_img").addClass("hori_flip");
+						}
+						horiFlipped = true;
+					}
+  				}
+  			}
+  			
+  			function flipVert() {
+  				if ($("#field_img").attr("src").match("img/nofield_image.png") == null) {
+					if (vertFlipped) {
+						$("#field_img").removeClass("vert_flip");
+						$("#field_img").removeClass("hori_vert_flip");
+						if (horiFlipped) {
+							$("#field_img").addClass("hori_flip");
+						}
+						vertFlipped = false;
+					}
+					else {
+						if (horiFlipped) {
+							$("#field_img").addClass("hori_vert_flip");
+						}
+						else {
+							$("#field_img").addClass("vert_flip");
+						}
+						vertFlipped = true;
+					}
+  				}
+  			}
+  			
+  			function addWaypoint() {
+				if ($("#field_img").attr("src").match("img/nofield_image.png") == null) {
+					wp_num++;
+				
+					$(".selected_wp").first().removeClass("selected_wp");
+					$("#over_field").append('<div wp="' + wp_num + '" id="wp' + wp_num + '" class="waypoint selected_wp" ondragstart="waypointDragStart(event)" ondrag="waypointDrag(event)" draggable="true"></div>');
+				
+					$(".selected_cell").first().removeClass("selected_cell");
+					$("#points_table").append('<div id="tc' + wp_num + '" class="table_cell selected_cell" wp="' + wp_num + '"><div><input type="number" step="0.001" lv="0" value="0"/></div><div><input type="number" step="0.001" lv="0" value="0"/></div><div><input type="text"/></div><div><img src="img/delete_icon.png" /></div></div>');
+			
+					$(".table_cell").each(function () {
+						$(this).on("click", function () {
+							if ($(".table_cell").index(this) > 0) {
+								$(".selected_cell").first().removeClass("selected_cell");
+								$(this).addClass("selected_cell");
+							
+								$(".selected_wp").first().removeClass("selected_wp");
+								$("#wp" + $(this).attr("wp")).addClass("selected_wp");
+							}
+						});
+					});
+				
+					if (wp_num > 1 && $(".waypoint").length > 1) {
+						var wp2 = wp_num - 1;
+						while ($("#wp" + wp2).attr("id") == null && wp2 > 1) {
+							wp2--;
+						}
+					
+						if (wp2 >= 1) {
+							addLine($("#wp" + wp2), $("#wp" + wp_num));
+						}
+					}
+				
+					$("#tc" + wp_num).children("div:nth-child(1)").children("input").first().change(function () {
+						if (!$.isNumeric($(this).val())) {
+							$(this).val($(this).attr("lv"));
+							return false;
+						}
+					
+						$(this).attr("lv", $(this).val().trim());
+						
+						var left = ($(this).val() / fieldDim.width) * $("#field").width();
+						var wp = $("#wp" + $(this).parent().parent().attr("wp"));
+					
+						if (left >= 0 && left <= $(wp).parent().width() - $(wp).width()) {
+							$(wp).css("left", left + "px");
+						
+							var line1, line2;
+							line2 = $("#ln" + $(wp).attr("wp"));
+							if ($(wp).attr("wp") > 1) {
+								line1 = $("#ln" + ($(wp).attr("wp") - 1));
+							}
+						
+							if (line1 != null) {
+								$(line1).attr("x2", left + 14);
+							}
+							$(line2).attr("x1", left + 14);
+						}
+					});
+				
+					$("#tc" + wp_num).children("div:nth-child(2)").children("input").first().change(function () {
+						if (!$.isNumeric($(this).val())) {
+							$(this).val($(this).attr("lv"));
+							return false;
+						}
+						
+						$(this).attr("lv", $(this).val().trim());
+						
+						var top = (1 - $(this).val() / fieldDim.height) * $("#field").height();
+						var wp = $("#wp" + $(this).parent().parent().attr("wp"));
+					
+						if (top >= 0 && top <= $(wp).parent().height() - $(wp).height()) {
+							$(wp).css("top", top + "px");
+						
+							var line1, line2;
+							line2 = $("#ln" + $(wp).attr("wp"));
+							if ($(wp).attr("wp") > 1) {
+								line1 = $("#ln" + ($(wp).attr("wp") - 1));
+							}
+						
+							if (line1 != null) {
+								$(line1).attr("y2", top + 14);
+							}
+							$(line2).attr("y1", top + 14);
+						}
+					});
+				
+					$("#tc" + wp_num).children("div:nth-child(4)").children("img").first().click(function () {
+						deletePoint($(this).parent().parent().attr("wp"));
+
+						$(this).parent().parent().remove();
+										
+						$(".table_cell:nth-child(2)").addClass("seleted_cell");
+					});
+				}
+  			}
+  			
+  			function addLine(dot1, dot2) {
+  				var x1 = parseInt($(dot1).css("left"), 10) + 14;
+  				var x2 = parseInt($(dot2).css("left"), 10) + 14;
+  				var y1 = parseInt($(dot1).css("top"), 10) + 14;
+  				var y2 = parseInt($(dot2).css("top"), 10) + 14;
+  				
+  				var data = $("svg").first().html();
+  				$("svg").first().remove()
+  				$("#over_field").append('<svg>' + data + '<line id="ln' + $(dot1).attr("wp") + '" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" style="stroke:#ffa54b; stroke-width:3px;"/></svg>');
+  				  
+  				$("svg").first().attr("width", $("#field").width());
+  				$("svg").first().attr("height", $("#field").height());
+  			}
+  			
+  			function deletePoint(wp) {
+  				var x, y;
+  				  				
+  				if (wp > 1 && $(".waypoint").last().attr("id") == "wp" + wp) {
+  					$("svg").children("line").last().remove();
+  				}
+  			
+  				$("#wp" + wp).remove();
+  				
+  				if ($("#ln" + wp).attr("id") != null) {
+  					x = $("#ln" + wp).attr("x2");
+  					y = $("#ln" + wp).attr("y2");
+  					
+  					var beforeLn = $("#ln" + wp).prev();
+  					
+  					if ($(beforeLn).attr("id") != null) {
+  						$(beforeLn).attr("x2", x);
+  						$(beforeLn).attr("y2", y);
+  					}
+  					  					
+  					$("#ln" + wp).remove();
+  				}
+  			}
+  			
+  			function clearField() {
+  				var length = $(".waypoint").length;
+  				for (var i = 1; i <= length; i++) {
+  					deletePoint($(".waypoint").first().attr("wp"));
+
+					$(".table_cell:nth-child(2)").remove();
+  				}
+  			}
+  			
+  			function openSettings() {
+				if ($("#field_img").attr("src").match("img/nofield_image.png") == null) {
+					$("#set_width").val(fieldDim.width);
+					$("#set_height").val(fieldDim.height);
+			
+					$("#settings_view").css("display", "inline");
+				
+					setTimeout(function () {
+						$("#settings_view").css("opacity", "1.0");
+						$("#screen").css("-webkit-filter", "blur(20px)");
+					}, 50);
+				}
+  			}
+  			
+  			function closeSettings() {
+  				$("#settings_view").css("opacity", "0.0");
+  				$("#screen").css("-webkit-filter", "blur(0px)");
+  				
+  				setTimeout(function () {
+  					$("#settings_view").css("display", "none");
+  				}, 500);
+  			}
+  			
+  			function saveSettings() {
+				if ($("#field_img").attr("src").match("img/nofield_image.png") == null) {
+					var width = $("#set_width").val();
+					var height = $("#set_height").val();
+				
+					if ($.isNumeric(width) && $.isNumeric(height)) {
+						var ratio = fieldDim.width / width;
+					
+						fieldDim.width = width;
+						fieldDim.height = height;
+					
+						$(".waypoint").each(function () {
+							fitValues($(this).attr("wp"), ratio);
+						});
+					
+						closeSettings();
+					}
+				}
+  			}
+  			
+  			function fitValues(wp, ratio) {
+  				var tc = $("#tc" + wp);
+  				if ($(tc).attr("id") != null) {
+  					var xInput = $(tc).children("div:nth-child(1)").children("input");
+  					var yInput = $(tc).children("div:nth-child(2)").children("input");
+  					
+  					$(xInput).val($(xInput).val() / ratio);
+  					$(yInput).val($(yInput).val() / ratio);
+  				}
+  			}
+  			
+  			function saveFile() {
+				if ($(".waypoint").length > 0) {
+					var waypointStr = "";
+					for (var i = 1; i <= $(".waypoint").length + 1; i++) {
+						var wp = $(".waypoint:nth-child(" + i + ")").attr("wp");
+						var tc = $("#tc" + wp);
+				
+						if ($(tc).attr("id") != null) {
+							var x = $(tc).children("div:nth-child(1)").children("input").val().trim();
+							var y = $(tc).children("div:nth-child(2)").children("input").val().trim();
+							var com = $(tc).children("div:nth-child(3)").children("input").val().trim();
+					
+							var str = window.funStr + x + ", " + y + ");" + (com == "" ? "" : " // " + com);
+							waypointStr += str;
+						}
+					}
+					
+					var sizeStr = fieldDim.width + "x" + fieldDim.height + "*";
+					var pathName = $("#path_input").val().trim() == "" ? "Path" : $("#path_input").val().trim();
+					var flippingStr = (horiFlipped ? "1" : "0") + "x" + (vertFlipped ? "1" : "0") + "*";
+					
+					var imgName = saveFieldImageToCookies();
+					
+					if (imgName == false) {
+						return false;
+					}
+		
+					var blob = new Blob([window.str1 + pathName + "*" + sizeStr + imgName + "*" + flippingStr + waypointStr + window.str2], {type:"text/plain;charset=utf-8"});
+				
+					saveAs(blob, pathName + ".java");
+				}
+  			}
+  			
+  			function importClick() {
+  				var fine = importPath(URL.createObjectURL(document.getElementById("import_input").files[0]));
+  				if (!fine) {
+  					clearField();
+  					$("#field_img").attr("src", "img/nofield_image.png");
+  					
+  					alert("An error occurred - try to import again");
+  				}
+  			}
+  			
+  			function importPath(file) {
+  				var rawFile = new XMLHttpRequest();
+    			rawFile.open("GET", file, false);
+    			
+    			var toReturn = null;
+    			
+				rawFile.onreadystatechange = function ()
+				{
+					try {
+						if(rawFile.readyState === 4)
+						{
+							if(rawFile.status === 200 || rawFile.status == 0)
+							{
+								var codeText = rawFile.responseText;
+								var codeArr = codeText.split(window.waypointStart);
+							
+								clearField();
+							
+								var settings = codeText.split(window.settingsStr)[1];
+
+								if (settings != null) {
+								
+									var name = settings.split("*")[1].trim();
+									var sizes = settings.split("*")[2];
+									var imgCookieName = settings.split("*")[3].trim();
+									var flipHori = settings.split("*")[4].split("x")[0].trim();
+									var flipVert = settings.split("*")[4].split("x")[1].trim();
+									
+									var img = window.localStorage.getItem(imgCookieName);
+									
+									if (img == null) {
+										toReturn = false;
+										return false;
+									}
+								
+									$("#path_input").val(name);
+									$("#field_img").attr("src", window.dataBase64Str + img);
+									
+									imgWHRatio = $("#field_img").width() / $("#field_img").height();
+									
+									if (sizes != null) {
+										var width = sizes.split("x")[0].trim();
+										var height = sizes.split("x")[1].trim();
+							
+										if ($.isNumeric(width) && $.isNumeric(height)) {
+											$("#set_width").val(width);
+											$("#set_height").val(height);
+								
+											fieldDim.width = width;
+											fieldDim.height = height;
+											
+										}
+										else {
+											toReturn = false;
+											return false;
+										}
+									}
+									else {
+										toReturn = false;
+										return false;
+									}
+										if (flipHori == "1") {$("#hori_btn").click();}
+										if (flipVert == "1") {$("#vert_btn").click();}
+								}
+								else {
+									toReturn = false;
+									return false;
+								}
+							
+								for (var i = 1; i < codeArr.length; i++) {
+									var values = codeArr[i].split(");");
+									var x = values[0].split(",")[0].trim();
+									var y = values[0].split(",")[1].trim();
+								
+									if ($.isNumeric(x) && $.isNumeric(y)) {
+										addWaypoint();
+									
+										$(".table_cell").last().children("div:nth-child(1)").children("input").val(x);
+										$(".table_cell").last().children("div:nth-child(2)").children("input").val(y);
+									
+										$(".table_cell").last().children("div:nth-child(1)").children("input").change();
+										$(".table_cell").last().children("div:nth-child(2)").children("input").change();
+									
+										var comment = values[1].split("//")[1];
+										if (comment != null) {
+											comment = comment.trim().split("/*")[0].trim();
+											if (comment != null) {
+												$(".table_cell").last().children("div:nth-child(3)").children("input").val(comment);
+											}
+										}	
+									}
+								}
+							
+								toReturn = true;
+							} else {
+								toReturn = false;
+								return false;
+							}
+						} else {
+							toReturn = false;
+							return false;
+						}
+					}
+					catch(err) {
+						toReturn = false;
+						return false;
+					}
+				}
+				rawFile.send(null);
+				
+				while (toReturn == null) {}
+				return toReturn;
+  			}
+  			
+  			function getBase64Image(img) {
+				var canvas = document.createElement("canvas");
+				canvas.width = img.naturalWidth;
+				canvas.height = img.naturalHeight;
+
+				var ctx = canvas.getContext("2d");
+				ctx.drawImage(img, 0, 0);
+
+				var dataURL = canvas.toDataURL("image/png");
+
+				return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+			}
+			
+			function saveFieldImageToCookies() {
+				try {
+					var imgURL = getBase64Image(document.getElementById("field_img"));
+					var timestamp = new Date().getTime();
+				
+					window.localStorage.setItem(timestamp.toString(), imgURL);
+				
+					return timestamp.toString();
+				}
+				catch (err) {
+					alert("An error occurred - try to enable local storage on your browser");
+					return false;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="screen">
+			<div id="header">
+				<input id="path_input" type="text" placeholder="Path's Name" />
+				<div style="top:20%; height:60%; right:0px; width:500px; position:absolute;" dir="rtl">
+					<img id="download_btn" onclick="saveFile();" title="Generate Code" class="header_btn" src="img/run_icon.png"/>
+					
+					<div style="position:absolute; height:100%; background-color:rgb(209,209,209); width:1px; right:67px; top:0px;"></div>
+					
+					<img id="settings_btn" title="Settings" onclick="openSettings();" class="header_btn" style="margin-right:26px;" src="img/settings_icon.png"/>
+					<img id="hori_btn" title="Flip Horizonally" onclick="flipHori()" class="header_btn" src="img/hori_icon.png"/>
+					<img id="vert_btn" title="Flip Vertically" onclick="flipVert()" class="header_btn" src="img/vert_icon.png"/>
+					<img id="upload_btn" title="Upload Field Image" onclick="document.getElementById('file_input').click();" class="header_btn" src="img/upload_icon.png"/>
+					<img id="import_btn" title="Import Path" onclick="document.getElementById('import_input').click();" class="header_btn" src="img/import_icon.png"/>
+					
+					<input id="file_input" type="file" style="display:none;" onchange="previewFile()" accept="image/*" />
+					<input id="import_input" type="file" style="display:none;" onchange="importClick();" accept=".java" />
+				</div>
+			</div>
+			
+			<div id="field">
+				<img src="img/nofield_image.png" id="field_img" />
+				<div id="over_field">
+					<svg></svg>
+				</div>
+			</div>
+			
+			<div id="points">
+				<div style="position:relative; top:0px; left:0px; height:60px; width:100%;">
+					<div id="wp_btn" class="footer_btn" style="left:0px;">Add Way Point</div>
+					<div id="clear_btn" class="footer_btn" style="right:0px; background-color:rgba(209,209,209,0.5); color:#ff9933;">Clear Field</div>
+				</div>
+				<div id="points_table">
+<!-- 					Cells to be added -->
+				</div>
+			</div>
+		</div>
+		<div id="settings_view">
+			<div id="settings_box">
+				<label style="top:20px;">REAL WIDTH (in meters)</label>
+				<input type="num" id="set_width" />
+				<label style="top:20px;" >REAL HEIGHT (in meters)</label>
+				<input type="num" id="set_height" />
+				
+				<div id="save_btn" onclick="saveSettings();" class="footer_btn" style="left:30px; top:155px; width:35%; height:30px; line-height:30px;">Save</div>
+				<div id="cancel_btn" onclick="closeSettings();" class="footer_btn" style="right:30px; top:155px; width:35%; height:30px; line-height:30px; color:#ff9933; background-color:rgba(209,209,209,0.5);">Cancel</div>
+			</div>
+		</div>
+	</body>
+</html>
