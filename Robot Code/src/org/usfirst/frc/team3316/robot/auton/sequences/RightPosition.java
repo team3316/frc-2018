@@ -53,7 +53,7 @@ public class RightPosition extends AutonPosition {
 		PathPoints startPoints = new PathPoints();
 		startPoints.addPathPoint(0.0, 0.0);
 		startPoints.addPathPoint(0.0, 4.06);
-		startPoints.addPathPoint(-0.61, 6.1);
+		startPoints.addPathPoint(-0.61, 6.15);
 	
 		
 		addParallel(new ElevatorMoveToEdge(Level.Top));

@@ -25,6 +25,7 @@ import org.usfirst.frc.team3316.robot.robotIO.Actuators;
 import org.usfirst.frc.team3316.robot.robotIO.Sensors;
 import org.usfirst.frc.team3316.robot.subsystems.Chassis;
 import org.usfirst.frc.team3316.robot.subsystems.Elevator;
+import org.usfirst.frc.team3316.robot.subsystems.Elevator.Gear;
 import org.usfirst.frc.team3316.robot.subsystems.EmptySubsystem;
 import org.usfirst.frc.team3316.robot.subsystems.Holder;
 import org.usfirst.frc.team3316.robot.subsystems.Intake;
@@ -164,8 +165,9 @@ public class Robot extends IterativeRobot {
 
 	public void autonomousInit() {
 		(new BrakeMode()).start();
-		this.chassis.setBrake(true);
-		if (modeChooser.getSelected() != AutonMode.CrossLine) {
+		(new ShiftGear(Gear.LOW)).start();
+
+		 if (modeChooser.getSelected() != AutonMode.CrossLine) {
 			AutonPosition posCmd = positionChooser.getSelected();
 			posCmd.setMode(modeChooser.getSelected());
 
@@ -208,7 +210,7 @@ public class Robot extends IterativeRobot {
 
 		// TODO: Move to a specific command activated by a button.
 		// (new ElevatorMoveToEdge(Level.Bottom)).start();
-		// (new ShiftGear(Gear.LOW)).start();
+		 (new ShiftGear(Gear.LOW)).start();
 	}
 
 	public void teleopPeriodic() {

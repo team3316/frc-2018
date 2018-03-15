@@ -42,8 +42,8 @@ public class CenterPosition extends AutonPosition {
 	private void toLeftSwitch() {
 		PathPoints startPoints = new PathPoints();
 		startPoints.addPathPoint(0.0, 0.0);
-		startPoints.addPathPoint(-2.65, 1.6);
-		startPoints.addPathPoint(-2.8, 2.7);
+		startPoints.addPathPoint(-2.75, 1.6);
+		startPoints.addPathPoint(-2.9, 2.7);
 		PathFollowCommand startPath = new PathFollowCommand(startPoints, 5);
 		
 		addParallel(new MoveServo((double) config.get("servo_Final_Angle"), false));

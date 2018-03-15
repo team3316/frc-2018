@@ -47,10 +47,9 @@ public class SDB {
 			 */
 
 			// Chassis
-//			put("Distace right", Robot.chassis.getRightDistance());
-//			put("Distace left", Robot.chassis.getLeftDistance());
+			put("Distace right", Robot.chassis.getRightDistance());
+			put("Distace left", Robot.chassis.getLeftDistance());
 			put("Yaw angle", Robot.chassis.getYaw());
-			put("NavX Angle", Robot.sensors.navx.getAngle());
 
 			// Vision
 			put("AA", VisionServer.azimuthAngle);
@@ -162,7 +161,6 @@ public class SDB {
 		// THIS COMMAND
 
 		// Auton
-		SmartDashboard.putData("ALIGN TO CUBE", new AlignToCube());
 
 		// Chassis
 		SmartDashboard.putData(new ResetGyro());
@@ -178,8 +176,6 @@ public class SDB {
 		/*
 		 * Control
 		 */
-		SmartDashboard.putData("Turn to -140deg", new TurnByGyroBB(-140));
-		SmartDashboard.putData("Drive 1 m", new DriveDistance(1.0));
 		logger.info("Finished initSDB()");
 	}
 
