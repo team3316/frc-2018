@@ -339,7 +339,7 @@ public class Config {
 			    addToVariables("elevator_BangBang_DownVoltage", -0.3);
 			    
 			    addToVariables("elevator_MoveToEdge_UpVoltage", 0.6);
-			    addToVariables("elevator_MoveToEdge_DownVoltage", -0.4);
+			    addToVariables("elevator_MoveToEdge_DownVoltage", -0.45);
 			    
 			    
 			    // SHAKEN
@@ -353,6 +353,13 @@ public class Config {
 			 */
 			{
 				addToVariables("elevator_Joystick_LowPassVal", 0.2);
+			}
+			
+			/*
+			 * Climbing
+			 */
+			{
+				addToVariables("elevator_ClimbUp_Voltage", -0.9);
 			}
 			
 			/*

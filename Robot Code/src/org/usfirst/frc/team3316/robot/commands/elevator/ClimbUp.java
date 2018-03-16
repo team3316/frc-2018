@@ -8,5 +8,7 @@ public class ClimbUp extends DBugCommandGroup {
 	public ClimbUp() {
 		addSequential(new ShiftGear(Gear.HIGH));
 		addSequential(new ElevatorMoveToEdge(Level.Bottom));
+//		addSequential(new ElevatorMoveVoltage((double)config.get("elevator_ClimbUp_Voltage"), true)); // DURING CLIMBINB
+//		addSequential(new ElevatorMoveVoltage((double)config.get("elevator_ClimbUp_Voltage") / 2.0, false)); // AFTER ROBOT CLIMBING
 	}
 }
