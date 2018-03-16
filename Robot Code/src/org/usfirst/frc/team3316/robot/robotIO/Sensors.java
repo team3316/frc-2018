@@ -32,7 +32,7 @@ public class Sensors {
 	public DigitalInput holderLimitSwitch;
 
 	// Elevator
-	public DigitalInput elevatorHeBottom, elevatorHeSwitch, elevatorHeScale, elevatorHeTop;
+	public DigitalInput elevatorHeBottom, elevatorHeBP, elevatorHeTop;
 	public Encoder elevatorEncoder;
 
 	public Sensors() {
@@ -79,6 +79,8 @@ public class Sensors {
 	public void ElevatorSensors() {
 		elevatorHeBottom = new DigitalInput((int) config.get("ELEVATOR_BOTTOM_HE"));
 		elevatorHeTop = new DigitalInput((int) config.get("ELEVATOR_TOP_HE"));
+		elevatorHeBP = new DigitalInput((int) config.get("ELEVATOR_BP_HE")); // Brake point hall effect
+		
 		elevatorEncoder = new Encoder((int) config.get("ELEVATOR_ENCODER_CHANNEL_A"),
 				(int) config.get("ELEVATOR_ENCODER_CHANNEL_B"), false, EncodingType.k4X);
 		elevatorEncoder.setDistancePerPulse((double) config.get("ELEVATOR_ENCODER_DISTANCE_PER_PULSE"));

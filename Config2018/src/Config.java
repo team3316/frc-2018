@@ -338,9 +338,9 @@ public class Config {
 			    addToVariables("elevator_BangBang_UpVoltage", 0.65);
 			    addToVariables("elevator_BangBang_DownVoltage", -0.3);
 			    
-			    addToVariables("elevator_MoveToEdge_UpVoltage", 0.6);
-			    addToVariables("elevator_MoveToEdge_DownVoltage", -0.4);
-			    
+			    addToVariables("elevator_MoveToEdge_UpVoltage", 0.7);
+			    addToVariables("elevator_MoveToEdge_DownVoltage", -0.9);
+			    addToVariables("elevator_MoveToEdge_SlowDownVoltage", -0.25);
 			    
 			    // SHAKEN
 			    addToVariables("elevator_Shaken_Tolerance", 0.025);

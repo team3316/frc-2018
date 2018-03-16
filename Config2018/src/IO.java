@@ -269,6 +269,7 @@ public class IO {
 					putDIOA("ELEVATOR_ENCODER_CHANNEL_B", 4);
 
 					putDIOA("ELEVATOR_BOTTOM_HE", 6);
+					putDIOA("ELEVATOR_BP_HE", 9);
 					putDIOA("ELEVATOR_TOP_HE", 8);
 					
 					// Holder
@@ -291,6 +292,7 @@ public class IO {
 					putDIOB("ELEVATOR_ENCODER_CHANNEL_B", 4);
 
 					putDIOB("ELEVATOR_BOTTOM_HE", 1);
+					putDIOB("ELEVATOR_BP_HE", 9);
 					putDIOB("ELEVATOR_TOP_HE", 0);
 					
 					// Holder

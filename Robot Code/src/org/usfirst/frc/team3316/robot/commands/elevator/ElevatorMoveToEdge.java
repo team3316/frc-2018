@@ -33,6 +33,10 @@ public class ElevatorMoveToEdge extends DBugCommand {
 
 	@Override
 	protected void execute() {
+		if (level == Level.Bottom && Robot.elevator.getLevel() == Level.BrakePoint) {
+			v = (double) config.get("elevator_MoveToEdge_SlowDownVoltage");
+		}
+		
 		Robot.elevator.setMotors(v);
 	}
 
