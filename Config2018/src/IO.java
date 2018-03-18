@@ -288,15 +288,16 @@ public class IO {
 					putDIOB("CHASSIS_RIGHT_ENCODER_CHANNEL_B", 6);
 
 					// Elevator
-					putDIOB("ELEVATOR_ENCODER_CHANNEL_A", 3);
+					putDIOB("ELEVATOR_ENCODER_CHANNEL_A", 9);
 					putDIOB("ELEVATOR_ENCODER_CHANNEL_B", 4);
 
 					putDIOB("ELEVATOR_BOTTOM_HE", 1);
-					putDIOB("ELEVATOR_BP_HE", 9);
+					putDIOB("ELEVATOR_BP_BOTTOM_HE", 2);
+					putDIOB("ELEVATOR_BP_TOP_HE", 3);
 					putDIOB("ELEVATOR_TOP_HE", 0);
 					
 					// Holder
-					putDIOB("HOLDER_LIMIT_SWITCH", 2);
+					putDIOB("HOLDER_LIMIT_SWITCH", 10);
 				}
 			}
 

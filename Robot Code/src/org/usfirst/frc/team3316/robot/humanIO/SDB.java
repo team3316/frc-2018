@@ -73,6 +73,11 @@ public class SDB {
 		
 			put("IS EJECTING", Robot.holder.isRollingOut());
 			put("IS COLLECTING", Robot.holder.isRollingIn());
+			
+			/*
+			 * Control
+			 */
+			put("BP TOP HE", !Robot.sensors.elevatorHeBPTop.get());
 		}
 
 		@SuppressWarnings("unused")

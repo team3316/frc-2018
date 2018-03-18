@@ -7,6 +7,8 @@ import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorJoystick;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorMoveToEdge;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorShaken;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorToLevel;
+import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorMoveToBottom;
+import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorMoveToTop;
 import org.usfirst.frc.team3316.robot.commands.holder.HolderCollection;
 import org.usfirst.frc.team3316.robot.commands.holder.HolderEjectionServo;
 import org.usfirst.frc.team3316.robot.commands.holder.HolderRoll;
@@ -154,13 +156,13 @@ public class Joysticks {
 		 * Elevator
 		 */
 		DBugJoystickButton elevatorTop = new DBugJoystickButton(joystickOperator, "button_Elevetor_Top");
-		elevatorTop.whenPressed(new ElevatorMoveToEdge(Level.Top));
+		elevatorTop.whenPressed(new ElevatorMoveToTop());
 		DBugJoystickButton elevatorScale = new DBugJoystickButton(joystickOperator, "button_Elevetor_Scale");
 		elevatorScale.whenPressed(new ElevatorToLevel(Level.Scale));
 		DBugJoystickButton elevatorSwitch = new DBugJoystickButton(joystickOperator, "button_Elevetor_Switch");
 		elevatorSwitch.whenPressed(new ElevatorToLevel(Level.Switch));
 		DBugJoystickButton elevatorBottom = new DBugJoystickButton(joystickOperator, "button_Elevetor_Bottom");
-		elevatorBottom.whenPressed(new ElevatorMoveToEdge(Level.Bottom));
+		elevatorBottom.whenPressed(new ElevatorMoveToBottom());
 
 		DBugJoystickButton toggleElevatorJoystick = new DBugJoystickButton(joystickOperator,
 				"button_Elevator_Joystick_Toggle");

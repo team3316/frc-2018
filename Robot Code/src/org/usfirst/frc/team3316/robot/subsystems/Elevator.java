@@ -19,7 +19,7 @@ public class Elevator extends DBugSubsystem {
 	public boolean joystickControl = false;
 
 	// Sensors
-	private DigitalInput heBottom, heTop, heBP;
+	private DigitalInput heBottom, heTop, heBPBottom, heBPTop;
 	private Encoder encoder;
 
 	// Actuators
@@ -30,7 +30,7 @@ public class Elevator extends DBugSubsystem {
 	 * Elevator levels enum
 	 */
 	public enum Level {
-		Bottom(1), Switch(2), Scale(3), Top(4), Intermediate(0), BrakePoint(5);
+		Bottom(1), Switch(2), Scale(3), Top(4), Intermediate(0), BrakePointBottom(5), BrakePointTop(6);
 
 		private int type;
 
@@ -77,7 +77,8 @@ public class Elevator extends DBugSubsystem {
 		Robot.sensors.ElevatorSensors();
 		this.heBottom = Robot.sensors.elevatorHeBottom;
 		this.heTop = Robot.sensors.elevatorHeTop;
-		this.heBP = Robot.sensors.elevatorHeBP; // Brake point hall effect
+		this.heBPBottom = Robot.sensors.elevatorHeBPBottom; // Brake point hall effect
+		this.heBPTop = Robot.sensors.elevatorHeBPTop; // Brake point hall effect
 		this.encoder = Robot.sensors.elevatorEncoder;
 
 		// Actuators
@@ -138,8 +139,10 @@ public class Elevator extends DBugSubsystem {
 			return Level.Bottom;
 		if (!this.heTop.get())
 			return Level.Top;
-		if (!this.heBP.get())
-			return Level.BrakePoint;
+		if (!this.heBPBottom.get())
+			return Level.BrakePointBottom;
+		if (!this.heBPTop.get())
+			return Level.BrakePointTop;
 		if (Utils.isInNeighborhood(this.getPosition(), switchPosition, tolerance))
 			return Level.Switch;
 		return Level.Intermediate;

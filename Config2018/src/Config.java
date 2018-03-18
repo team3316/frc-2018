@@ -339,8 +339,12 @@ public class Config {
 			    addToVariables("elevator_BangBang_DownVoltage", -0.3);
 			    
 			    addToVariables("elevator_MoveToEdge_UpVoltage", 0.7);
-			    addToVariables("elevator_MoveToEdge_DownVoltage", -0.9);
-			    addToVariables("elevator_MoveToEdge_SlowDownVoltage", -0.25);
+			    
+			    addToVariables("elevator_MoveToEdge_DownVoltage", -0.8);
+			    addToVariables("elevator_MoveToEdge_SlowDownVoltage", -0.08);
+			    addToVariables("elevator_MoveToEdge_StartDownVoltage", -0.3);
+			    addToVariables("elevator_MoveToEdge_StartDownTime", 300.0); // in ms
+			    addToVariables("elevator_MoveToEdge_SlowTime", 1000.0); // in ms
 			    
 			    // SHAKEN
 			    addToVariables("elevator_Shaken_Tolerance", 0.025);

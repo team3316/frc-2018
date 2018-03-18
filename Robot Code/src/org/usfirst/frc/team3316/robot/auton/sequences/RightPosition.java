@@ -9,6 +9,8 @@ import org.usfirst.frc.team3316.robot.chassis.paths.PathFollowCommand;
 import org.usfirst.frc.team3316.robot.commands.DBugCommandGroup;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorMoveToEdge;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorShaken;
+import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorMoveToBottom;
+import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorMoveToTop;
 import org.usfirst.frc.team3316.robot.commands.holder.HolderEjection;
 import org.usfirst.frc.team3316.robot.commands.holder.MoveServo;
 import org.usfirst.frc.team3316.robot.sequences.CollectCube;
@@ -56,12 +58,12 @@ public class RightPosition extends AutonPosition {
 		startPoints.addPathPoint(-0.61, 6.15);
 	
 		
-		addParallel(new ElevatorMoveToEdge(Level.Top));
+		addParallel(new ElevatorMoveToTop());
 		addSequential(new PathFollowCommand(startPoints, 4));
-		addSequential(new ElevatorMoveToEdge(Level.Top));
+		addSequential(new ElevatorMoveToTop());
 		addSequential(new HolderEjection());
 		addSequential(new DriveDistance(-0.5));
-		addSequential(new ElevatorMoveToEdge(Level.Bottom));
+		addSequential(new ElevatorMoveToBottom());
 		addSequential(new TurnByGyroBB(-105.0));
 		addParallel(new DriveDistance(1.0));
 		addSequential(new CollectCube());
