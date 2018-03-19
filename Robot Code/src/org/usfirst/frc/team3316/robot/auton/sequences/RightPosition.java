@@ -9,6 +9,7 @@ import org.usfirst.frc.team3316.robot.chassis.paths.PathFollowCommand;
 import org.usfirst.frc.team3316.robot.commands.DBugCommandGroup;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorMoveToEdge;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorShaken;
+import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorToLevel;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorMoveToBottom;
 import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorMoveToTop;
 import org.usfirst.frc.team3316.robot.commands.holder.HolderEjection;
@@ -20,7 +21,7 @@ import org.usfirst.frc.team3316.robot.utils.falcon.PathPoints;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
 public class RightPosition extends AutonPosition {
-	PathFollowCommand startPath, middlePath;
+	PathFollowCommand startPath;
 
 	public RightPosition() {
 		// TODO Auto-generated constructor stub
@@ -32,12 +33,7 @@ public class RightPosition extends AutonPosition {
 		if (mode != null && mode == AutonMode.Switch) {
 			toSwitch();
 		} else {
-			if (scaleType == SwitchScaleType.RIGHT) {
-				logger.info("I'll go straight to Right Scale");
-				toRightScale();
-			} else {
-				toSwitch();
-			}
+			toScale();
 		}
 	}
 	
@@ -51,6 +47,27 @@ public class RightPosition extends AutonPosition {
 		}
 	}
 
+	private void toScale() {
+		if (scaleType == SwitchScaleType.RIGHT) {
+			logger.info("I'll go straight to Right Scale");
+			toRightScale();
+			
+			if (cubeType == CubeState.TwoCubes) {
+				logger.info("And I'll install another cube");
+				anotherCube();
+			}
+		} else {
+//			toSwitch();
+			logger.info("I'll go behind to Left Scale");
+			toLeftScale();
+			
+			if (cubeType == CubeState.TwoCubes) {
+				logger.info("And I'll install another cube");
+				anotherCube();
+			}
+		}
+	}
+	
 	private void toRightScale() {
 		PathPoints startPoints = new PathPoints();
 		startPoints.addPathPoint(0.0, 0.0);
@@ -67,6 +84,33 @@ public class RightPosition extends AutonPosition {
 		addSequential(new TurnByGyroBB(-105.0));
 		addParallel(new DriveDistance(1.0));
 		addSequential(new CollectCube());
+	}
+	
+	private void toLeftScale() {
+		PathPoints startPoints = new PathPoints();
+		startPoints.addPathPoint(0.0, 0.0);
+		startPoints.addPathPoint(-0.2, 4.06);
+		startPoints.addPathPoint(-0.2, 5.5);
+		startPoints.addPathPoint(-1.6, 5.5);
+		startPoints.addPathPoint(-1.8, 6.1);
+	
+		
+		addParallel(new ElevatorMoveToTop());
+		addSequential(new PathFollowCommand(startPoints, 6));
+		addSequential(new ElevatorMoveToTop());
+		addSequential(new HolderEjection());
+		addSequential(new DriveDistance(-0.5));
+		addSequential(new ElevatorMoveToBottom());
+		addSequential(new TurnByGyroBB(105.0));
+		addParallel(new DriveDistance(1.0));
+		addSequential(new CollectCube());
+	}
+	
+	private void anotherCube() {
+		addParallel(new MoveServo((double) config.get("servo_Final_Angle"), false));
+		addSequential(new ElevatorToLevel(Level.Switch));
+		addSequential(new HolderEjection());
+		addSequential(new WaitCommand(1.0));
 	}
 	
 	private void toRightSwitch() {

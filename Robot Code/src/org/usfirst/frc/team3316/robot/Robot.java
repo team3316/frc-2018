@@ -7,6 +7,7 @@ import org.usfirst.frc.team3316.robot.auton.commands.AutonMode;
 import org.usfirst.frc.team3316.robot.auton.sequences.AutonPosition;
 import org.usfirst.frc.team3316.robot.auton.sequences.CenterPosition;
 import org.usfirst.frc.team3316.robot.auton.sequences.CrossLine;
+import org.usfirst.frc.team3316.robot.auton.sequences.CubeState;
 import org.usfirst.frc.team3316.robot.auton.sequences.LeftPosition;
 import org.usfirst.frc.team3316.robot.auton.sequences.RightPosition;
 import org.usfirst.frc.team3316.robot.auton.sequences.SwitchScaleType;
@@ -77,6 +78,7 @@ public class Robot extends IterativeRobot {
 	 */
 	SendableChooser<AutonPosition> positionChooser;
 	SendableChooser<AutonMode> modeChooser;
+	SendableChooser<CubeState> cubeChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -147,6 +149,12 @@ public class Robot extends IterativeRobot {
 			modeChooser.addObject("Scale Or Switch", AutonMode.ScaleOrSwitch);
 
 			SmartDashboard.putData("AUTON MODE A", modeChooser);
+			
+			cubeChooser = new SendableChooser<CubeState>();
+			cubeChooser.addDefault("One Cube", CubeState.OneCube);
+			cubeChooser.addObject("Two Cubes", CubeState.TwoCubes);
+
+			SmartDashboard.putData("AUTON MODE A", modeChooser);
 
 		} catch (Exception e) {
 			logger.severe(e);
@@ -170,6 +178,7 @@ public class Robot extends IterativeRobot {
 		 if (modeChooser.getSelected() != AutonMode.CrossLine) {
 			AutonPosition posCmd = positionChooser.getSelected();
 			posCmd.setMode(modeChooser.getSelected());
+			posCmd.setCubeType(cubeChooser.getSelected());
 
 			SwitchScaleType switchType = SwitchScaleType.LEFT, scaleType = SwitchScaleType.LEFT;
 			String gameData;
