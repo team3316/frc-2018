@@ -360,6 +360,13 @@ public class Config {
 			}
 			
 			/*
+			 * Climbing
+			 */
+			{
+				addToVariables("elevator_ClimbUp_Voltage", -0.9);
+			}
+			
+			/*
 			 * Shifter
 			 */
 			{
