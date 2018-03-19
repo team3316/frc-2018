@@ -158,7 +158,7 @@ public class Config {
 				 * Elevator
 				 */
 				addToConstantsA("ELEVATOR_ENCODER_DISTANCE_PER_PULSE", 0.0001092); // in meters
-				addToConstantsB("ELEVATOR_ENCODER_DISTANCE_PER_PULSE", 0.00014321112); // in meters
+				addToConstantsB("ELEVATOR_ENCODER_DISTANCE_PER_PULSE", 0.0001092); // in meters
 				addToConstants("ELEVATOR_MOTORS_REVERSE", false);
 			}
 		}
@@ -319,7 +319,7 @@ public class Config {
 		 */
 		{
 			addToVariables("elevator_setpoint_bottom", 0.0);
-			addToVariables("elevator_setpoint_switch", 0.7);
+			addToVariables("elevator_setpoint_switch", 0.8);
 			addToVariables("elevator_setpoint_scale", 1.8);
 			addToVariables("elevator_setpoint_top", 1.92);
 			addToVariables("elevator_level_tolerance", 0.07);
@@ -338,18 +338,18 @@ public class Config {
 			    addToVariables("elevator_BangBang_UpVoltage", 0.65);
 			    addToVariables("elevator_BangBang_DownVoltage", -0.3);
 			    
-			    addToVariables("elevator_MoveToEdge_UpVoltage", 0.7);
+			    addToVariables("elevator_MoveToEdge_UpVoltage", 0.65);
 			    
-			    addToVariables("elevator_MoveToEdge_DownVoltage", -0.8);
-			    addToVariables("elevator_MoveToEdge_SlowDownVoltage", -0.08);
+			    addToVariables("elevator_MoveToEdge_DownVoltage", -0.75);
+			    addToVariables("elevator_MoveToEdge_SlowDownVoltage", -0.05);
 			    addToVariables("elevator_MoveToEdge_StartDownVoltage", -0.3);
 			    addToVariables("elevator_MoveToEdge_StartDownTime", 300.0); // in ms
-			    addToVariables("elevator_MoveToEdge_SlowTime", 1000.0); // in ms
+			    addToVariables("elevator_MoveToEdge_SlowTime", 300.0); // in ms
 			    
 			    // SHAKEN
-			    addToVariables("elevator_Shaken_Tolerance", 0.025);
+			    addToVariables("elevator_Shaken_Tolerance", 0.01);
 			    addToVariables("elevator_Shaken_DownVoltage", -0.1);
-			    addToVariables("elevator_Shaken_UpVoltage", 0.2);
+			    addToVariables("elevator_Shaken_UpVoltage", 0.08);
 			}
 			
 			/*

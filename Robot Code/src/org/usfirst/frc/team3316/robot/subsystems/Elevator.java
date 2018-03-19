@@ -111,10 +111,14 @@ public class Elevator extends DBugSubsystem {
 	 */
 	public void setMotors(double voltage) {
 		Level l = this.getLevel();
-		if ((l == Level.Bottom && voltage < 0) || l == Level.Top && voltage > 0)
+		if (l == Level.Bottom && voltage < 0.0) {
 			return;
-		this.motor1.setMotor(voltage);
-		this.motor2.setMotor(voltage);
+		} else if (l == Level.Top && voltage > 0.0) {
+			return;
+		} else {
+			this.motor1.setMotor(voltage);
+			this.motor2.setMotor(voltage);
+		}
 	}
 
 	/**

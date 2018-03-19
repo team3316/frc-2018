@@ -154,7 +154,7 @@ public class Robot extends IterativeRobot {
 			cubeChooser.addDefault("One Cube", CubeState.OneCube);
 			cubeChooser.addObject("Two Cubes", CubeState.TwoCubes);
 
-			SmartDashboard.putData("AUTON MODE A", modeChooser);
+			SmartDashboard.putData("CUBE NUM A", cubeChooser);
 
 		} catch (Exception e) {
 			logger.severe(e);

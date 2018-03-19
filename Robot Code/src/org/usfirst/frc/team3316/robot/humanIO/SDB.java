@@ -63,7 +63,7 @@ public class SDB {
 			put("LOW GEAR", Robot.elevator.getGear() == Gear.LOW);
 			
 			put("BOTTOM LEVEL", Robot.elevator.getLevel() == Level.Bottom);
-			put("INTER LEVEL", Robot.elevator.getLevel() == Level.Intermediate);
+			put("INTER LEVEL", Robot.elevator.getLevel() != Level.Top && Robot.elevator.getLevel() != Level.Bottom);
 			put("TOP LEVEL", Robot.elevator.getLevel() == Level.Top);
 			
 			put("JOYSTICK CONTROL", Robot.elevator.joystickControl);
@@ -77,7 +77,7 @@ public class SDB {
 			/*
 			 * Control
 			 */
-			put("BP TOP HE", !Robot.sensors.elevatorHeBPTop.get());
+			put("ELE CURRENT", Robot.actuators.elevatorMotorOne.getCurrent());
 		}
 
 		@SuppressWarnings("unused")

@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SpeedController;
 
 /**
@@ -19,7 +20,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 public class DBugSpeedController {
 	DBugLogger logger = Robot.logger;
 	Config config = Robot.config;
-//	PowerDistributionPanel pdp = Robot.sensors.pdp;
+	PowerDistributionPanel pdp = Robot.sensors.pdp;
 
 	private boolean reverse; // Negative factor of velocity
 	private boolean isSetLimit;
@@ -54,8 +55,8 @@ public class DBugSpeedController {
 
 	/**
 	 * This method is using for adding a new D-Bug Speed Controller to this
-	 * subsystem. This method offers a better way to control all of your D-Bug
-	 * Speed Controllers.
+	 * subsystem. This method offers a better way to control all of your D-Bug Speed
+	 * Controllers.
 	 * 
 	 * @param chassisLeft1SC
 	 *            The D-Bug Speed Controller
@@ -79,8 +80,8 @@ public class DBugSpeedController {
 	 * 
 	 * @param v
 	 *            The voltage (velocity) to set for this D-Bug Speed Controller.
-	 * @return A boolean of the process success - true if it succeeded or false
-	 *         if it failed.
+	 * @return A boolean of the process success - true if it succeeded or false if
+	 *         it failed.
 	 */
 	public boolean setMotor(double v) {
 		// if (!isSetLimit || getCurrent() < maxCurrent) {
@@ -99,7 +100,9 @@ public class DBugSpeedController {
 	}
 
 	public double getCurrent() {
-//		return pdp.getCurrent(pdpChannel);
+		if (sc instanceof WPI_TalonSRX) {
+			return pdp.getCurrent(pdpChannel);
+		}
 		return 0.0;
 	}
 
