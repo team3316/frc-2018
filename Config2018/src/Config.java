@@ -364,6 +364,7 @@ public class Config {
 			 */
 			{
 				addToVariables("elevator_ClimbUp_Voltage", -0.9);
+				addToVariables("elevator_ClimbUpStay_Voltage", -0.4);
 			}
 			
 			/*

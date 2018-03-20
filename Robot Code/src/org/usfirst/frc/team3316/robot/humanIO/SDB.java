@@ -77,7 +77,6 @@ public class SDB {
 			/*
 			 * Control
 			 */
-			put("ELE CURRENT", Robot.actuators.elevatorMotorOne.getCurrent());
 		}
 
 		@SuppressWarnings("unused")
