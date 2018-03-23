@@ -5,7 +5,7 @@ import org.usfirst.frc.team3316.robot.commands.DBugCommand;
 import org.usfirst.frc.team3316.robot.utils.Utils;
 
 public class TurnByGyroBB extends DBugCommand {
-	private double upVoltage, downVoltage, angle, setpoint, tolerance;
+	private double upVoltage, downVoltage, angle, setpoint, tolerance, initYaw;
 
 	public TurnByGyroBB(double setpoint) {
 		this.setpoint = setpoint;
@@ -13,10 +13,10 @@ public class TurnByGyroBB extends DBugCommand {
 
 	@Override
 	protected void init() {
-		Robot.chassis.resetYaw();
+		initYaw = Robot.chassis.getYaw();
 		Robot.chassis.setBrake(true);
 		
-		this.angle = Robot.chassis.getYaw();
+		this.angle = Robot.chassis.getYaw() - initYaw;
 		this.tolerance = (double) config.get("chassis_TurnByGyro_PID_Tolerance");
 
 		double configUpVoltage = (double) config.get("chassis_TurnByGyro_UpVoltage");
@@ -28,7 +28,7 @@ public class TurnByGyroBB extends DBugCommand {
 
 	@Override
 	protected void execute() {
-		this.angle = Robot.chassis.getYaw();
+		this.angle = Robot.chassis.getYaw() - initYaw;
 		if (this.angle > (this.setpoint + this.tolerance)) {
 			Robot.chassis.setMotors(-this.downVoltage, this.downVoltage);
 			logger.info("V:" + downVoltage);

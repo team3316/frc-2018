@@ -141,20 +141,20 @@ public class Robot extends IterativeRobot {
 			positionChooser.addObject("Left", new LeftPosition());
 			positionChooser.addObject("Right", new RightPosition());
 
-			SmartDashboard.putData("ROBOT POSITION A", positionChooser);
+			SmartDashboard.putData("ROBOT POSITION B", positionChooser);
 
 			modeChooser = new SendableChooser<AutonMode>();
 			modeChooser.addDefault("Cross Line", AutonMode.CrossLine);
 			modeChooser.addObject("Switch", AutonMode.Switch);
-			modeChooser.addObject("Scale Or Switch", AutonMode.ScaleOrSwitch);
+			modeChooser.addObject("Scale", AutonMode.ScaleOrSwitch);
 
-			SmartDashboard.putData("AUTON MODE A", modeChooser);
+			SmartDashboard.putData("AUTON MODE B", modeChooser);
 			
 			cubeChooser = new SendableChooser<CubeState>();
 			cubeChooser.addDefault("One Cube", CubeState.OneCube);
 			cubeChooser.addObject("Two Cubes", CubeState.TwoCubes);
 
-			SmartDashboard.putData("CUBE NUM A", cubeChooser);
+			SmartDashboard.putData("CUBE NUM B", cubeChooser);
 
 		} catch (Exception e) {
 			logger.severe(e);

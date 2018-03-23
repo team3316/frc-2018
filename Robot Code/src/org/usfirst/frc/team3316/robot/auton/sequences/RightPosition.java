@@ -52,7 +52,7 @@ public class RightPosition extends AutonPosition {
 			logger.info("I'll go straight to Right Scale");
 			toRightScale();
 			
-			if (cubeType == CubeState.TwoCubes) {
+			if (cubeType == CubeState.TwoCubes && switchType == SwitchScaleType.RIGHT) {
 				logger.info("And I'll install another cube");
 				anotherCube();
 			}
@@ -61,7 +61,7 @@ public class RightPosition extends AutonPosition {
 			logger.info("I'll go behind to Left Scale");
 			toLeftScale();
 			
-			if (cubeType == CubeState.TwoCubes) {
+			if (cubeType == CubeState.TwoCubes && switchType == SwitchScaleType.LEFT) {
 				logger.info("And I'll install another cube");
 				anotherCube();
 			}
@@ -71,38 +71,38 @@ public class RightPosition extends AutonPosition {
 	private void toRightScale() {
 		PathPoints startPoints = new PathPoints();
 		startPoints.addPathPoint(0.0, 0.0);
-		startPoints.addPathPoint(0.0, 4.06);
+		startPoints.addPathPoint(0.0, 3.98);
 		startPoints.addPathPoint(-0.61, 6.15);
-	
-		
+
 		addParallel(new ElevatorMoveToTop());
 		addSequential(new PathFollowCommand(startPoints, 4));
 		addSequential(new ElevatorMoveToTop());
 		addSequential(new HolderEjection());
-		addSequential(new DriveDistance(-0.5));
+		addSequential(new DriveDistance(-0.55));
 		addSequential(new ElevatorMoveToBottom());
-		addSequential(new TurnByGyroBB(-105.0));
-		addParallel(new DriveDistance(1.0));
+		addSequential(new TurnByGyroBB(-97.0));
+		addParallel(new DriveDistance(0.95));
 		addSequential(new CollectCube());
+		addParallel(new DriveDistance(0.5));
 	}
 	
 	private void toLeftScale() {
 		PathPoints startPoints = new PathPoints();
 		startPoints.addPathPoint(0.0, 0.0);
-		startPoints.addPathPoint(-0.2, 4.06);
-		startPoints.addPathPoint(-0.2, 5.5);
-		startPoints.addPathPoint(-1.6, 5.5);
-		startPoints.addPathPoint(-1.8, 6.1);
-	
+		startPoints.addPathPoint(0.0, 5.5);
+		startPoints.addPathPoint(-4.4, 5.5);
 		
-		addParallel(new ElevatorMoveToTop());
-		addSequential(new PathFollowCommand(startPoints, 6));
+		addSequential(new PathFollowCommand(startPoints, 7));
+		addParallel(new TurnByGyroBB(80.0));
+		addSequential(new ElevatorMoveToTop());
+		addParallel(new ElevatorShaken());
+		addSequential(new DriveDistance(0.8));
 		addSequential(new ElevatorMoveToTop());
 		addSequential(new HolderEjection());
-		addSequential(new DriveDistance(-0.5));
+		addSequential(new DriveDistance(-0.85));
 		addSequential(new ElevatorMoveToBottom());
-		addSequential(new TurnByGyroBB(105.0));
-		addParallel(new DriveDistance(1.0));
+		addSequential(new TurnByGyroBB(98.0));
+		addParallel(new DriveDistance(0.65));
 		addSequential(new CollectCube());
 	}
 	
@@ -110,7 +110,6 @@ public class RightPosition extends AutonPosition {
 		addParallel(new MoveServo((double) config.get("servo_Final_Angle"), false));
 		addSequential(new ElevatorToLevel(Level.Switch));
 		addSequential(new HolderEjection());
-		addSequential(new WaitCommand(1.0));
 	}
 	
 	private void toRightSwitch() {

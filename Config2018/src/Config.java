@@ -141,8 +141,8 @@ public class Config {
 				addToConstantsA("CHASSIS_MOTOR_LEFT_REVERSE", false);
 				addToConstantsA("CHASSIS_MOTOR_RIGHT_REVERSE", true);
 
-				addToConstantsB("CHASSIS_MOTOR_LEFT_REVERSE", true);
-				addToConstantsB("CHASSIS_MOTOR_RIGHT_REVERSE", false);
+				addToConstantsB("CHASSIS_MOTOR_LEFT_REVERSE", false);
+				addToConstantsB("CHASSIS_MOTOR_RIGHT_REVERSE", true);
 
 				addToVariables("chassis_Joystick_Right_Axis", 1);
 				addToVariables("chassis_Joystick_Left_Axis", 5);
@@ -183,7 +183,7 @@ public class Config {
 				addToVariables("chassis_SpeedFactor_Lower", -0.3);
 				
 				addToVariablesA("chassis_SpeedFactor_Current", -1.0); // the default value
-				addToVariablesB("chassis_SpeedFactor_Current", 1.0); // the default value
+				addToVariablesB("chassis_SpeedFactor_Current", -1.0); // the default value
 
 				addToVariables("chassis_TankDrive_InvertX", true);
 				addToVariables("chassis_TankDrive_InvertY", false); // false value for xbox
@@ -311,7 +311,7 @@ public class Config {
 		 * Holder + intake sequences
 		 */
 		{
-			addToVariables("cubeWait_stall_time", 1500.0);
+			addToVariables("cubeWait_stall_time", 750.0);
 		}
 
 		/*
