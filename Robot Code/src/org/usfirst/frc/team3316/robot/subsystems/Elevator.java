@@ -141,7 +141,9 @@ public class Elevator extends DBugSubsystem {
 	public Level getLevel() {
 		if (!this.heBottom.get())
 			return Level.Bottom;
-		if (!this.heTop.get())
+//		if (!this.heTop.get())
+//			return Level.Top;
+		if (!this.heTop.get() && this.motor1.isInStall())
 			return Level.Top;
 		if (!this.heBPBottom.get())
 			return Level.BrakePointBottom;

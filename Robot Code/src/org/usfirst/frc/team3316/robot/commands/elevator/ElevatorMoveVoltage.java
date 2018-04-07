@@ -28,7 +28,8 @@ public class ElevatorMoveVoltage extends DBugCommand {
 			return false;
 		}
 		else {
-			return Robot.elevator.getLevel() == Level.Bottom;
+			// return Robot.elevator.getLevel() == Level.Bottom;
+			return (Robot.elevator.getLevel() == Level.Bottom && v < 0.0) || (Robot.elevator.getLevel() == Level.Top && v > 0.0);
 		}
 	}
 

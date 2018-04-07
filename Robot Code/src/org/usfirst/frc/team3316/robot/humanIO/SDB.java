@@ -19,6 +19,7 @@ import org.usfirst.frc.team3316.robot.commands.EnableCompressor;
 import org.usfirst.frc.team3316.robot.commands.emptyCommand;
 import org.usfirst.frc.team3316.robot.commands.chassis.MoveChassis;
 import org.usfirst.frc.team3316.robot.commands.chassis.ResetGyro;
+import org.usfirst.frc.team3316.robot.commands.elevator.ElevatorMoveVoltage;
 import org.usfirst.frc.team3316.robot.commands.elevator.ShiftGear;
 import org.usfirst.frc.team3316.robot.commands.holder.MoveServo;
 import org.usfirst.frc.team3316.robot.config.Config;
@@ -77,6 +78,9 @@ public class SDB {
 			/*
 			 * Control
 			 */
+//			put("bp_bottom_he", Robot.sensors.elevatorHeBPBottom.get());
+			put("bp_top_he", Robot.sensors.elevatorHeBPTop.get());
+			put("ele_current", Robot.actuators.elevatorMotorOne.getCurrent());
 		}
 
 		@SuppressWarnings("unused")

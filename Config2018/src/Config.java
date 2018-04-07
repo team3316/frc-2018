@@ -160,6 +160,7 @@ public class Config {
 				addToConstantsA("ELEVATOR_ENCODER_DISTANCE_PER_PULSE", 0.0001092); // in meters
 				addToConstantsB("ELEVATOR_ENCODER_DISTANCE_PER_PULSE", 0.0001092); // in meters
 				addToConstants("ELEVATOR_MOTORS_REVERSE", false);
+				addToConstants("ELEVATOR_MOTORS_MAX_VOLTAGE", 35.0);
 			}
 		}
 
@@ -223,7 +224,7 @@ public class Config {
 			 */
 			{
 				// PID
-				addToVariables("chassis_TurnByGyro_PID_Tolerance", 10.0);
+				addToVariables("chassis_TurnByGyro_PID_Tolerance", 3.0);
 
 				addToVariables("chassis_TurnByGyro_PID_KP", 30.0);
 				addToVariables("chassis_TurnByGyro_PID_KI", 0.0);
@@ -232,8 +233,9 @@ public class Config {
 				addToVariables("chassis_TurnByGyro_VelocityFilter", 0.025);
 
 				// BangBang
-				addToVariables("chassis_TurnByGyro_UpVoltage", -0.6);
-				addToVariables("chassis_TurnByGyro_DownVoltage", 0.6);
+				addToVariables("chassis_TurnByGyro_UpVoltage", 0.4);
+				addToVariables("chassis_TurnByGyro_DownVoltage", -0.4);
+				addToVariables("chassis_TurnByGyro_CurrentInitYaw", 0.0); // Initial value
 			}
 
 			/*
@@ -285,11 +287,18 @@ public class Config {
 		 */
 		{
 			addToVariables("intake_rollIn_voltage", 0.7);
-			addToVariables("intake_rollOut_voltage", -1.0);
+			addToVariablesA("intake_rollOut_voltage", -1.0);
+			
+			addToVariablesB("intake_rollOut_voltage", 1.0);
+			
 			addToVariables("intake_shaken_stepTime", 750.0);
 			addToVariables("intake_shaken_stopTime", 200.0);
-			addToVariables("intake_directionalRollIn_leftVoltage", 1.0);
-			addToVariables("intake_directionalRollIn_rightVoltage", 0.4);
+			
+			addToVariablesA("intake_directionalRollIn_leftVoltage", 1.0);
+			addToVariablesA("intake_directionalRollIn_rightVoltage", 0.4);
+			
+			addToVariablesB("intake_directionalRollIn_leftVoltage", -1.0);
+			addToVariablesB("intake_directionalRollIn_rightVoltage", -0.4);
 		}
 		
 		
@@ -298,13 +307,13 @@ public class Config {
 		 */
 		{
 			addToVariables("holder_rollIn_voltage", -0.85);
-			addToVariables("holder_rollOut_voltage", 1.0);
+			addToVariables("holder_rollOut_voltage", 0.9);
 		
 			addToVariables("servo_Initial_Angle", 155.0);
 			addToVariables("servo_Final_Angle", 55.0);
 			addToVariables("servo_Work_Time", 300.0); // in ms
-			addToVariables("servo_Elevator_Height_DownLimit", 0.2); // in meters
-			addToVariables("servo_Elevator_Height_UpLimit", 1.0); // in meters
+			addToVariables("servo_Elevator_Height_DownLimit", 0.1); // in meters
+			addToVariables("servo_Elevator_Height_UpLimit", 1.2); // in meters
 		}
 
 		/*
@@ -338,10 +347,11 @@ public class Config {
 			    addToVariables("elevator_BangBang_UpVoltage", 0.65);
 			    addToVariables("elevator_BangBang_DownVoltage", -0.3);
 			    
-			    addToVariables("elevator_MoveToEdge_UpVoltage", 0.65);
+			    addToVariables("elevator_MoveToEdge_UpVoltage", 0.78);
 			    
 			    addToVariables("elevator_MoveToEdge_DownVoltage", -0.75);
-			    addToVariables("elevator_MoveToEdge_SlowDownVoltage", -0.05);
+			    addToVariablesA("elevator_MoveToEdge_SlowDownVoltage", -0.2);
+			    addToVariablesB("elevator_MoveToEdge_SlowDownVoltage", -0.35);
 			    addToVariables("elevator_MoveToEdge_StartDownVoltage", -0.3);
 			    addToVariables("elevator_MoveToEdge_StartDownTime", 300.0); // in ms
 			    addToVariables("elevator_MoveToEdge_SlowTime", 300.0); // in ms

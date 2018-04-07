@@ -84,19 +84,15 @@ public class DBugSpeedController {
 	 *         it failed.
 	 */
 	public boolean setMotor(double v) {
-		// if (!isSetLimit || getCurrent() < maxCurrent) {
-		v = Math.max(v, -1.0);
-		v = Math.min(v, 1.0);
-		//
-		sc.set(v);
-		return true;
-		// } else {
-		// sc.set(0);
-		// logger.severe("Current overflow at D-Bug Speed Controller on PDP
-		// channel " +
-		// pdpChannel + ".");
-		// return false;
-		// }
+		if (!isSetLimit || !isInStall()) {
+			v = Math.max(v, -1.0);
+			v = Math.min(v, 1.0);
+			sc.set(v);
+			return true;
+		} else {
+			sc.set(0);
+			return false;
+		}
 	}
 
 	public double getCurrent() {
@@ -104,6 +100,10 @@ public class DBugSpeedController {
 			return pdp.getCurrent(pdpChannel);
 		}
 		return 0.0;
+	}
+	
+	public boolean isInStall() {
+		return getCurrent() > maxCurrent;
 	}
 
 	/**

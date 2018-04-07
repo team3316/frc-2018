@@ -137,24 +137,25 @@ public class Robot extends IterativeRobot {
 			 * Choosers
 			 */
 			positionChooser = new SendableChooser<AutonPosition>();
-			positionChooser.addDefault("Center", new CenterPosition());
+			positionChooser.addDefault("Right", new RightPosition());
 			positionChooser.addObject("Left", new LeftPosition());
-			positionChooser.addObject("Right", new RightPosition());
+			positionChooser.addObject("Center", new CenterPosition());
 
-			SmartDashboard.putData("ROBOT POSITION B", positionChooser);
+			SmartDashboard.putData("POSITION D", positionChooser);
 
 			modeChooser = new SendableChooser<AutonMode>();
-			modeChooser.addDefault("Cross Line", AutonMode.CrossLine);
+			modeChooser.addObject("Cross Line", AutonMode.CrossLine);
 			modeChooser.addObject("Switch", AutonMode.Switch);
-			modeChooser.addObject("Scale", AutonMode.ScaleOrSwitch);
+			modeChooser.addDefault("Scale", AutonMode.ScaleOrSwitch);
 
-			SmartDashboard.putData("AUTON MODE B", modeChooser);
+			SmartDashboard.putData("AUTO MODE D", modeChooser);
 			
 			cubeChooser = new SendableChooser<CubeState>();
-			cubeChooser.addDefault("One Cube", CubeState.OneCube);
-			cubeChooser.addObject("Two Cubes", CubeState.TwoCubes);
+			cubeChooser.addObject("One Cube", CubeState.OneCube);
+			cubeChooser.addDefault("Two Cubes Switch", CubeState.TwoCubesSwitch);
+			cubeChooser.addObject("Two Cubes Scale", CubeState.TwoCubesScale);
 
-			SmartDashboard.putData("CUBE NUM B", cubeChooser);
+			SmartDashboard.putData("C NUM D", cubeChooser);
 
 		} catch (Exception e) {
 			logger.severe(e);
@@ -162,7 +163,6 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void disabledInit() {
-		System.out.println(chassis);
 		chassis.setBrake(false);
 		elevator.setBrake(true);
 	}
